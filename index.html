@@ -924,7 +924,8 @@ getDatabase(app)
 
 const productsRef =
 ref(db,"products")
-
+const importOrdersRef =
+ref(db,"import_orders")
 /* =====================================================
 DATA
 ===================================================== */
@@ -1747,7 +1748,7 @@ window.removeNhap = function(index){
 LƯU NHẬP HÀNG
 ===================================================== */
 
-window.saveNhap = function(){
+window.saveNhap = async function(){
 
     if(nhapRows.length === 0){
 
@@ -1756,6 +1757,58 @@ window.saveNhap = function(){
         return
 
     }
+
+    let tong = 0
+
+    const items = []
+
+    nhapRows.forEach(r=>{
+
+        tong +=
+        Number(r.sl) *
+        Number(r.gia)
+
+        items.push({
+
+            ma:r.ma,
+
+            ten:r.ten,
+
+            sl:Number(r.sl),
+
+            gia:Number(r.gia),
+
+            giaBan:Number(r.giaBan),
+
+            thanhTien:
+            Number(r.sl) *
+            Number(r.gia)
+
+        })
+
+    })
+
+    /* LƯU PHIẾU */
+
+    await push(
+
+        importOrdersRef,
+
+        {
+
+            time:
+            new Date()
+            .toLocaleString(),
+
+            tong:tong,
+
+            items:items
+
+        }
+
+    )
+
+    /* CỘNG TỒN */
 
     nhapRows.forEach(r=>{
 
