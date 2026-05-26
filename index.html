@@ -318,42 +318,187 @@ MOBILE
 
 @media(max-width:900px){
 
+/* =====================================================
+SIDEBAR
+===================================================== */
+
 .sidebar{
+
     left:-220px;
+
+    width:220px;
+
 }
 
 .sidebar.show{
+
     left:0;
+
 }
 
 .main{
+
     margin-left:0;
+
+    width:100%;
+
 }
 
-.mobile-toggle{
-    display:block;
-    border:none;
-    background:#2563eb;
-    color:white;
-    padding:8px 12px;
-    border-radius:8px;
+/* =====================================================
+HEADER
+===================================================== */
+
+.header{
+
+    padding:10px;
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+    gap:10px;
+
 }
 
-.cards{
-    grid-template-columns:1fr;
+.header-left{
+
+    width:100%;
+
+    justify-content:space-between;
+
+}
+
+.page-title{
+
+    font-size:16px;
+
 }
 
 .search{
+
     width:100%;
-}
-
-.header{
-    flex-direction:column;
-    align-items:stretch;
-}
 
 }
 
+/* =====================================================
+CONTENT
+===================================================== */
+
+.content{
+
+    padding:10px;
+
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
+
+.btn{
+
+    padding:8px 10px;
+
+    font-size:11px;
+
+}
+
+/* =====================================================
+TOPBAR
+===================================================== */
+
+.topbar{
+
+    flex-wrap:wrap;
+
+    justify-content:flex-start;
+
+}
+
+/* =====================================================
+CARD
+===================================================== */
+
+.cards{
+
+    grid-template-columns:1fr;
+
+}
+
+.card{
+
+    padding:14px;
+
+}
+
+.card-value{
+
+    font-size:22px;
+
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.table-wrap{
+
+    overflow-x:auto;
+
+}
+
+table{
+
+    min-width:900px;
+
+}
+
+/* =====================================================
+NHẬP HÀNG
+===================================================== */
+
+#nhapTable input{
+
+    min-width:70px;
+
+    font-size:11px;
+
+}
+
+/* =====================================================
+MODAL
+===================================================== */
+
+.modal-box{
+
+    width:calc(100% - 20px);
+
+    max-width:none;
+
+    padding:16px;
+
+}
+
+/* =====================================================
+MENU BUTTON
+===================================================== */
+
+.mobile-toggle{
+
+    display:block;
+
+    border:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:8px 12px;
+
+    border-radius:8px;
+
+}
+
+}
 /* =====================================================
 HIDDEN
 ===================================================== */
@@ -1583,8 +1728,9 @@ window.changeGiaBan = function(index,val){
     nhapRows[index].giaBan =
     Number(val)
 
-}
+    renderNhap()
 
+}
 /* =====================================================
 XÓA DÒNG
 ===================================================== */
@@ -1657,7 +1803,19 @@ window.saveNhap = function(){
     alert("Đã lưu phiếu nhập")
 
 }
+/* =====================================================
+CLICK NGOÀI MODAL
+===================================================== */
 
+window.onclick = function(e){
+
+    if(e.target === modal){
+
+        closeModal()
+
+    }
+
+}
 /* =====================================================
 MENU
 ===================================================== */
