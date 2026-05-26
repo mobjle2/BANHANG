@@ -1067,114 +1067,140 @@ window.renderProducts = function(){
 
         )
 
-        // =================================================
-        // HIỂN THỊ
-        // =================================================
+// =================================================
+// HIỂN THỊ
+// =================================================
 
-        if(match){
+if(match){
 
-            html += `
-            <tr>
+    html += `
+    <tr>
 
-                <!-- MÃ -->
+        <!-- MÃ -->
 
-                <td>
+        <td style="
+        white-space:nowrap;
+        font-weight:600;
+        ">
 
-                    ${p.ma || ""}
+            ${p.ma || ""}
 
-                </td>
+        </td>
 
-                <!-- TÊN -->
+        <!-- TÊN -->
 
-                <td style="
-                min-width:240px;
-                font-weight:600;
+        <td style="
+        min-width:220px;
+        font-weight:600;
+        color:#0f172a;
+        ">
+
+            ${p.ten || ""}
+
+        </td>
+
+        <!-- GIÁ NHẬP -->
+
+        <td style="
+        white-space:nowrap;
+        ">
+
+            ${(Number(p.gia_nhap) || 0)
+            .toLocaleString()}đ
+
+        </td>
+
+        <!-- GIÁ BÁN -->
+
+        <td style="
+        white-space:nowrap;
+        color:#2563eb;
+        font-weight:700;
+        ">
+
+            ${(Number(p.gia_ban) || 0)
+            .toLocaleString()}đ
+
+        </td>
+
+        <!-- GIÁ SỈ -->
+
+        <td style="
+        white-space:nowrap;
+        ">
+
+            ${(Number(p.gia_si) || 0)
+            .toLocaleString()}đ
+
+        </td>
+
+        <!-- TỒN -->
+
+        <td>
+
+            <div style="
+            min-width:54px;
+            padding:6px 10px;
+            border-radius:10px;
+            background:#eff6ff;
+            color:#2563eb;
+            font-weight:700;
+            text-align:center;
+            ">
+
+                ${p.ton || 0}
+
+            </div>
+
+        </td>
+
+        <!-- THAO TÁC -->
+
+        <td>
+
+            <div style="
+            display:flex;
+            align-items:center;
+            gap:6px;
+            flex-wrap:nowrap;
+            ">
+
+                <button
+                class="btn btn-blue"
+                onclick="editProduct(${index})"
+                style="
+                    padding:7px 12px;
+                    border-radius:8px;
+                    font-size:12px;
+                    min-width:58px;
                 ">
 
-                    ${p.ten || ""}
+                    Sửa
 
-                </td>
+                </button>
 
-                <!-- GIÁ NHẬP -->
+                <button
+                class="btn btn-red"
+                onclick="deleteProduct(${index})"
+                style="
+                    padding:7px 12px;
+                    border-radius:8px;
+                    font-size:12px;
+                    min-width:58px;
+                ">
 
-                <td>
+                    Xóa
 
-                    ${(Number(p.gia_nhap) || 0)
-                    .toLocaleString()}
+                </button>
 
-                </td>
+            </div>
 
-                <!-- GIÁ BÁN -->
+        </td>
 
-                <td>
+    </tr>
+    `
 
-                    ${(Number(p.gia_ban) || 0)
-                    .toLocaleString()}
-
-                </td>
-
-                <!-- GIÁ SỈ -->
-
-                <td>
-
-                    ${(Number(p.gia_si) || 0)
-                    .toLocaleString()}
-
-                </td>
-
-                <!-- TỒN -->
-
-                <td>
-
-                    ${p.ton || 0}
-
-                </td>
-
-                <!-- THAO TÁC -->
-
-                <td>
-
-                    <div style="
-                    display:flex;
-                    gap:8px;
-                    flex-wrap:wrap;
-                    ">
-
-                        <button
-                        class="btn btn-blue"
-                        onclick="editProduct(${index})"
-                        style="
-                            padding:8px 14px;
-                            border-radius:10px;
-                            font-size:13px;
-                        ">
-
-                            Sửa
-
-                        </button>
-
-                        <button
-                        class="btn btn-red"
-                        onclick="deleteProduct(${index})"
-                        style="
-                            padding:8px 14px;
-                            border-radius:10px;
-                            font-size:13px;
-                        ">
-
-                            Xóa
-
-                        </button>
-
-                    </div>
-
-                </td>
-
-            </tr>
-            `
-
-        }
-
+}
     })
 
     // =================================================
