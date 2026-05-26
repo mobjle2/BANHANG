@@ -342,14 +342,15 @@ MOBILE
 
         <div class="menu">
 
-            <button class="active"
-            onclick="showPage('dashboard',this)">
-                Dashboard
-            </button>
+<button
+onclick="showPage('dashboard',this)">
+    Dashboard
+</button>
 
-            <button onclick="showPage('products',this)">
-                Sản phẩm
-            </button>
+<button class="active"
+onclick="showPage('products',this)">
+    Sản phẩm
+</button>
 
            
             <button onclick="showPage('nhap',this)">
@@ -394,7 +395,7 @@ MOBILE
 
             <!-- DASHBOARD -->
 
-            <div id="dashboardPage">
+         <div id="dashboardPage" class="hidden">
 
                 <div class="cards">
 
@@ -443,7 +444,7 @@ MOBILE
 
             <!-- PRODUCTS -->
 
-            <div id="productsPage" class="hidden">
+           <div id="productsPage">
 
 <div class="topbar">
 
@@ -1179,7 +1180,7 @@ INIT
 renderDashboard()
 
 renderProducts()
-
+pageTitle.innerText = "Products"
 </script>
 
 </body>
