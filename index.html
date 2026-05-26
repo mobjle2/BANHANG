@@ -1259,7 +1259,253 @@ window.closeModal = function(){
     "none"
 
 }
+/* =====================================================
+THÊM DÒNG NHẬP HÀNG
+===================================================== */
 
+window.addNhapRow = function(){
+
+    nhapRows.push({
+
+        ma:"",
+        sl:1,
+        gia:0
+
+    })
+
+    renderNhap()
+
+}
+
+/* =====================================================
+RENDER NHẬP HÀNG
+===================================================== */
+
+window.renderNhap = function(){
+
+    let html = ""
+
+    let tong = 0
+
+    nhapRows.forEach((r,index)=>{
+
+        let options = ""
+
+        products.forEach(p=>{
+
+            options += `
+            <option
+            value="${p.ma}"
+            ${r.ma===p.ma ? "selected" : ""}>
+
+                ${p.ma}
+
+            </option>
+            `
+
+        })
+
+        const foundProduct =
+        products.find(
+            p=>p.ma===r.ma
+        )
+
+        const tenSP =
+        foundProduct
+        ? foundProduct.ten
+        : ""
+
+        tong += r.sl * r.gia
+
+        html += `
+        <tr>
+
+            <td>
+
+                <select
+                onchange="changeMa(${index},this.value)"
+                style="
+                    width:100%;
+                    padding:12px;
+                    border-radius:12px;
+                ">
+
+                    ${options}
+
+                </select>
+
+            </td>
+
+            <td>
+
+                ${tenSP}
+
+            </td>
+
+            <td>
+
+                <input
+                type="number"
+                value="${r.sl}"
+                onchange="changeSl(${index},this.value)"
+                style="
+                    width:90px;
+                    padding:12px;
+                ">
+
+            </td>
+
+            <td>
+
+                <input
+                type="number"
+                value="${r.gia}"
+                onchange="changeGia(${index},this.value)"
+                style="
+                    width:140px;
+                    padding:12px;
+                ">
+
+            </td>
+
+            <td>
+
+                ${(r.sl*r.gia).toLocaleString()}đ
+
+            </td>
+
+            <td>
+
+                <button
+                class="btn btn-red"
+                onclick="removeNhap(${index})">
+
+                    Xóa
+
+                </button>
+
+            </td>
+
+        </tr>
+        `
+
+    })
+
+    nhapTable.innerHTML = html
+
+    tongTien.innerText =
+    tong.toLocaleString() + "đ"
+
+}
+
+/* =====================================================
+ĐỔI MÃ
+===================================================== */
+
+window.changeMa = function(index,val){
+
+    nhapRows[index].ma = val
+
+    const found =
+    products.find(
+        p=>p.ma===val
+    )
+
+    if(found){
+
+        nhapRows[index].gia =
+        found.gia_nhap
+
+    }
+
+    renderNhap()
+
+}
+
+/* =====================================================
+ĐỔI SỐ LƯỢNG
+===================================================== */
+
+window.changeSl = function(index,val){
+
+    nhapRows[index].sl =
+    Number(val)
+
+    renderNhap()
+
+}
+
+/* =====================================================
+ĐỔI GIÁ
+===================================================== */
+
+window.changeGia = function(index,val){
+
+    nhapRows[index].gia =
+    Number(val)
+
+    renderNhap()
+
+}
+
+/* =====================================================
+XÓA DÒNG
+===================================================== */
+
+window.removeNhap = function(index){
+
+    nhapRows.splice(index,1)
+
+    renderNhap()
+
+}
+
+/* =====================================================
+LƯU NHẬP HÀNG
+===================================================== */
+
+window.saveNhap = function(){
+
+    nhapRows.forEach(r=>{
+
+        const found =
+        products.find(
+            p=>p.ma===r.ma
+        )
+
+        if(found){
+
+            update(
+
+                ref(
+                    db,
+                    "products/" + found.id
+                ),
+
+                {
+
+                    ton:
+                    Number(found.ton) +
+                    Number(r.sl),
+
+                    gia_nhap:
+                    Number(r.gia)
+
+                }
+
+            )
+
+        }
+
+    })
+
+    nhapRows = []
+
+    renderNhap()
+
+    alert("Đã lưu phiếu nhập")
+
+}
 /* =====================================================
 MENU MOBILE
 ===================================================== */
