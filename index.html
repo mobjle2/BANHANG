@@ -533,7 +533,13 @@ MOBILE
     onclick="excelFile.click()">
         Import Excel
     </button>
+    <button
+class="btn btn-blue"
+onclick="exportExcel()">
 
+    Xuất Excel
+
+</button>
     <button class="btn btn-blue"
     onclick="openModal()">
         Thêm sản phẩm
@@ -1010,7 +1016,78 @@ products.forEach((p,index)=>{
     productTable.innerHTML = html
 
 }
+/* =====================================================
+XUẤT FILE EXCEL
+===================================================== */
 
+window.exportExcel = function(){
+
+    // KHÔNG CÓ DỮ LIỆU
+
+    if(products.length === 0){
+
+        alert("Không có dữ liệu để xuất")
+
+        return
+
+    }
+
+    // TẠO DỮ LIỆU
+
+    const data =
+    products.map(p=>({
+
+        "Mã hàng":
+        p.ma,
+
+        "Tên hàng":
+        p.ten,
+
+        "Giá nhập":
+        p.gia_nhap,
+
+        "Giá bán":
+        p.gia_ban,
+
+        "Giá sỉ":
+        p.gia_si,
+
+        "Tồn kho":
+        p.ton
+
+    }))
+
+    // TẠO SHEET
+
+    const worksheet =
+    XLSX.utils.json_to_sheet(data)
+
+    // TẠO FILE
+
+    const workbook =
+    XLSX.utils.book_new()
+
+    // THÊM SHEET
+
+    XLSX.utils.book_append_sheet(
+
+        workbook,
+        worksheet,
+        "SanPham"
+
+    )
+
+    // XUẤT FILE
+
+    XLSX.writeFile(
+
+        workbook,
+
+        "POS_PRO_SANPHAM.xlsx"
+
+    )
+
+}
 /* =====================================================
 MENU MOBILE
 ===================================================== */
