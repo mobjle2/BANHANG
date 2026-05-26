@@ -845,27 +845,32 @@ window.showPage = function(page){
         pageTitle.innerText = "Nhập hàng"
 
     }
+/* =====================================================
+TỰ ĐỘNG ẨN MENU MOBILE
+===================================================== */
 
-    // =================================================
-    // MOBILE AUTO CLOSE
-    // =================================================
+if(window.innerWidth <= 900){
 
-    if(window.innerWidth <= 900){
+    const sidebar =
+    document.getElementById("sidebar")
 
-        requestAnimationFrame(()=>{
+    // Đóng menu ngay sau khi chuyển trang
 
-            sidebar.classList.remove("show")
+    requestAnimationFrame(()=>{
 
-        })
+        sidebar.classList.remove("show")
 
-    }
+    })
 
 }
+
 /* =====================================================
 DASHBOARD
 ===================================================== */
 
 window.renderDashboard = function(){
+
+    // Tổng số sản phẩm
 
     totalProducts.innerText =
     products.length
@@ -873,6 +878,8 @@ window.renderDashboard = function(){
     let stock = 0
 
     let value = 0
+
+    // Tính tổng tồn và giá trị kho
 
     products.forEach(p=>{
 
@@ -884,6 +891,8 @@ window.renderDashboard = function(){
 
     })
 
+    // Hiển thị dashboard
+
     totalStock.innerText =
     stock.toLocaleString()
 
@@ -893,17 +902,23 @@ window.renderDashboard = function(){
 }
 
 /* =====================================================
-PRODUCTS
+HIỂN THỊ DANH SÁCH SẢN PHẨM
 ===================================================== */
 
 window.renderProducts = function(){
+
+    // Lấy từ khóa tìm kiếm
 
     const keyword =
     searchInput.value.toLowerCase()
 
     let html = ""
 
+    // Duyệt toàn bộ sản phẩm
+
     products.forEach((p,index)=>{
+
+        // Kiểm tra tên hoặc mã có chứa từ khóa
 
         if(
             p.ten.toLowerCase().includes(keyword)
@@ -918,11 +933,17 @@ window.renderProducts = function(){
 
                 <td>${p.ten}</td>
 
-                <td>${Number(p.gia_nhap).toLocaleString()}</td>
+                <td>
+                    ${Number(p.gia_nhap).toLocaleString()}
+                </td>
 
-                <td>${Number(p.gia_ban).toLocaleString()}</td>
+                <td>
+                    ${Number(p.gia_ban).toLocaleString()}
+                </td>
 
-                <td>${Number(p.gia_si).toLocaleString()}</td>
+                <td>
+                    ${Number(p.gia_si).toLocaleString()}
+                </td>
 
                 <td>${p.ton}</td>
 
@@ -945,21 +966,30 @@ window.renderProducts = function(){
 
     })
 
+    // Render ra table
+
     productTable.innerHTML = html
 
 }
-
 /* =====================================================
-MODAL
+MỞ / ĐÓNG MODAL
 ===================================================== */
 
 window.openModal = function(){
+
+    // Hiện modal thêm sản phẩm
 
     modal.style.display = "flex"
 
 }
 
+/* =====================================================
+CLICK NGOÀI MODAL ĐỂ ĐÓNG
+===================================================== */
+
 window.onclick = function(e){
+
+    // Nếu click vùng nền thì đóng modal
 
     if(e.target === modal){
 
@@ -970,51 +1000,80 @@ window.onclick = function(e){
 }
 
 /* =====================================================
-SAVE PRODUCT
+LƯU SẢN PHẨM
 ===================================================== */
 
 window.saveProduct = function(){
 
+    // Kiểm tra dữ liệu trống
+
+    if(
+        ma.value.trim() === "" ||
+        ten.value.trim() === ""
+    ){
+
+        alert("Vui lòng nhập đầy đủ thông tin")
+
+        return
+
+    }
+
+    // Thêm sản phẩm lên Firebase
+
     push(productsRef,{
 
-        ma:ma.value,
+        ma:
+        ma.value.trim(),
 
-        ten:ten.value,
+        ten:
+        ten.value.trim(),
 
-        gia_nhap:Number(giaNhap.value),
+        gia_nhap:
+        Number(giaNhap.value) || 0,
 
-        gia_ban:Number(giaBan.value),
+        gia_ban:
+        Number(giaBan.value) || 0,
 
-        gia_si:Number(giaSi.value),
+        gia_si:
+        Number(giaSi.value) || 0,
 
-        ton:Number(ton.value)
+        ton:
+        Number(ton.value) || 0
 
     })
 
+    // Đóng modal
+
     modal.style.display = "none"
 
-    ma.value=""
-    ten.value=""
-    giaNhap.value=""
-    giaBan.value=""
-    giaSi.value=""
-    ton.value=""
+    // Reset form
+
+    ma.value = ""
+    ten.value = ""
+    giaNhap.value = ""
+    giaBan.value = ""
+    giaSi.value = ""
+    ton.value = ""
 
 }
 
 /* =====================================================
-DELETE
+XÓA SẢN PHẨM
 ===================================================== */
 
 window.deleteProduct = function(index){
 
-    if(confirm("Xóa sản phẩm?")){
+    // Xác nhận xóa
+
+    if(confirm("Xóa sản phẩm này?")){
 
         remove(
+
             ref(
                 db,
                 "products/" + products[index].id
             )
+
         )
 
     }
@@ -1022,18 +1081,28 @@ window.deleteProduct = function(index){
 }
 
 /* =====================================================
-IMPORT
+IMPORT FILE EXCEL
 ===================================================== */
 
 excelFile.addEventListener(
+
 "change",
+
 e=>{
 
-    const file = e.target.files[0]
+    const file =
+    e.target.files[0]
+
+    // Không có file
 
     if(!file) return
 
-    const reader = new FileReader()
+    const reader =
+    new FileReader()
+
+    /* =================================================
+    ĐỌC FILE EXCEL
+    ================================================= */
 
     reader.onload = evt=>{
 
@@ -1041,15 +1110,35 @@ e=>{
         new Uint8Array(evt.target.result)
 
         const workbook =
-        XLSX.read(data,{type:"array"})
+        XLSX.read(data,{
+            type:"array"
+        })
+
+        // Lấy sheet đầu tiên
 
         const sheet =
         workbook.Sheets[
             workbook.SheetNames[0]
         ]
 
+        // Convert sang JSON
+
         const json =
         XLSX.utils.sheet_to_json(sheet)
+
+        // Không có dữ liệu
+
+        if(json.length === 0){
+
+            alert("File Excel không có dữ liệu")
+
+            return
+
+        }
+
+        /* =============================================
+        IMPORT TỪNG DÒNG
+        ============================================= */
 
         json.forEach(row=>{
 
@@ -1061,19 +1150,24 @@ e=>{
                 ten:
                 row["Tên hàng"] || "",
 
-                gia_nhap:Number(
+                gia_nhap:
+                Number(
                     row["Giá vốn"] || 0
                 ),
 
-                gia_ban:Number(
+                gia_ban:
+                Number(
                     row["Giá bán"] || 0
                 ),
 
-                gia_si:Number(
+                gia_si:
+                Number(
+                    row["Giá sỉ"] ||
                     row["Giá bán"] || 0
                 ),
 
-                ton:Number(
+                ton:
+                Number(
                     row["Tồn kho"] || 0
                 )
 
@@ -1081,14 +1175,35 @@ e=>{
 
         })
 
-        alert("Import thành công")
+        // Reset input file
+
+        excelFile.value = ""
+
+        // Thông báo
+
+        alert(
+            "Import thành công " +
+            json.length +
+            " sản phẩm"
+        )
 
     }
+
+    /* =================================================
+    LỖI ĐỌC FILE
+    ================================================= */
+
+    reader.onerror = function(){
+
+        alert("Không thể đọc file Excel")
+
+    }
+
+    // Đọc file dạng ArrayBuffer
 
     reader.readAsArrayBuffer(file)
 
 })
-
 /* =====================================================
 NHAP
 ===================================================== */
