@@ -406,22 +406,15 @@ MOBILE
 
 <div class="menu">
 
-    <button
-    id="btnDashboard"
-    onclick="showPage('dashboard')">
+    <button id="btnDashboard">
         Dashboard
     </button>
 
-    <button
-    id="btnProducts"
-    class="active"
-    onclick="showPage('products')">
+    <button id="btnProducts" class="active">
         Sản phẩm
     </button>
 
-    <button
-    id="btnNhap"
-    onclick="showPage('nhap')">
+    <button id="btnNhap">
         Nhập hàng
     </button>
 
@@ -1287,7 +1280,23 @@ window.toggleSidebar = function(){
 /* =====================================================
 INIT
 ===================================================== */
+btnDashboard.onclick = () => {
 
+    showPage("dashboard")
+
+}
+
+btnProducts.onclick = () => {
+
+    showPage("products")
+
+}
+
+btnNhap.onclick = () => {
+
+    showPage("nhap")
+
+}
 renderDashboard()
 
 renderProducts()
