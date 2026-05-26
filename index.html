@@ -156,7 +156,7 @@ table{
 
     width:100%;
 
-    border-collapse:separate;
+   border-collapse:collapse;
 
     border-spacing:0;
 
@@ -164,11 +164,7 @@ table{
 
 }
 
-table tr{
 
-    height:72px;
-
-}
 
 th{
     background:#f8fafc;
@@ -1028,82 +1024,151 @@ HIỂN THỊ SẢN PHẨM
 
 window.renderProducts = function(){
 
-const keyword =
-searchInput.value
-.toLowerCase()
-.trim()
+    // =================================================
+    // TỪ KHÓA TÌM KIẾM
+    // =================================================
 
-let html = ""
+    const keyword =
+    searchInput.value
+    .toLowerCase()
+    .trim()
 
-products.forEach((p,index)=>{
+    let html = ""
 
-    // TÊN + MÃ
+    // =================================================
+    // DUYỆT SẢN PHẨM
+    // =================================================
 
-    const ten =
-    p.ten.toLowerCase()
+    products.forEach((p,index)=>{
 
-    const ma =
-    p.ma.toLowerCase()
+        // TÊN + MÃ
 
-    // TÁCH TỪ KHÓA
+        const ten =
+        (p.ten || "")
+        .toLowerCase()
 
-    const words =
-    keyword.split(" ")
+        const ma =
+        (p.ma || "")
+        .toLowerCase()
 
-    // SEARCH GẦN ĐÚNG
+        // TÁCH KEYWORD
 
-    const match =
-    words.every(w=>
+        const words =
+        keyword.split(" ")
 
-        ten.includes(w)
-        ||
-        ma.includes(w)
+        // SEARCH GẦN ĐÚNG
 
-    )
+        const match =
+        words.every(w=>
 
-    // HIỂN THỊ
+            ten.includes(w)
+            ||
+            ma.includes(w)
 
-    if(match){
+        )
+
+        // =================================================
+        // HIỂN THỊ
+        // =================================================
+
+        if(match){
+
             html += `
             <tr>
 
-                <td>${p.ma}</td>
-
-                <td>${p.ten}</td>
+                <!-- MÃ -->
 
                 <td>
-                    ${Number(p.gia_nhap).toLocaleString()}
+
+                    ${p.ma || ""}
+
                 </td>
+
+                <!-- TÊN -->
+
+                <td style="
+                min-width:240px;
+                font-weight:600;
+                ">
+
+                    ${p.ten || ""}
+
+                </td>
+
+                <!-- GIÁ NHẬP -->
 
                 <td>
-                    ${Number(p.gia_ban).toLocaleString()}
+
+                    ${(Number(p.gia_nhap) || 0)
+                    .toLocaleString()}
+
                 </td>
+
+                <!-- GIÁ BÁN -->
 
                 <td>
-                    ${Number(p.gia_si).toLocaleString()}
+
+                    ${(Number(p.gia_ban) || 0)
+                    .toLocaleString()}
+
                 </td>
 
-                <td>${p.ton}</td>
+                <!-- GIÁ SỈ -->
 
-<td style="display:flex;gap:8px;">
+                <td>
 
-    <button
-    class="btn btn-blue"
-    onclick="editProduct(${index})">
+                    ${(Number(p.gia_si) || 0)
+                    .toLocaleString()}
 
-        Sửa
+                </td>
 
-    </button>
+                <!-- TỒN -->
 
-    <button
-    class="btn btn-red"
-    onclick="deleteProduct(${index})">
+                <td>
 
-        X
+                    ${p.ton || 0}
 
-    </button>
+                </td>
 
-</td>
+                <!-- THAO TÁC -->
+
+                <td>
+
+                    <div style="
+                    display:flex;
+                    gap:8px;
+                    flex-wrap:wrap;
+                    ">
+
+                        <button
+                        class="btn btn-blue"
+                        onclick="editProduct(${index})"
+                        style="
+                            padding:8px 14px;
+                            border-radius:10px;
+                            font-size:13px;
+                        ">
+
+                            Sửa
+
+                        </button>
+
+                        <button
+                        class="btn btn-red"
+                        onclick="deleteProduct(${index})"
+                        style="
+                            padding:8px 14px;
+                            border-radius:10px;
+                            font-size:13px;
+                        ">
+
+                            Xóa
+
+                        </button>
+
+                    </div>
+
+                </td>
 
             </tr>
             `
@@ -1111,6 +1176,35 @@ products.forEach((p,index)=>{
         }
 
     })
+
+    // =================================================
+    // KHÔNG CÓ DỮ LIỆU
+    // =================================================
+
+    if(html === ""){
+
+        html = `
+        <tr>
+
+            <td colspan="7"
+            style="
+                text-align:center;
+                padding:40px;
+                color:#94a3b8;
+                font-weight:600;
+            ">
+
+                Không tìm thấy sản phẩm
+
+            </td>
+
+        </tr>
+        `
+    }
+
+    // =================================================
+    // RENDER TABLE
+    // =================================================
 
     productTable.innerHTML = html
 
