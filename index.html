@@ -153,9 +153,21 @@ TABLE
 }
 
 table{
+
     width:100%;
-    border-collapse:collapse;
+
+    border-collapse:separate;
+
+    border-spacing:0;
+
     min-width:900px;
+
+}
+
+table tr{
+
+    height:72px;
+
 }
 
 th{
@@ -167,8 +179,13 @@ th{
 }
 
 td{
-    padding:14px 16px;
+
+    padding:10px 12px;
+
     border-top:1px solid #edf2f7;
+
+    vertical-align:middle;
+
 }
 
 .btn{
@@ -1420,18 +1437,24 @@ html += `
 
     <!-- THÀNH TIỀN -->
 
-    <td style="
-    font-weight:700;
+<td>
+
+    <div style="
+    min-width:120px;
+    background:#eff6ff;
     color:#2563eb;
+    padding:12px 16px;
+    border-radius:12px;
+    font-weight:800;
+    text-align:center;
+    border:1px solid #bfdbfe;
     ">
 
         ${(r.sl*r.gia).toLocaleString()}đ
 
-    </td>
+    </div>
 
-    <!-- XÓA -->
-
-    <td>
+</td>
 
         <button
         class="btn btn-red"
