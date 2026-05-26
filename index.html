@@ -1013,9 +1013,7 @@ onValue(productsRef,(snapshot)=>{
 
     renderDashboard()
 
-    renderNhap()
-
-})
+   })
 /* =====================================================
 LOAD NHẬP HÀNG
 ===================================================== */
@@ -1097,9 +1095,9 @@ window.showPage = function(page){
 
     }
 
-    // =================================================
-    // NHẬP HÀNG
-    // =================================================
+// =================================================
+// NHẬP HÀNG
+// =================================================
 
 else if(page === "nhap"){
 
@@ -1113,7 +1111,15 @@ else if(page === "nhap"){
     searchInput.style.display =
     "none"
 
-    // RENDER NHẬP HÀNG
+    // TỰ TẠO 1 DÒNG
+
+    if(nhapRows.length === 0){
+
+        addNhapRow()
+
+    }
+
+    // RENDER
 
     renderNhap()
 
