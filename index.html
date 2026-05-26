@@ -1467,20 +1467,25 @@ window.renderNhap = function(){
         tong += r.sl * r.gia
 
 html += `
-<tr>
+<tr style="
+background:white;
+">
 
     <!-- MÃ -->
 
-    <td>
+    <td style="padding:0;">
 
         <select
         onchange="changeMa(${index},this.value)"
         style="
             width:140px;
-            padding:10px;
-            border-radius:10px;
-            border:1px solid #dbe2ea;
+            height:46px;
+            border:none;
+            border-right:1px solid #e2e8f0;
+            padding:0 10px;
             font-size:13px;
+            outline:none;
+            background:white;
         ">
 
             ${options}
@@ -1492,18 +1497,31 @@ html += `
     <!-- TÊN -->
 
     <td style="
-    min-width:220px;
-    font-weight:600;
-    font-size:13px;
+    padding:0;
+    min-width:240px;
     ">
 
-        ${tenSP}
+        <input
+        type="text"
+        value="${tenSP}"
+        onchange="changeTen(${index},this.value)"
+        placeholder="Tên sản phẩm"
+        style="
+            width:100%;
+            height:46px;
+            border:none;
+            border-right:1px solid #e2e8f0;
+            padding:0 12px;
+            font-size:13px;
+            outline:none;
+            background:white;
+        ">
 
     </td>
 
     <!-- SL -->
 
-    <td>
+    <td style="padding:0;">
 
         <input
         type="number"
@@ -1511,17 +1529,20 @@ html += `
         onchange="changeSl(${index},this.value)"
         style="
             width:70px;
-            padding:10px;
-            border-radius:10px;
-            border:1px solid #dbe2ea;
+            height:46px;
+            border:none;
+            border-right:1px solid #e2e8f0;
+            padding:0 10px;
+            text-align:center;
             font-size:13px;
+            outline:none;
         ">
 
     </td>
 
     <!-- GIÁ NHẬP -->
 
-    <td>
+    <td style="padding:0;">
 
         <input
         type="number"
@@ -1529,27 +1550,31 @@ html += `
         onchange="changeGia(${index},this.value)"
         style="
             width:120px;
-            padding:10px;
-            border-radius:10px;
-            border:1px solid #dbe2ea;
+            height:46px;
+            border:none;
+            border-right:1px solid #e2e8f0;
+            padding:0 12px;
             font-size:13px;
+            outline:none;
         ">
 
     </td>
 
     <!-- GIÁ BÁN -->
 
-    <td>
+    <td style="padding:0;">
 
         <input
         type="number"
         value="${r.giaBan || 0}"
         style="
             width:120px;
-            padding:10px;
-            border-radius:10px;
-            border:1px solid #dbe2ea;
+            height:46px;
+            border:none;
+            border-right:1px solid #e2e8f0;
+            padding:0 12px;
             font-size:13px;
+            outline:none;
             background:#f8fafc;
         ">
 
@@ -1557,7 +1582,7 @@ html += `
 
     <!-- THÀNH TIỀN -->
 
-<td>
+    <td style="padding:0;">
 
     <div style="
     min-width:120px;
