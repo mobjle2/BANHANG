@@ -568,6 +568,7 @@ onclick="exportExcel()">
                                 <th>Giá bán</th>
                                 <th>Giá sỉ</th>
                                 <th>Tồn</th>
+                                <th>Sửa</th>
                                 <th>Xóa</th>
 
                             </tr>
@@ -994,17 +995,25 @@ products.forEach((p,index)=>{
 
                 <td>${p.ton}</td>
 
-                <td>
+<td style="display:flex;gap:8px;">
 
-                    <button
-                    class="btn btn-red"
-                    onclick="deleteProduct(${index})">
+    <button
+    class="btn btn-blue"
+    onclick="editProduct(${index})">
 
-                        X
+        Sửa
 
-                    </button>
+    </button>
 
-                </td>
+    <button
+    class="btn btn-red"
+    onclick="deleteProduct(${index})">
+
+        X
+
+    </button>
+
+</td>
 
             </tr>
             `
@@ -1086,6 +1095,77 @@ window.exportExcel = function(){
         "POS_PRO_SANPHAM.xlsx"
 
     )
+
+}
+
+/* =====================================================
+MỞ MODAL
+===================================================== */
+
+window.openModal = function(){
+
+    // RESET EDIT
+
+    editId = null
+
+    // RESET TITLE
+
+    document
+    .querySelector(".modal-box h2")
+    .innerText = "Sản phẩm"
+
+    // RESET FORM
+
+    ma.value = ""
+    ten.value = ""
+    giaNhap.value = ""
+    giaBan.value = ""
+    giaSi.value = ""
+    ton.value = ""
+
+    // HIỆN MODAL
+
+    modal.style.display = "flex"
+
+}
+
+/* =====================================================
+EDIT PRODUCT
+===================================================== */
+
+let editId = null
+
+window.editProduct = function(index){
+
+    const p = products[index]
+
+    // LƯU ID
+
+    editId = p.id
+
+    // ĐỔ DỮ LIỆU
+
+    ma.value = p.ma
+
+    ten.value = p.ten
+
+    giaNhap.value = p.gia_nhap
+
+    giaBan.value = p.gia_ban
+
+    giaSi.value = p.gia_si
+
+    ton.value = p.ton
+
+    // TITLE
+
+    document
+    .querySelector(".modal-box h2")
+    .innerText = "Sửa sản phẩm"
+
+    // HIỆN MODAL
+
+    modal.style.display = "flex"
 
 }
 /* =====================================================
