@@ -273,15 +273,17 @@ MOBILE
 
 @media(max-width:900px){
 
-    .sidebar{
+.sidebar{
 
-        width:210px;
+    width:210px;
 
-        left:-210px;
+    left:-220px;
 
-        padding-top:18px;
+    padding-top:18px;
 
-    }
+    transition:left .25s ease;
+
+}
 
 .sidebar.show{
 
@@ -799,7 +801,7 @@ window.showPage = function(page){
 
     })
 
-    // ẨN PAGE
+    // ẨN TOÀN BỘ PAGE
 
     dashboardPage.classList.add("hidden")
 
@@ -820,8 +822,6 @@ window.showPage = function(page){
         pageTitle.innerText =
         "Dashboard"
 
-        // ẨN Ô TÌM KIẾM
-
         searchInput.style.display =
         "none"
 
@@ -839,8 +839,6 @@ window.showPage = function(page){
 
         pageTitle.innerText =
         "Sản phẩm"
-
-        // HIỆN Ô TÌM KIẾM
 
         searchInput.style.display =
         "block"
@@ -860,20 +858,30 @@ window.showPage = function(page){
         pageTitle.innerText =
         "Nhập hàng"
 
-        // ẨN Ô TÌM KIẾM
-
         searchInput.style.display =
         "none"
 
     }
 
     // =================================================
-    // MOBILE AUTO CLOSE
+    // MOBILE AUTO CLOSE MENU
     // =================================================
 
     if(window.innerWidth <= 900){
 
+        // FORCE ĐÓNG MENU
+
         sidebar.classList.remove("show")
+
+        // FIX CHROME MOBILE CACHE TRANSITION
+
+        sidebar.style.left = "-210px"
+
+        setTimeout(()=>{
+
+            sidebar.style.left = ""
+
+        },10)
 
     }
 
