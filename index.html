@@ -1633,26 +1633,6 @@ window.deleteProduct = function(index){
 
 }
 /* =====================================================
-THÊM DÒNG NHẬP HÀNG
-===================================================== */
-
-window.addNhapRow = function(){
-
-    nhapRows.push({
-
-        ma:"",
-        ten:"",
-        sl:1,
-        gia:0,
-        giaBan:0
-
-    })
-
-    renderNhap()
-
-}
-
-/* =====================================================
 RENDER NHẬP HÀNG
 ===================================================== */
 
@@ -1671,7 +1651,7 @@ window.renderNhap = function(){
             p=>p.ma===r.ma
         )
 
-        // TÊN SP
+        // TÊN
 
         const tenSP =
         foundProduct
@@ -1690,12 +1670,15 @@ window.renderNhap = function(){
         <tr style="
         background:white;
         border-bottom:1px solid #e2e8f0;
+        height:46px;
         ">
 
             <!-- MÃ -->
 
             <td style="
             padding:0;
+            width:140px;
+            min-width:140px;
             ">
 
                 <input
@@ -1704,7 +1687,7 @@ window.renderNhap = function(){
                 onchange="changeMa(${index},this.value)"
                 placeholder="Mã hàng"
                 style="
-                    width:140px;
+                    width:100%;
                     height:46px;
                     border:none;
                     border-right:1px solid #e2e8f0;
@@ -1712,6 +1695,7 @@ window.renderNhap = function(){
                     font-size:13px;
                     outline:none;
                     background:white;
+                    box-sizing:border-box;
                 ">
 
             </td>
@@ -1737,6 +1721,7 @@ window.renderNhap = function(){
                     font-size:13px;
                     outline:none;
                     background:white;
+                    box-sizing:border-box;
                 ">
 
             </td>
@@ -1745,6 +1730,8 @@ window.renderNhap = function(){
 
             <td style="
             padding:0;
+            width:70px;
+            min-width:70px;
             ">
 
                 <input
@@ -1752,7 +1739,7 @@ window.renderNhap = function(){
                 value="${r.sl}"
                 onchange="changeSl(${index},this.value)"
                 style="
-                    width:70px;
+                    width:100%;
                     height:46px;
                     border:none;
                     border-right:1px solid #e2e8f0;
@@ -1760,6 +1747,7 @@ window.renderNhap = function(){
                     text-align:center;
                     font-size:13px;
                     outline:none;
+                    box-sizing:border-box;
                 ">
 
             </td>
@@ -1768,6 +1756,8 @@ window.renderNhap = function(){
 
             <td style="
             padding:0;
+            width:120px;
+            min-width:120px;
             ">
 
                 <input
@@ -1775,13 +1765,14 @@ window.renderNhap = function(){
                 value="${r.gia}"
                 onchange="changeGia(${index},this.value)"
                 style="
-                    width:120px;
+                    width:100%;
                     height:46px;
                     border:none;
                     border-right:1px solid #e2e8f0;
                     padding:0 12px;
                     font-size:13px;
                     outline:none;
+                    box-sizing:border-box;
                 ">
 
             </td>
@@ -1790,6 +1781,8 @@ window.renderNhap = function(){
 
             <td style="
             padding:0;
+            width:120px;
+            min-width:120px;
             ">
 
                 <input
@@ -1797,7 +1790,7 @@ window.renderNhap = function(){
                 value="${r.giaBan || 0}"
                 onchange="changeGiaBan(${index},this.value)"
                 style="
-                    width:120px;
+                    width:100%;
                     height:46px;
                     border:none;
                     border-right:1px solid #e2e8f0;
@@ -1805,6 +1798,7 @@ window.renderNhap = function(){
                     font-size:13px;
                     outline:none;
                     background:#f8fafc;
+                    box-sizing:border-box;
                 ">
 
             </td>
@@ -1813,10 +1807,12 @@ window.renderNhap = function(){
 
             <td style="
             padding:0;
+            width:140px;
+            min-width:140px;
             ">
 
                 <div style="
-                width:140px;
+                width:100%;
                 height:46px;
                 display:flex;
                 align-items:center;
@@ -1826,6 +1822,7 @@ window.renderNhap = function(){
                 font-weight:700;
                 font-size:13px;
                 border-right:1px solid #e2e8f0;
+                box-sizing:border-box;
                 ">
 
                     ${(r.sl*r.gia).toLocaleString()}đ
@@ -1838,17 +1835,21 @@ window.renderNhap = function(){
 
             <td style="
             padding:0;
+            width:70px;
+            min-width:70px;
+            max-width:70px;
             ">
 
                 <button
                 class="btn btn-red"
                 onclick="removeNhap(${index})"
                 style="
-                    width:70px;
+                    width:100%;
                     height:46px;
                     border:none;
                     border-radius:0;
                     font-size:12px;
+                    display:block;
                 ">
 
                     Xóa
@@ -1868,7 +1869,6 @@ window.renderNhap = function(){
     tong.toLocaleString() + "đ"
 
 }
-
 /* =====================================================
 ĐỔI MÃ
 ===================================================== */
