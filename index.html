@@ -14,7 +14,7 @@
 
 *{
     margin:0;
-    padding:0;ĐỔI MÃ
+    padding:0;
     box-sizing:border-box;
     font-family:'Inter',sans-serif;
 }
@@ -1521,6 +1521,7 @@ window.editProduct = function(index){
     modal.style.display = "flex"
 
 }
+
 /* =====================================================
 ĐÓNG MODAL
 ===================================================== */
@@ -1549,6 +1550,69 @@ window.closeModal = function(){
 
     modal.style.display =
     "none"
+
+}
+/* =====================================================
+SAVE PRODUCT
+===================================================== */
+
+window.saveProduct = function(){
+
+    // DATA
+
+    const data = {
+
+        ma:ma.value,
+
+        ten:ten.value,
+
+        gia_nhap:Number(giaNhap.value),
+
+        gia_ban:Number(giaBan.value),
+
+        gia_si:Number(giaSi.value),
+
+        ton:Number(ton.value)
+
+    }
+
+    // =================================================
+    // SỬA
+    // =================================================
+
+    if(editId){
+
+        update(
+
+            ref(
+                db,
+                "products/" + editId
+            ),
+
+            data
+
+        )
+
+    }
+
+    // =================================================
+    // THÊM
+    // =================================================
+
+    else{
+
+        push(
+            productsRef,
+            data
+        )
+
+    }
+
+    // =================================================
+    // ĐÓNG MODAL
+    // =================================================
+
+    closeModal()
 
 }
 /* =====================================================
@@ -1826,8 +1890,9 @@ window.changeTen = function(index,val){
 
     nhapRows[index].ten = val
 
-}
+    renderNhap()
 
+}
 /* =====================================================
 ĐỔI SỐ LƯỢNG
 ===================================================== */
