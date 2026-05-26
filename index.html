@@ -1,600 +1,10 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- FULL SCRIPT FIREBASE FIX SẠCH - THAY TOÀN BỘ SCRIPT CŨ -->
 
-<title>POS PRO</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Inter',sans-serif;
-}
-
-body{
-    background:#f4f7fb;
-    color:#111827;
-}
-
-/* =====================================================
-SIDEBAR
-===================================================== */
-
-.app{
-    display:flex;
-    min-height:100vh;
-}
-
-.sidebar{
-    width:260px;
-    background:linear-gradient(to bottom,#0f172a,#111827);
-    color:white;
-    padding:24px 0;
-    position:fixed;
-    top:0;
-    left:0;
-    bottom:0;
-    z-index:100;
-}
-
-.logo{
-    font-size:28px;
-    font-weight:800;
-    padding:0 28px 30px;
-}
-
-.menu button{
-    width:100%;
-    border:none;
-    background:transparent;
-    color:white;
-    text-align:left;
-    padding:20px 28px;
-    font-size:15px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.menu button:hover,
-.menu button.active{
-    background:#13203a;
-}
-
-/* =====================================================
-MAIN
-===================================================== */
-
-.main{
-    flex:1;
-    margin-left:260px;
-    display:flex;
-    flex-direction:column;
-}
-
-.header{
-    height:80px;
-    background:white;
-    border-bottom:1px solid #e5e7eb;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 28px;
-    position:sticky;
-    top:0;
-    z-index:50;
-}
-
-.page-title{
-    font-size:24px;
-    font-weight:800;
-}
-
-.search{
-    width:340px;
-    max-width:100%;
-    padding:14px;
-    border-radius:14px;
-    border:1px solid #dbe2ea;
-    background:#f9fafb;
-    outline:none;
-}
-
-.content{
-    padding:24px;
-}
-
-/* =====================================================
-CARDS
-===================================================== */
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.card{
-    background:white;
-    border-radius:24px;
-    padding:24px;
-}
-
-.card-title{
-    color:#6b7280;
-    font-size:14px;
-    margin-bottom:10px;
-}
-
-.card-value{
-    font-size:38px;
-    font-weight:800;
-}
-
-/* =====================================================
-TABLE
-===================================================== */
-
-.table-wrap{
-    background:white;
-    border-radius:24px;
-    overflow:auto;
-    margin-top:24px;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:900px;
-}
-
-th{
-    background:#f8fafc;
-    padding:16px;
-    text-align:left;
-    color:#64748b;
-    font-size:13px;
-}
-
-td{
-    padding:14px 16px;
-    border-top:1px solid #edf2f7;
-    font-size:14px;
-}
-
-tr:hover{
-    background:#f8fafc;
-}
-
-.btn{
-    border:none;
-    border-radius:12px;
-    padding:12px 18px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-.btn-blue{
-    background:#2563eb;
-    color:white;
-}
-
-.btn-green{
-    background:#16a34a;
-    color:white;
-}
-
-.btn-red{
-    background:#dc2626;
-    color:white;
-}
-
-.topbar{
-    display:flex;
-    justify-content:flex-end;
-    margin-bottom:20px;
-    gap:12px;
-}
-
-/* =====================================================
-MODAL
-===================================================== */
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.4);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:500;
-    padding:20px;
-}
-
-.modal-box{
-    width:100%;
-    max-width:480px;
-    background:white;
-    border-radius:24px;
-    padding:24px;
-}
-
-.modal-box h2{
-    margin-bottom:20px;
-}
-
-.form-group{
-    margin-bottom:14px;
-}
-
-.form-group input{
-    width:100%;
-    padding:14px;
-    border-radius:12px;
-    border:1px solid #dbe2ea;
-}
-
-/* =====================================================
-NHAP
-===================================================== */
-
-.nhap-grid{
-    display:grid;
-    grid-template-columns:1fr 320px;
-    gap:20px;
-    margin-top:20px;
-}
-
-.total-box{
-    background:white;
-    border-radius:24px;
-    padding:24px;
-}
-
-.total-big{
-    font-size:38px;
-    font-weight:800;
-    color:#2563eb;
-    margin-top:10px;
-}
-
-/* =====================================================
-MOBILE
-===================================================== */
-
-.mobile-toggle{
-    display:none;
-}
-
-@media(max-width:900px){
-
-    .sidebar{
-        left:-260px;
-        transition:.3s;
-    }
-
-    .sidebar.show{
-        left:0;
-    }
-
-    .main{
-        margin-left:0;
-    }
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    .header{
-        gap:12px;
-    }
-
-    .page-title{
-        font-size:20px;
-    }
-
-    .search{
-        width:100%;
-    }
-
-    .mobile-toggle{
-        display:block;
-        border:none;
-        background:#2563eb;
-        color:white;
-        border-radius:10px;
-        padding:10px 14px;
-        font-weight:700;
-    }
-
-    .nhap-grid{
-        grid-template-columns:1fr;
-    }
-
-}
-
-.hidden{
-    display:none;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="app">
-
-    <!-- SIDEBAR -->
-
-    <aside class="sidebar" id="sidebar">
-
-        <div class="logo">POS PRO</div>
-
-        <div class="menu">
-
-            <button class="active" onclick="showPage('dashboard',this)">
-                Dashboard
-            </button>
-
-            <button onclick="showPage('products',this)">
-                Sản phẩm
-            </button>
-
-            <button onclick="showPage('import',this)">
-                Import Excel
-            </button>
-
-            <button onclick="showPage('nhap',this)">
-                Nhập hàng
-            </button>
-
-        </div>
-
-    </aside>
-
-    <!-- MAIN -->
-
-    <main class="main">
-
-        <div class="header">
-
-            <div style="display:flex;align-items:center;gap:12px;">
-
-                <button class="mobile-toggle"
-                onclick="toggleSidebar()">
-                    ☰
-                </button>
-
-                <div class="page-title" id="pageTitle">
-                    Dashboard
-                </div>
-
-            </div>
-
-            <input
-                type="text"
-                class="search"
-                placeholder="Tìm sản phẩm..."
-                id="searchInput"
-                oninput="renderProducts()"
-            >
-
-        </div>
-
-        <div class="content">
-
-            <!-- DASHBOARD -->
-
-            <div id="dashboardPage">
-
-                <div class="cards">
-
-                    <div class="card">
-                        <div class="card-title">
-                            Tổng sản phẩm
-                        </div>
-
-                        <div class="card-value"
-                        id="totalProducts">0</div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">
-                            Tổng tồn kho
-                        </div>
-
-                        <div class="card-value"
-                        id="totalStock">0</div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">
-                            Tổng giá trị kho
-                        </div>
-
-                        <div class="card-value"
-                        id="totalValue">0đ</div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- PRODUCTS -->
-
-            <div id="productsPage" class="hidden">
-
-                <div class="topbar">
-
-                    <button class="btn btn-blue"
-                    onclick="openModal()">
-                        Thêm sản phẩm
-                    </button>
-
-                </div>
-
-                <div class="table-wrap">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-                                <th>Mã</th>
-                                <th>Tên</th>
-                                <th>Giá nhập</th>
-                                <th>Giá bán</th>
-                                <th>Giá sỉ</th>
-                                <th>Tồn</th>
-                                <th>Xóa</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="productTable"></tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-            <!-- IMPORT -->
-
-            <div id="importPage" class="hidden">
-
-                <button class="btn btn-green"
-                onclick="document.getElementById('excelFile').click()">
-                    Import Excel
-                </button>
-
-                <input
-                    type="file"
-                    id="excelFile"
-                    accept=".xlsx,.xls"
-                    hidden
-                >
-
-            </div>
-
-            <!-- NHAP -->
-
-            <div id="nhapPage" class="hidden">
-
-                <div class="topbar">
-
-                    <button class="btn btn-blue"
-                    onclick="addNhapRow()">
-                        + Thêm hàng
-                    </button>
-
-                </div>
-
-                <div class="table-wrap">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-                                <th>Mã</th>
-                                <th>SL</th>
-                                <th>Giá nhập</th>
-                                <th>Thành tiền</th>
-                                <th>Xóa</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="nhapTable"></tbody>
-
-                    </table>
-
-                </div>
-
-                <div class="nhap-grid">
-
-                    <div></div>
-
-                    <div class="total-box">
-
-                        <div>Tổng tiền</div>
-
-                        <div class="total-big"
-                        id="tongTien">
-                            0đ
-                        </div>
-
-                        <br>
-
-                        <button class="btn btn-blue"
-                        style="width:100%;"
-                        onclick="saveNhap()">
-                            Lưu phiếu nhập
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-</div>
-
-<!-- MODAL -->
-
-<div class="modal" id="modal">
-
-    <div class="modal-box">
-
-        <h2>Sản phẩm</h2>
-
-        <div class="form-group">
-            <input type="text" id="ma" placeholder="Mã hàng">
-        </div>
-
-        <div class="form-group">
-            <input type="text" id="ten" placeholder="Tên hàng">
-        </div>
-
-        <div class="form-group">
-            <input type="number" id="giaNhap" placeholder="Giá nhập">
-        </div>
-
-        <div class="form-group">
-            <input type="number" id="giaBan" placeholder="Giá bán">
-        </div>
-
-        <div class="form-group">
-            <input type="number" id="giaSi" placeholder="Giá sỉ">
-        </div>
-
-        <div class="form-group">
-            <input type="number" id="ton" placeholder="Tồn kho">
-        </div>
-
-        <button class="btn btn-blue"
-        style="width:100%;"
-        onclick="saveProduct()">
-            Lưu sản phẩm
-        </button>
-
-    </div>
-
-</div>
 <script type="module">
+
+/* =====================================================
+FIREBASE IMPORT
+===================================================== */
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -602,7 +12,6 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
     getDatabase,
     ref,
-    set,
     push,
     onValue,
     remove,
@@ -610,34 +19,56 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+/* =====================================================
+FIREBASE CONFIG
+===================================================== */
+
 const firebaseConfig = {
 
-  apiKey: "AIzaSyBdUaWQRCplxX5bG64gBYqLNPGFoRN5DoE",
+    apiKey:
+    "AIzaSyBdUaWQRCplxX5bG64gBYqLNPGFoRN5DoE",
 
-  authDomain: "quanlybanhangtn.firebaseapp.com",
+    authDomain:
+    "quanlybanhangtn.firebaseapp.com",
 
-  databaseURL:
-  "https://quanlybanhangtn-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    databaseURL:
+    "https://quanlybanhangtn-default-rtdb.asia-southeast1.firebasedatabase.app/",
 
-  projectId: "quanlybanhangtn",
+    projectId:
+    "quanlybanhangtn",
 
-  storageBucket:
-  "quanlybanhangtn.firebasestorage.app",
+    storageBucket:
+    "quanlybanhangtn.firebasestorage.app",
 
-  messagingSenderId: "627580656858",
+    messagingSenderId:
+    "627580656858",
 
-  appId:
-  "1:627580656858:web:e1cbc69055b78afb0cd9e3"
+    appId:
+    "1:627580656858:web:e1cbc69055b78afb0cd9e3"
 
-};
+}
 
-const app = initializeApp(firebaseConfig);
+/* =====================================================
+INIT
+===================================================== */
 
-const db = getDatabase(app);
+const app = initializeApp(firebaseConfig)
+
+const db = getDatabase(app)
+
+const productsRef = ref(db,"products")
+
+/* =====================================================
+DATA
+===================================================== */
 
 let products = []
 
-const productsRef = ref(db,"products")
+let nhapRows = []
+
+/* =====================================================
+REALTIME SYNC
+===================================================== */
 
 onValue(productsRef,(snapshot)=>{
 
@@ -646,8 +77,11 @@ onValue(productsRef,(snapshot)=>{
     snapshot.forEach(child=>{
 
         products.push({
+
             id:child.key,
+
             ...child.val()
+
         })
 
     })
@@ -657,21 +91,20 @@ onValue(productsRef,(snapshot)=>{
     renderDashboard()
 
 })
-<script>
-
-
 
 /* =====================================================
 PAGE
 ===================================================== */
 
-function showPage(page,btn){
+window.showPage = function(page,btn){
 
     document
     .querySelectorAll(".menu button")
     .forEach(x=>x.classList.remove("active"))
 
-    if(btn) btn.classList.add("active")
+    if(btn){
+        btn.classList.add("active")
+    }
 
     document
     .querySelectorAll(".content > div")
@@ -702,12 +135,13 @@ function showPage(page,btn){
 DASHBOARD
 ===================================================== */
 
-function renderDashboard(){
+window.renderDashboard = function(){
 
     totalProducts.innerText =
     products.length
 
     let stock = 0
+
     let value = 0
 
     products.forEach(p=>{
@@ -732,9 +166,9 @@ function renderDashboard(){
 PRODUCTS
 ===================================================== */
 
-function renderProducts(){
+window.renderProducts = function(){
 
-    let keyword =
+    const keyword =
     searchInput.value.toLowerCase()
 
     let html = ""
@@ -742,9 +176,13 @@ function renderProducts(){
     products.forEach((p,index)=>{
 
         if(
+
             p.ten.toLowerCase().includes(keyword)
+
             ||
+
             p.ma.toLowerCase().includes(keyword)
+
         ){
 
             html += `
@@ -769,11 +207,15 @@ function renderProducts(){
                 <td>${p.ton}</td>
 
                 <td>
+
                     <button
                     class="btn btn-red"
                     onclick="deleteProduct(${index})">
+
                         X
+
                     </button>
+
                 </td>
 
             </tr>
@@ -785,27 +227,33 @@ function renderProducts(){
 
     productTable.innerHTML = html
 
-    renderDashboard()
-
 }
 
 /* =====================================================
-ADD PRODUCT
+MODAL
 ===================================================== */
 
-function openModal(){
-    modal.style.display="flex"
+window.openModal = function(){
+
+    modal.style.display = "flex"
+
 }
 
-window.onclick = e=>{
+window.onclick = function(e){
 
-    if(e.target===modal){
-        modal.style.display="none"
+    if(e.target === modal){
+
+        modal.style.display = "none"
+
     }
 
 }
 
-function saveProduct(){
+/* =====================================================
+SAVE PRODUCT
+===================================================== */
+
+window.saveProduct = function(){
 
     push(productsRef,{
 
@@ -823,22 +271,33 @@ function saveProduct(){
 
     })
 
-    modal.style.display="none"
+    modal.style.display = "none"
+
+    ma.value = ""
+    ten.value = ""
+    giaNhap.value = ""
+    giaBan.value = ""
+    giaSi.value = ""
+    ton.value = ""
 
 }
+
 /* =====================================================
-DELETE
+DELETE PRODUCT
 ===================================================== */
 
-function deleteProduct(index){
+window.deleteProduct = function(index){
 
     if(confirm("Xóa sản phẩm?")){
 
-        remove(ref(db,"products/"+products[index].id))
+        remove(
 
-        saveData()
+            ref(
+                db,
+                "products/" + products[index].id
+            )
 
-        renderProducts()
+        )
 
     }
 
@@ -854,6 +313,8 @@ e=>{
 
     const file = e.target.files[0]
 
+    if(!file) return
+
     const reader = new FileReader()
 
     reader.onload = evt=>{
@@ -862,7 +323,7 @@ e=>{
         new Uint8Array(evt.target.result)
 
         const workbook =
-        XLSX.read(data,{type:'array'})
+        XLSX.read(data,{type:"array"})
 
         const sheet =
         workbook.Sheets[
@@ -874,11 +335,13 @@ e=>{
 
         json.forEach(row=>{
 
-            products.push({
+            push(productsRef,{
 
-                ma:row["Mã hàng"] || "",
+                ma:
+                row["Mã hàng"] || "",
 
-                ten:row["Tên hàng"] || "",
+                ten:
+                row["Tên hàng"] || "",
 
                 gia_nhap:Number(
                     row["Giá vốn"] || 0
@@ -900,10 +363,6 @@ e=>{
 
         })
 
-        saveData()
-
-        renderProducts()
-
         alert("Import thành công")
 
     }
@@ -916,21 +375,28 @@ e=>{
 NHAP
 ===================================================== */
 
-function addNhapRow(){
+window.addNhapRow = function(){
 
     nhapRows.push({
+
         ma:"",
         sl:1,
         gia:0
+
     })
 
     renderNhap()
 
 }
 
-function renderNhap(){
+/* =====================================================
+RENDER NHAP
+===================================================== */
+
+window.renderNhap = function(){
 
     let html = ""
+
     let tong = 0
 
     nhapRows.forEach((r,index)=>{
@@ -942,8 +408,10 @@ function renderNhap(){
             options += `
             <option
             value="${p.ma}"
-            ${r.ma===p.ma?"selected":""}>
+            ${r.ma===p.ma ? "selected" : ""}>
+
                 ${p.ma}
+
             </option>
             `
 
@@ -955,43 +423,63 @@ function renderNhap(){
         <tr>
 
             <td>
+
                 <select
                 onchange="changeMa(${index},this.value)"
                 style="
-                width:100%;
-                padding:12px;
-                border-radius:12px;
+                    width:100%;
+                    padding:12px;
+                    border-radius:12px;
                 ">
+
                     ${options}
+
                 </select>
+
             </td>
 
             <td>
+
                 <input
                 type="number"
                 value="${r.sl}"
                 onchange="changeSl(${index},this.value)"
-                style="width:90px;padding:12px;">
+                style="
+                    width:90px;
+                    padding:12px;
+                ">
+
             </td>
 
             <td>
+
                 <input
                 type="number"
                 value="${r.gia}"
                 onchange="changeGia(${index},this.value)"
-                style="width:140px;padding:12px;">
+                style="
+                    width:140px;
+                    padding:12px;
+                ">
+
             </td>
 
             <td>
+
                 ${(r.sl*r.gia).toLocaleString()}đ
+
             </td>
 
             <td>
+
                 <button
                 class="btn btn-red"
                 onclick="removeNhap(${index})">
+
                     X
+
                 </button>
+
             </td>
 
         </tr>
@@ -1006,39 +494,49 @@ function renderNhap(){
 
 }
 
-function changeMa(index,val){
+/* =====================================================
+NHAP ACTION
+===================================================== */
+
+window.changeMa = function(index,val){
 
     nhapRows[index].ma = val
 
-    let found =
-    products.find(p=>p.ma===val)
+    const found =
+    products.find(
+        p=>p.ma===val
+    )
 
     if(found){
+
         nhapRows[index].gia =
         found.gia_nhap
+
     }
 
     renderNhap()
 
 }
 
-function changeSl(index,val){
+window.changeSl = function(index,val){
 
-    nhapRows[index].sl = Number(val)
-
-    renderNhap()
-
-}
-
-function changeGia(index,val){
-
-    nhapRows[index].gia = Number(val)
+    nhapRows[index].sl =
+    Number(val)
 
     renderNhap()
 
 }
 
-function removeNhap(index){
+window.changeGia = function(index,val){
+
+    nhapRows[index].gia =
+    Number(val)
+
+    renderNhap()
+
+}
+
+window.removeNhap = function(index){
 
     nhapRows.splice(index,1)
 
@@ -1046,34 +544,46 @@ function removeNhap(index){
 
 }
 
-function saveNhap(){
+/* =====================================================
+SAVE NHAP
+===================================================== */
+
+window.saveNhap = function(){
 
     nhapRows.forEach(r=>{
 
-        let found =
-        products.find(p=>p.ma===r.ma)
+        const found =
+        products.find(
+            p=>p.ma===r.ma
+        )
 
         if(found){
 
             update(
-    ref(db,"products/"+found.id),
-    {
-        ton:found.ton + r.sl,
-        gia_nhap:r.gia
-    }
-)
 
-            found.gia_nhap = r.gia
+                ref(
+                    db,
+                    "products/" + found.id
+                ),
+
+                {
+
+                    ton:
+                    Number(found.ton) +
+                    Number(r.sl),
+
+                    gia_nhap:
+                    Number(r.gia)
+
+                }
+
+            )
 
         }
 
     })
 
-    saveData()
-
-    renderProducts()
-
-    nhapRows=[]
+    nhapRows = []
 
     renderNhap()
 
@@ -1085,8 +595,10 @@ function saveNhap(){
 MOBILE
 ===================================================== */
 
-function toggleSidebar(){
+window.toggleSidebar = function(){
+
     sidebar.classList.toggle("show")
+
 }
 
 /* =====================================================
@@ -1094,9 +606,7 @@ INIT
 ===================================================== */
 
 renderDashboard()
+
 renderProducts()
 
 </script>
-
-</body>
-</html>
