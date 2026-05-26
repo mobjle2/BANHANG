@@ -332,10 +332,7 @@ MOBILE
                 Sản phẩm
             </button>
 
-            <button onclick="showPage('import',this)">
-                Import Excel
-            </button>
-
+           
             <button onclick="showPage('nhap',this)">
                 Nhập hàng
             </button>
@@ -429,14 +426,26 @@ MOBILE
 
             <div id="productsPage" class="hidden">
 
-                <div class="topbar">
+<div class="topbar">
 
-                    <button class="btn btn-blue"
-                    onclick="openModal()">
-                        Thêm sản phẩm
-                    </button>
+    <button class="btn btn-green"
+    onclick="excelFile.click()">
+        Import Excel
+    </button>
 
-                </div>
+    <button class="btn btn-blue"
+    onclick="openModal()">
+        Thêm sản phẩm
+    </button>
+
+    <input
+        type="file"
+        id="excelFile"
+        accept=".xlsx,.xls"
+        hidden
+    >
+
+</div>
 
                 <div class="table-wrap">
 
@@ -466,23 +475,6 @@ MOBILE
 
             </div>
 
-            <!-- IMPORT -->
-
-            <div id="importPage" class="hidden">
-
-                <button class="btn btn-green"
-                onclick="excelFile.click()">
-                    Import Excel
-                </button>
-
-                <input
-                    type="file"
-                    id="excelFile"
-                    accept=".xlsx,.xls"
-                    hidden
-                >
-
-            </div>
 
             <!-- NHAP -->
 
@@ -704,10 +696,6 @@ window.showPage = function(page,btn){
 
     if(page==="products"){
         productsPage.classList.remove("hidden")
-    }
-
-    if(page==="import"){
-        importPage.classList.remove("hidden")
     }
 
     if(page==="nhap"){
