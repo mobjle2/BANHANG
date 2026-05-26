@@ -731,6 +731,8 @@ PAGE
 
 window.showPage = function(page,btn){
 
+    // ACTIVE MENU
+
     document
     .querySelectorAll(".menu button")
     .forEach(x=>x.classList.remove("active"))
@@ -739,24 +741,37 @@ window.showPage = function(page,btn){
         btn.classList.add("active")
     }
 
-    document
-    .querySelectorAll(".content > div")
-    .forEach(x=>x.classList.add("hidden"))
+    // HIDE ALL PAGE
+
+    dashboardPage.classList.add("hidden")
+    productsPage.classList.add("hidden")
+    nhapPage.classList.add("hidden")
+
+    // SHOW PAGE
 
     if(page==="dashboard"){
+
         dashboardPage.classList.remove("hidden")
+
+        pageTitle.innerText = "Dashboard"
+
     }
 
-    if(page==="products"){
+    else if(page==="products"){
+
         productsPage.classList.remove("hidden")
+
+        pageTitle.innerText = "Sản phẩm"
+
     }
 
-    if(page==="nhap"){
+    else if(page==="nhap"){
+
         nhapPage.classList.remove("hidden")
-    }
 
-    pageTitle.innerText =
-    page.charAt(0).toUpperCase() + page.slice(1)
+        pageTitle.innerText = "Nhập hàng"
+
+    }
 
     // MOBILE AUTO CLOSE
 
@@ -767,7 +782,6 @@ window.showPage = function(page,btn){
     }
 
 }
-
 /* =====================================================
 DASHBOARD
 ===================================================== */
