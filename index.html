@@ -719,7 +719,36 @@ HIDDEN
                     </button>
 
                 </div>
+                <!-- LỊCH SỬ NHẬP -->
 
+<div id="historyPage"
+class="hidden">
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Thời gian</th>
+
+                    <th>Tổng tiền</th>
+
+                    <th>Số SP</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="historyTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
                 <div class="table-wrap">
 
                     <table>
@@ -782,36 +811,7 @@ HIDDEN
     </main>
 
 </div>
-<!-- LỊCH SỬ NHẬP -->
 
-<div id="historyPage"
-class="hidden">
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Thời gian</th>
-
-                    <th>Tổng tiền</th>
-
-                    <th>Số SP</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="historyTable">
-
-            </tbody>
-
-        </table>
-
-    </div>
 
 </div>
 <!-- MODAL -->
@@ -991,9 +991,7 @@ onValue(productsRef,(snapshot)=>{
 
 })
 
-/* =====================================================
-REALTIME PHIẾU NHẬP
-===================================================== */
+/* ====== REALTIME PHIẾU NHẬP ====== */
 
 onValue(importOrdersRef,(snapshot)=>{
 
@@ -1011,7 +1009,11 @@ onValue(importOrdersRef,(snapshot)=>{
 
     })
 
-    renderHistory()
+    if(historyTable){
+
+        renderHistory()
+
+    }
 
 })
 /* =====================================================
@@ -1029,12 +1031,14 @@ CHUYỂN TRANG
 ===================================================== */
 
 window.showPage = function(page){
+    
 
     dashboardPage.classList.add("hidden")
 
     productsPage.classList.add("hidden")
 
     nhapPage.classList.add("hidden")
+    historyPage.classList.add("hidden")
 
     document
     .querySelectorAll(".menu button")
@@ -1076,29 +1080,47 @@ window.showPage = function(page){
 
     }
 
-    /* NHẬP HÀNG */
+   /* NHẬP HÀNG */
 
-    else if(page === "nhap"){
+else if(page === "nhap"){
 
-        nhapPage.classList.remove("hidden")
+    nhapPage.classList.remove("hidden")
 
-        btnNhap.classList.add("active")
+    btnNhap.classList.add("active")
 
-        pageTitle.innerText =
-        "Nhập hàng"
+    pageTitle.innerText =
+    "Nhập hàng"
 
-        searchInput.style.display =
-        "none"
+    searchInput.style.display =
+    "none"
 
-        if(nhapRows.length === 0){
+    if(nhapRows.length === 0){
 
-            addNhapRow()
-
-        }
-
-        renderNhap()
+        addNhapRow()
 
     }
+
+    renderNhap()
+
+}
+
+/* HISTORY */
+
+else if(page === "history"){
+
+    historyPage.classList.remove("hidden")
+
+    btnHistory.classList.add("active")
+
+    pageTitle.innerText =
+    "Lịch sử nhập"
+
+    searchInput.style.display =
+    "none"
+
+    renderHistory()
+
+}
 
     /* MOBILE AUTO CLOSE */
 
@@ -1986,6 +2008,11 @@ btnNhap.onclick = ()=>{
 
 }
 
+btnHistory.onclick = ()=>{
+
+    showPage("history")
+
+}
 /* =====================================================
 KHỞI TẠO
 ===================================================== */
