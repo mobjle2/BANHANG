@@ -759,13 +759,24 @@ PAGE
 
 window.showPage = function(page){
 
+    // BUTTON
+
+    const btnDashboard =
+    document.getElementById("btnDashboard")
+
+    const btnProducts =
+    document.getElementById("btnProducts")
+
+    const btnNhap =
+    document.getElementById("btnNhap")
+
     // RESET ACTIVE
 
     document
     .querySelectorAll(".menu button")
     .forEach(x=>x.classList.remove("active"))
 
-    // ACTIVE BUTTON
+    // ACTIVE
 
     if(page==="dashboard"){
 
@@ -817,13 +828,17 @@ window.showPage = function(page){
 
     }
 
-    // AUTO CLOSE MOBILE MENU
+    // MOBILE CLOSE FIX
 
     if(window.innerWidth <= 900){
 
-        document
-        .getElementById("sidebar")
-        .classList.remove("show")
+        setTimeout(()=>{
+
+            document
+            .getElementById("sidebar")
+            .classList.remove("show")
+
+        },50)
 
     }
 
@@ -1270,37 +1285,47 @@ MOBILE
 
 window.toggleSidebar = function(){
 
-    const sb =
-    document.getElementById("sidebar")
-
-    sb.classList.toggle("show")
+    document
+    .getElementById("sidebar")
+    .classList.toggle("show")
 
 }
 
 /* =====================================================
-INIT
+MENU EVENT
 ===================================================== */
-btnDashboard.onclick = () => {
+
+document
+.getElementById("btnDashboard")
+.addEventListener("click",()=>{
 
     showPage("dashboard")
 
-}
+})
 
-btnProducts.onclick = () => {
+document
+.getElementById("btnProducts")
+.addEventListener("click",()=>{
 
     showPage("products")
 
-}
+})
 
-btnNhap.onclick = () => {
+document
+.getElementById("btnNhap")
+.addEventListener("click",()=>{
 
     showPage("nhap")
 
-}
+})
+
+/* =====================================================
+INIT
+===================================================== */
+
 renderDashboard()
 
 renderProducts()
-pageTitle.innerText = "Sản phẩm"
 
 showPage("products")
 </script>
