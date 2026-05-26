@@ -543,7 +543,9 @@ HIDDEN
             <button id="btnNhap">
                 Nhập hàng
             </button>
-
+        <button id="btnHistory">
+    Lịch sử nhập
+</button>
         </div>
 
     </aside>
@@ -780,7 +782,38 @@ HIDDEN
     </main>
 
 </div>
+<!-- LỊCH SỬ NHẬP -->
 
+<div id="historyPage"
+class="hidden">
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Thời gian</th>
+
+                    <th>Tổng tiền</th>
+
+                    <th>Số SP</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="historyTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 <!-- MODAL -->
 
 <div class="modal"
@@ -887,9 +920,7 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-/* =====================================================
-FIREBASE
-===================================================== */
+/* ====== FIREBASE ====== */
 
 const firebaseConfig = {
 
@@ -926,18 +957,17 @@ const productsRef =
 ref(db,"products")
 const importOrdersRef =
 ref(db,"import_orders")
-/* =====================================================
-DATA
-===================================================== */
+let importOrders = []
+    
+/* ====== DATA ====== */
 
 let products = []
 
 let nhapRows = []
 
 let editId = null
-/* =====================================================
-REALTIME
-===================================================== */
+    
+/* ====== REALTIME ====== */
 
 onValue(productsRef,(snapshot)=>{
 
@@ -961,6 +991,29 @@ onValue(productsRef,(snapshot)=>{
 
 })
 
+/* =====================================================
+REALTIME PHIẾU NHẬP
+===================================================== */
+
+onValue(importOrdersRef,(snapshot)=>{
+
+    importOrders = []
+
+    snapshot.forEach(child=>{
+
+        importOrders.push({
+
+            id:child.key,
+
+            ...child.val()
+
+        })
+
+    })
+
+    renderHistory()
+
+})
 /* =====================================================
 MENU MOBILE
 ===================================================== */
@@ -1057,9 +1110,7 @@ window.showPage = function(page){
 
 }
 
-/* =====================================================
-DASHBOARD
-===================================================== */
+/* ====== DASHBOARD ====== */
 
 window.renderDashboard = function(){
 
@@ -1870,8 +1921,52 @@ window.onclick = function(e){
 
 }
 /* =====================================================
-MENU
+RENDER LỊCH SỬ
 ===================================================== */
+
+window.renderHistory = function(){
+
+    let html = ""
+
+    importOrders
+    .slice()
+    .reverse()
+    .forEach(p=>{
+
+        html += `
+        <tr>
+
+            <td>
+
+                ${p.time || ""}
+
+            </td>
+
+            <td style="
+            color:#2563eb;
+            font-weight:700;
+            ">
+
+                ${(Number(p.tong)||0)
+                .toLocaleString()}đ
+
+            </td>
+
+            <td>
+
+                ${(p.items || []).length}
+
+            </td>
+
+        </tr>
+        `
+
+    })
+
+    historyTable.innerHTML = html
+
+}
+/* ====== MENU ====== */
 
 btnDashboard.onclick = ()=>{
 
