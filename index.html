@@ -739,6 +739,14 @@ const db = getDatabase(app)
 
 const productsRef = ref(db,"products")
 
+// =====================================================
+// SIDEBAR
+// =====================================================
+
+const sidebar =
+document.getElementById("sidebar")
+
+
 /* =====================================================
 DATA
 ===================================================== */
@@ -993,33 +1001,54 @@ window.toggleSidebar = function(){
 }
 
 /* =====================================================
-SỰ KIỆN MENU
+SỰ KIỆN MENU MOBILE FIX
 ===================================================== */
 
 document
 .getElementById("btnDashboard")
-.addEventListener("click",()=>{
+.onclick = function(){
 
-    showPage("dashboard")
+    // ĐÓNG MENU TRƯỚC
 
-})
+    sidebar.classList.remove("show")
+
+    // MỞ PAGE SAU
+
+    setTimeout(()=>{
+
+        showPage("dashboard")
+
+    },50)
+
+}
 
 document
 .getElementById("btnProducts")
-.addEventListener("click",()=>{
+.onclick = function(){
 
-    showPage("products")
+    sidebar.classList.remove("show")
 
-})
+    setTimeout(()=>{
+
+        showPage("products")
+
+    },50)
+
+}
 
 document
 .getElementById("btnNhap")
-.addEventListener("click",()=>{
+.onclick = function(){
 
-    showPage("nhap")
+    sidebar.classList.remove("show")
 
-})
+    setTimeout(()=>{
 
+        showPage("nhap")
+
+    },50)
+
+}
 /* =====================================================
 KHỞI TẠO
 ===================================================== */
