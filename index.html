@@ -77,13 +77,14 @@ MAIN
 }
 
 .header{
-    height:80px;
+    min-height:80px;
     background:white;
     border-bottom:1px solid #e5e7eb;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 24px;
+    padding:16px 24px;
+    gap:14px;
     position:sticky;
     top:0;
     z-index:50;
@@ -95,12 +96,14 @@ MAIN
 }
 
 .search{
-    width:340px;
-    padding:14px;
-    border-radius:14px;
+    width:320px;
+    max-width:100%;
+    padding:14px 18px;
+    border-radius:16px;
     border:1px solid #dbe2ea;
     background:#f9fafb;
     outline:none;
+    font-size:16px;
 }
 
 .content{
@@ -299,7 +302,23 @@ MOBILE
     .nhap-grid{
         grid-template-columns:1fr;
     }
+.header{
+    flex-direction:column;
+    align-items:stretch;
+    height:auto;
+    padding:16px;
+}
 
+.header > div{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.search{
+    width:100%;
+}
 }
 
 .hidden{
