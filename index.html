@@ -936,42 +936,37 @@ searchInput.value
 .toLowerCase()
 .trim()
 
-    let html = ""
+let html = ""
 
-    products.forEach((p,index)=>{
+products.forEach((p,index)=>{
 
-        if(
-            // TÁCH TỪ KHÓA
+    // TÊN + MÃ
 
-const words =
-keyword.split(" ")
+    const ten =
+    p.ten.toLowerCase()
 
-// TÊN + MÃ
+    const ma =
+    p.ma.toLowerCase()
 
-const ten =
-p.ten.toLowerCase()
+    // TÁCH TỪ KHÓA
 
-const ma =
-p.ma.toLowerCase()
+    const words =
+    keyword.split(" ")
 
-// KIỂM TRA TỪ KHÓA GẦN ĐÚNG
+    // SEARCH GẦN ĐÚNG
 
-const match =
-words.every(w=>
+    const match =
+    words.every(w=>
 
-    ten.includes(w)
-    ||
-    ma.includes(w)
+        ten.includes(w)
+        ||
+        ma.includes(w)
 
-)
+    )
 
-// HIỂN THỊ
+    // HIỂN THỊ
 
-if(match)
-            ||
-            p.ma.toLowerCase().includes(keyword)
-        ){
-
+    if(match){
             html += `
             <tr>
 
