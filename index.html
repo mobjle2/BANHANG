@@ -1,10 +1,602 @@
-<!-- FULL SCRIPT FIREBASE FIX SẠCH - THAY TOÀN BỘ SCRIPT CŨ -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script type="module">
+<title>POS PRO CLOUD</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#111827;
+}
+
+.app{
+    display:flex;
+    min-height:100vh;
+}
 
 /* =====================================================
-FIREBASE IMPORT
+SIDEBAR
 ===================================================== */
+
+.sidebar{
+    width:260px;
+    background:linear-gradient(to bottom,#0f172a,#111827);
+    color:white;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    z-index:100;
+    padding:24px 0;
+}
+
+.logo{
+    padding:0 28px 30px;
+    font-size:28px;
+    font-weight:800;
+}
+
+.menu button{
+    width:100%;
+    border:none;
+    background:transparent;
+    color:white;
+    text-align:left;
+    padding:20px 28px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.menu button:hover,
+.menu button.active{
+    background:#13203a;
+}
+
+/* =====================================================
+MAIN
+===================================================== */
+
+.main{
+    flex:1;
+    margin-left:260px;
+}
+
+.header{
+    height:80px;
+    background:white;
+    border-bottom:1px solid #e5e7eb;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.page-title{
+    font-size:24px;
+    font-weight:800;
+}
+
+.search{
+    width:340px;
+    padding:14px;
+    border-radius:14px;
+    border:1px solid #dbe2ea;
+    background:#f9fafb;
+    outline:none;
+}
+
+.content{
+    padding:24px;
+}
+
+/* =====================================================
+CARDS
+===================================================== */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:24px;
+    padding:24px;
+}
+
+.card-title{
+    color:#6b7280;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.card-value{
+    font-size:38px;
+    font-weight:800;
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.table-wrap{
+    background:white;
+    border-radius:24px;
+    overflow:auto;
+    margin-top:24px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
+}
+
+th{
+    background:#f8fafc;
+    padding:16px;
+    text-align:left;
+    color:#64748b;
+    font-size:13px;
+}
+
+td{
+    padding:14px 16px;
+    border-top:1px solid #edf2f7;
+}
+
+.btn{
+    border:none;
+    border-radius:12px;
+    padding:12px 18px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.btn-blue{
+    background:#2563eb;
+    color:white;
+}
+
+.btn-green{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-red{
+    background:#dc2626;
+    color:white;
+}
+
+.topbar{
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+/* =====================================================
+MODAL
+===================================================== */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:500;
+    padding:20px;
+}
+
+.modal-box{
+    width:100%;
+    max-width:480px;
+    background:white;
+    border-radius:24px;
+    padding:24px;
+}
+
+.modal-box h2{
+    margin-bottom:20px;
+}
+
+.form-group{
+    margin-bottom:14px;
+}
+
+.form-group input{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #dbe2ea;
+}
+
+/* =====================================================
+NHAP
+===================================================== */
+
+.nhap-grid{
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:20px;
+    margin-top:20px;
+}
+
+.total-box{
+    background:white;
+    border-radius:24px;
+    padding:24px;
+}
+
+.total-big{
+    font-size:38px;
+    font-weight:800;
+    color:#2563eb;
+    margin-top:10px;
+}
+
+/* =====================================================
+MOBILE
+===================================================== */
+
+.mobile-toggle{
+    display:none;
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        left:-260px;
+        transition:.3s;
+    }
+
+    .sidebar.show{
+        left:0;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .mobile-toggle{
+        display:block;
+        border:none;
+        background:#2563eb;
+        color:white;
+        padding:10px 14px;
+        border-radius:10px;
+    }
+
+    .search{
+        width:100%;
+    }
+
+    .nhap-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+.hidden{
+    display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            POS PRO
+        </div>
+
+        <div class="menu">
+
+            <button class="active"
+            onclick="showPage('dashboard',this)">
+                Dashboard
+            </button>
+
+            <button onclick="showPage('products',this)">
+                Sản phẩm
+            </button>
+
+            <button onclick="showPage('import',this)">
+                Import Excel
+            </button>
+
+            <button onclick="showPage('nhap',this)">
+                Nhập hàng
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <div class="header">
+
+            <div style="display:flex;align-items:center;gap:12px;">
+
+                <button class="mobile-toggle"
+                onclick="toggleSidebar()">
+                    ☰
+                </button>
+
+                <div class="page-title"
+                id="pageTitle">
+                    Dashboard
+                </div>
+
+            </div>
+
+            <input
+                type="text"
+                class="search"
+                id="searchInput"
+                placeholder="Tìm sản phẩm..."
+                oninput="renderProducts()"
+            >
+
+        </div>
+
+        <div class="content">
+
+            <!-- DASHBOARD -->
+
+            <div id="dashboardPage">
+
+                <div class="cards">
+
+                    <div class="card">
+
+                        <div class="card-title">
+                            Tổng sản phẩm
+                        </div>
+
+                        <div class="card-value"
+                        id="totalProducts">
+                            0
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-title">
+                            Tổng tồn kho
+                        </div>
+
+                        <div class="card-value"
+                        id="totalStock">
+                            0
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-title">
+                            Tổng giá trị kho
+                        </div>
+
+                        <div class="card-value"
+                        id="totalValue">
+                            0đ
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PRODUCTS -->
+
+            <div id="productsPage" class="hidden">
+
+                <div class="topbar">
+
+                    <button class="btn btn-blue"
+                    onclick="openModal()">
+                        Thêm sản phẩm
+                    </button>
+
+                </div>
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Mã</th>
+                                <th>Tên</th>
+                                <th>Giá nhập</th>
+                                <th>Giá bán</th>
+                                <th>Giá sỉ</th>
+                                <th>Tồn</th>
+                                <th>Xóa</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="productTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- IMPORT -->
+
+            <div id="importPage" class="hidden">
+
+                <button class="btn btn-green"
+                onclick="excelFile.click()">
+                    Import Excel
+                </button>
+
+                <input
+                    type="file"
+                    id="excelFile"
+                    accept=".xlsx,.xls"
+                    hidden
+                >
+
+            </div>
+
+            <!-- NHAP -->
+
+            <div id="nhapPage" class="hidden">
+
+                <div class="topbar">
+
+                    <button class="btn btn-blue"
+                    onclick="addNhapRow()">
+                        + Thêm hàng
+                    </button>
+
+                </div>
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Mã</th>
+                                <th>SL</th>
+                                <th>Giá nhập</th>
+                                <th>Thành tiền</th>
+                                <th>Xóa</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="nhapTable"></tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="nhap-grid">
+
+                    <div></div>
+
+                    <div class="total-box">
+
+                        <div>Tổng tiền</div>
+
+                        <div class="total-big"
+                        id="tongTien">
+                            0đ
+                        </div>
+
+                        <br>
+
+                        <button class="btn btn-blue"
+                        style="width:100%;"
+                        onclick="saveNhap()">
+                            Lưu phiếu nhập
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <h2>Sản phẩm</h2>
+
+        <div class="form-group">
+            <input type="text" id="ma" placeholder="Mã hàng">
+        </div>
+
+        <div class="form-group">
+            <input type="text" id="ten" placeholder="Tên hàng">
+        </div>
+
+        <div class="form-group">
+            <input type="number" id="giaNhap" placeholder="Giá nhập">
+        </div>
+
+        <div class="form-group">
+            <input type="number" id="giaBan" placeholder="Giá bán">
+        </div>
+
+        <div class="form-group">
+            <input type="number" id="giaSi" placeholder="Giá sỉ">
+        </div>
+
+        <div class="form-group">
+            <input type="number" id="ton" placeholder="Tồn kho">
+        </div>
+
+        <button class="btn btn-blue"
+        style="width:100%;"
+        onclick="saveProduct()">
+            Lưu sản phẩm
+        </button>
+
+    </div>
+
+</div>
+
+<script type="module">
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -20,7 +612,7 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 /* =====================================================
-FIREBASE CONFIG
+FIREBASE
 ===================================================== */
 
 const firebaseConfig = {
@@ -48,10 +640,6 @@ const firebaseConfig = {
 
 }
 
-/* =====================================================
-INIT
-===================================================== */
-
 const app = initializeApp(firebaseConfig)
 
 const db = getDatabase(app)
@@ -67,7 +655,7 @@ let products = []
 let nhapRows = []
 
 /* =====================================================
-REALTIME SYNC
+REALTIME
 ===================================================== */
 
 onValue(productsRef,(snapshot)=>{
@@ -176,13 +764,9 @@ window.renderProducts = function(){
     products.forEach((p,index)=>{
 
         if(
-
             p.ten.toLowerCase().includes(keyword)
-
             ||
-
             p.ma.toLowerCase().includes(keyword)
-
         ){
 
             html += `
@@ -192,17 +776,11 @@ window.renderProducts = function(){
 
                 <td>${p.ten}</td>
 
-                <td>
-                    ${Number(p.gia_nhap).toLocaleString()}
-                </td>
+                <td>${Number(p.gia_nhap).toLocaleString()}</td>
 
-                <td>
-                    ${Number(p.gia_ban).toLocaleString()}
-                </td>
+                <td>${Number(p.gia_ban).toLocaleString()}</td>
 
-                <td>
-                    ${Number(p.gia_si).toLocaleString()}
-                </td>
+                <td>${Number(p.gia_si).toLocaleString()}</td>
 
                 <td>${p.ton}</td>
 
@@ -273,17 +851,17 @@ window.saveProduct = function(){
 
     modal.style.display = "none"
 
-    ma.value = ""
-    ten.value = ""
-    giaNhap.value = ""
-    giaBan.value = ""
-    giaSi.value = ""
-    ton.value = ""
+    ma.value=""
+    ten.value=""
+    giaNhap.value=""
+    giaBan.value=""
+    giaSi.value=""
+    ton.value=""
 
 }
 
 /* =====================================================
-DELETE PRODUCT
+DELETE
 ===================================================== */
 
 window.deleteProduct = function(index){
@@ -291,12 +869,10 @@ window.deleteProduct = function(index){
     if(confirm("Xóa sản phẩm?")){
 
         remove(
-
             ref(
                 db,
                 "products/" + products[index].id
             )
-
         )
 
     }
@@ -304,7 +880,7 @@ window.deleteProduct = function(index){
 }
 
 /* =====================================================
-IMPORT EXCEL
+IMPORT
 ===================================================== */
 
 excelFile.addEventListener(
@@ -388,10 +964,6 @@ window.addNhapRow = function(){
     renderNhap()
 
 }
-
-/* =====================================================
-RENDER NHAP
-===================================================== */
 
 window.renderNhap = function(){
 
@@ -494,10 +1066,6 @@ window.renderNhap = function(){
 
 }
 
-/* =====================================================
-NHAP ACTION
-===================================================== */
-
 window.changeMa = function(index,val){
 
     nhapRows[index].ma = val
@@ -543,10 +1111,6 @@ window.removeNhap = function(index){
     renderNhap()
 
 }
-
-/* =====================================================
-SAVE NHAP
-===================================================== */
 
 window.saveNhap = function(){
 
@@ -610,3 +1174,6 @@ renderDashboard()
 renderProducts()
 
 </script>
+
+</body>
+</html>
