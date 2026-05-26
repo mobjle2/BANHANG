@@ -764,7 +764,218 @@ renderDashboard()
 
 });
 
-showPage("products")
+/* =====================================================
+ĐIỀU HƯỚNG TRANG
+===================================================== */
+
+window.showPage = function(page){
+
+    // MENU BUTTON
+
+    const btnDashboard =
+    document.getElementById("btnDashboard")
+
+    const btnProducts =
+    document.getElementById("btnProducts")
+
+    const btnNhap =
+    document.getElementById("btnNhap")
+
+    // SIDEBAR
+
+    const sidebar =
+    document.getElementById("sidebar")
+
+    // RESET ACTIVE
+
+    document
+    .querySelectorAll(".menu button")
+    .forEach(btn=>{
+
+        btn.classList.remove("active")
+
+    })
+
+    // ẨN TOÀN BỘ PAGE
+
+    dashboardPage.classList.add("hidden")
+
+    productsPage.classList.add("hidden")
+
+    nhapPage.classList.add("hidden")
+
+    // DASHBOARD
+
+    if(page === "dashboard"){
+
+        btnDashboard.classList.add("active")
+
+        dashboardPage.classList.remove("hidden")
+
+        pageTitle.innerText =
+        "Dashboard"
+
+    }
+
+    // PRODUCTS
+
+    else if(page === "products"){
+
+        btnProducts.classList.add("active")
+
+        productsPage.classList.remove("hidden")
+
+        pageTitle.innerText =
+        "Sản phẩm"
+
+    }
+
+    // NHẬP HÀNG
+
+    else if(page === "nhap"){
+
+        btnNhap.classList.add("active")
+
+        nhapPage.classList.remove("hidden")
+
+        pageTitle.innerText =
+        "Nhập hàng"
+
+    }
+
+    // MOBILE AUTO HIDE MENU
+
+    if(window.innerWidth <= 900){
+
+        sidebar.classList.remove("show")
+
+    }
+
+}
+
+/* =====================================================
+DASHBOARD
+===================================================== */
+
+window.renderDashboard = function(){
+
+    totalProducts.innerText =
+    products.length
+
+    let stock = 0
+
+    let value = 0
+
+    products.forEach(p=>{
+
+        stock += Number(p.ton)
+
+        value +=
+        Number(p.ton) *
+        Number(p.gia_nhap)
+
+    })
+
+    totalStock.innerText =
+    stock.toLocaleString()
+
+    totalValue.innerText =
+    value.toLocaleString() + "đ"
+
+}
+
+/* =====================================================
+HIỂN THỊ SẢN PHẨM
+===================================================== */
+
+window.renderProducts = function(){
+
+    const keyword =
+    searchInput.value.toLowerCase()
+
+    let html = ""
+
+    products.forEach((p,index)=>{
+
+        if(
+            p.ten.toLowerCase().includes(keyword)
+            ||
+            p.ma.toLowerCase().includes(keyword)
+        ){
+
+            html += `
+            <tr>
+
+                <td>${p.ma}</td>
+
+                <td>${p.ten}</td>
+
+                <td>
+                    ${Number(p.gia_nhap).toLocaleString()}
+                </td>
+
+                <td>
+                    ${Number(p.gia_ban).toLocaleString()}
+                </td>
+
+                <td>
+                    ${Number(p.gia_si).toLocaleString()}
+                </td>
+
+                <td>${p.ton}</td>
+
+                <td>
+
+                    <button
+                    class="btn btn-red"
+                    onclick="deleteProduct(${index})">
+
+                        X
+
+                    </button>
+
+                </td>
+
+            </tr>
+            `
+
+        }
+
+    })
+
+    productTable.innerHTML = html
+
+}
+
+/* =====================================================
+MENU MOBILE
+===================================================== */
+
+window.toggleSidebar = function(){
+
+    document
+    .getElementById("sidebar")
+    .classList.toggle("show")
+
+}
+
+/* =====================================================
+SỰ KIỆN MENU
+===================================================== */
+
+document
+.getElementById("btnDashboard")
+.addEventListener("click",()=>{
+
+    showPage("dashboard")
+
+})
+
+document
+.getElementById("btnProducts")
+.addEventListener("click",()=>{
+
+    showPage("products")
 
 })
 
@@ -777,7 +988,7 @@ document
 })
 
 /* =====================================================
-INIT
+KHỞI TẠO
 ===================================================== */
 
 renderDashboard()
