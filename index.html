@@ -288,6 +288,9 @@ MOBILE
         left:0;
 
     }
+    .sidebar{
+    transition:left .25s ease;
+}
 
     .logo{
 
@@ -395,7 +398,7 @@ MOBILE
 
     <!-- SIDEBAR -->
 
-    <aside class="sidebar" id="sidebar">
+   <aside class="sidebar" id="sidebar">
 
         <div class="logo">
             POS PRO
@@ -805,8 +808,9 @@ window.showPage = function(page,btn){
 
     if(window.innerWidth < 900){
 
-        sidebar.classList.remove("show")
-
+      document
+.getElementById("sidebar")
+.classList.remove("show")
     }
 
 }
@@ -1252,7 +1256,10 @@ MOBILE
 
 window.toggleSidebar = function(){
 
-    sidebar.classList.toggle("show")
+    const sb =
+    document.getElementById("sidebar")
+
+    sb.classList.toggle("show")
 
 }
 
