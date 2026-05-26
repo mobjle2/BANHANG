@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>POS PRO CLOUD</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
@@ -34,40 +40,39 @@ SIDEBAR
 ===================================================== */
 
 .sidebar{
-    width:230px;
-    background:linear-gradient(to bottom,#0f172a,#111827);
+    width:220px;
+    background:#0f172a;
     color:white;
     position:fixed;
     top:0;
     left:0;
     bottom:0;
+    padding:18px 0;
     z-index:100;
-    padding:24px 0;
     transition:left .25s ease;
 }
 
 .logo{
-    padding:0 28px 30px;
-    font-size:28px;
+    padding:0 18px 18px;
+    font-size:22px;
     font-weight:800;
 }
 
 .menu button{
-    width:100%;
+    width:calc(100% - 12px);
+    margin-left:6px;
     border:none;
-    background:transparent;
+    background:none;
     color:white;
     text-align:left;
-    padding:16px 22px;
-    font-size:14px;
+    padding:12px 14px;
+    border-radius:8px;
     cursor:pointer;
-    border-radius:14px;
-    margin:4px 10px;
-    width:calc(100% - 20px);
+    font-size:12px;
 }
 
-.menu button:hover,
-.menu button.active{
+.menu button.active,
+.menu button:hover{
     background:#13203a;
 }
 
@@ -77,254 +82,176 @@ MAIN
 
 .main{
     flex:1;
-    margin-left:260px;
+    margin-left:220px;
 }
 
 .header{
-    min-height:80px;
     background:white;
-    border-bottom:1px solid #e5e7eb;
+    border-bottom:1px solid #e2e8f0;
+    padding:14px 16px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:16px 24px;
-    gap:14px;
-    position:sticky;
-    top:0;
-    z-index:50;
+    gap:12px;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
 .page-title{
-    font-size:24px;
+    font-size:18px;
     font-weight:800;
 }
 
 .search{
-    width:320px;
-    max-width:100%;
-    padding:14px 18px;
-    border-radius:16px;
+    width:280px;
     border:1px solid #dbe2ea;
-    background:#f9fafb;
+    padding:10px 14px;
+    border-radius:8px;
     outline:none;
-    font-size:16px;
+    font-size:12px;
 }
 
 .content{
-    padding:24px;
+    padding:14px;
 }
-
-/* =====================================================
-CARDS
-===================================================== */
 
 .cards{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:20px;
+    gap:14px;
 }
 
 .card{
     background:white;
-    border-radius:24px;
-    padding:24px;
+    padding:18px;
+    border-radius:12px;
 }
 
 .card-title{
-    color:#6b7280;
-    font-size:14px;
-    margin-bottom:10px;
+    color:#64748b;
+    font-size:12px;
 }
 
 .card-value{
-    font-size:38px;
+    font-size:28px;
     font-weight:800;
+    margin-top:10px;
 }
-
 /* =====================================================
 TABLE
 ===================================================== */
 
 .table-wrap{
-
     background:white;
-
-    border-radius:20px;
-
-    overflow:auto;
-
-    margin-top:20px;
-
-    padding:0;
-
     border:1px solid #e2e8f0;
-
+    overflow:auto;
+    margin-top:14px;
 }
 
 table{
-
     width:100%;
-
     border-collapse:collapse;
-
-    border-spacing:0;
-
-    min-width:900px;
-
-    margin:0;
-
+    table-layout:fixed;
 }
-
-/* HEADER */
 
 th{
-
     background:#f8fafc;
-
-    padding:12px 14px;
-
-    text-align:left;
-
-    color:#64748b;
-
-    font-size:12px;
-
-    font-weight:700;
-
-    white-space:nowrap;
-
     border-bottom:1px solid #e2e8f0;
-
+    padding:10px;
+    text-align:left;
+    font-size:12px;
+    white-space:nowrap;
 }
-
-/* DATA */
 
 td{
-
-    padding:0;
-
     border-bottom:1px solid #edf2f7;
-
-    vertical-align:middle;
-
+    padding:8px 10px;
+    font-size:12px;
 }
 
-/* ÉP SÁT */
-
-table td:first-child,
-table th:first-child{
-
-    padding-left:14px;
-
-}
-
-table td:last-child,
-table th:last-child{
-
-    padding-right:14px;
-
-}
-
-/* INPUT TABLE */
-
-/* INPUT TABLE */
-
-table input,
-table select{
-
-    border-radius:0 !important;
-
-    box-shadow:none !important;
-
-}
-
-/* NHẬP HÀNG */
-
-table input{
-
-    min-width:0;
-
-}
-
-#nhapTable input{
-
-    background:white;
-
-}
+/* =====================================================
+NHẬP HÀNG
+===================================================== */
 
 #nhapTable td{
-
     padding:0 !important;
-
 }
 
 #nhapTable tr{
-
-    height:46px;
-
+    height:44px;
 }
 
-/* BUTTON */
+#nhapTable input{
+    width:100%;
+    height:44px;
+    border:none;
+    border-right:1px solid #e2e8f0;
+    outline:none;
+    padding:0 10px;
+    font-size:12px;
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
 
 .btn{
-
     border:none;
-
-    border-radius:10px;
-
-    padding:10px 16px;
-
+    border-radius:8px;
+    padding:9px 12px;
+    font-size:12px;
     font-weight:700;
-
     cursor:pointer;
-
-    transition:.2s;
-
-}
-
-.btn:hover{
-
-    opacity:.92;
-
 }
 
 .btn-blue{
-
     background:#2563eb;
-
     color:white;
-
 }
 
 .btn-green{
-
     background:#16a34a;
-
     color:white;
-
 }
 
 .btn-red{
-
     background:#dc2626;
-
     color:white;
-
 }
-
-/* TOPBAR */
 
 .topbar{
-
     display:flex;
-
     justify-content:flex-end;
-
     gap:10px;
-
-    margin-bottom:16px;
-
+    margin-bottom:14px;
 }
+
+/* =====================================================
+TOTAL
+===================================================== */
+
+.total-box{
+    background:white;
+    border:1px solid #e2e8f0;
+    margin-top:14px;
+    padding:18px;
+}
+
+.total-big{
+    font-size:28px;
+    font-weight:800;
+    color:#2563eb;
+    margin:10px 0;
+}
+
+.save-btn{
+    width:100%;
+}
+
 /* =====================================================
 MODAL
 ===================================================== */
@@ -337,59 +264,48 @@ MODAL
     align-items:center;
     justify-content:center;
     z-index:500;
-    padding:20px;
 }
 
 .modal-box{
     width:100%;
-    max-width:480px;
+    max-width:420px;
     background:white;
-    border-radius:24px;
-    padding:24px;
+    padding:20px;
+    border-radius:12px;
 }
 
-.modal-box h2{
-    margin-bottom:20px;
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:16px;
+}
+
+.close-btn{
+    width:34px;
+    height:34px;
+    border:none;
+    border-radius:8px;
+    background:#ef4444;
+    color:white;
+    cursor:pointer;
 }
 
 .form-group{
-    margin-bottom:14px;
+    margin-bottom:12px;
 }
 
 .form-group input{
     width:100%;
-    padding:14px;
-    border-radius:12px;
     border:1px solid #dbe2ea;
+    padding:11px 12px;
+    border-radius:8px;
+    outline:none;
+    font-size:12px;
 }
 
-/* =====================================================
-NHAP
-===================================================== */
-
-.nhap-grid{
-    display:grid;
-    grid-template-columns:1fr 320px;
-    gap:20px;
-    margin-top:20px;
-}
-
-.total-box{
-    background:white;
-    border-radius:24px;
-    padding:24px;
-}
-.total-box{
-
-    position:sticky;
-    bottom:20px;
-
-}
-.total-big{
-    font-size:38px;
-    font-weight:800;
-    color:#2563eb;
-    margin-top:10px;
+.full-btn{
+    width:100%;
 }
 
 /* =====================================================
@@ -403,142 +319,51 @@ MOBILE
 @media(max-width:900px){
 
 .sidebar{
-
-    width:210px;
-
     left:-220px;
-
-    padding-top:18px;
-
-    transition:left .25s ease;
-
 }
 
 .sidebar.show{
-
     left:0;
-    box-shadow:
-    0 0 0 9999px rgba(0,0,0,.45);
-
-}
-.sidebar{
-
-    overflow-y:auto;
-
 }
 
-    .logo{
+.main{
+    margin-left:0;
+}
 
-        font-size:22px;
+.mobile-toggle{
+    display:block;
+    border:none;
+    background:#2563eb;
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+}
 
-        padding:0 20px 18px;
+.cards{
+    grid-template-columns:1fr;
+}
 
-    }
+.search{
+    width:100%;
+}
 
-    .menu button{
-
-        padding:14px 18px;
-
-        font-size:14px;
-
-    }
-
-    .main{
-
-        margin-left:0;
-
-    }
-
-    .content{
-
-        padding:16px;
-
-    }
-
-    .cards{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .card{
-
-        border-radius:20px;
-
-        padding:20px;
-
-    }
-
-    .card-value{
-
-        font-size:30px;
-
-    }
-
-    .table-wrap{
-
-        border-radius:18px;
-
-    }
-
-    .mobile-toggle{
-
-        display:block;
-
-        border:none;
-
-        background:#2563eb;
-
-        color:white;
-
-        padding:10px 14px;
-
-        border-radius:10px;
-
-    }
-
-    .nhap-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .header{
-
-        flex-direction:column;
-
-        align-items:stretch;
-
-        height:auto;
-
-        padding:16px;
-
-    }
-
-    .header > div{
-
-        width:100%;
-
-        display:flex;
-
-        align-items:center;
-
-        gap:12px;
-
-    }
-
-    .search{
-
-        width:100%;
-
-    }
+.header{
+    flex-direction:column;
+    align-items:stretch;
+}
 
 }
+
+/* =====================================================
+HIDDEN
+===================================================== */
+
 .hidden{
     display:none;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -547,27 +372,34 @@ MOBILE
 
     <!-- SIDEBAR -->
 
-   <aside class="sidebar" id="sidebar">
+    <aside class="sidebar"
+    id="sidebar">
 
         <div class="logo">
+
             POS PRO
+
         </div>
 
-<div class="menu">
+        <div class="menu">
 
-    <button id="btnDashboard">
-        Dashboard
-    </button>
+            <button id="btnDashboard">
+                Dashboard
+            </button>
 
-    <button id="btnProducts" class="active">
-        Sản phẩm
-    </button>
+            <button
+            id="btnProducts"
+            class="active">
 
-    <button id="btnNhap">
-        Nhập hàng
-    </button>
+                Sản phẩm
 
-</div>
+            </button>
+
+            <button id="btnNhap">
+                Nhập hàng
+            </button>
+
+        </div>
 
     </aside>
 
@@ -577,35 +409,39 @@ MOBILE
 
         <div class="header">
 
-            <div style="display:flex;align-items:center;gap:12px;">
+            <div class="header-left">
 
-                <button class="mobile-toggle"
+                <button
+                class="mobile-toggle"
                 onclick="toggleSidebar()">
+
                     ☰
+
                 </button>
 
                 <div class="page-title"
                 id="pageTitle">
-                    Dashboard
+
+                    Sản phẩm
+
                 </div>
 
             </div>
 
             <input
-                type="text"
-                class="search"
-                id="searchInput"
-                placeholder="Tìm sản phẩm..."
-                oninput="renderProducts()"
-            >
+            type="text"
+            class="search"
+            id="searchInput"
+            placeholder="Tìm sản phẩm..."
+            oninput="renderProducts()">
 
         </div>
 
         <div class="content">
-
             <!-- DASHBOARD -->
 
-         <div id="dashboardPage" class="hidden">
+            <div id="dashboardPage"
+            class="hidden">
 
                 <div class="cards">
 
@@ -638,7 +474,7 @@ MOBILE
                     <div class="card">
 
                         <div class="card-title">
-                            Tổng giá trị kho
+                            Tổng giá trị
                         </div>
 
                         <div class="card-value"
@@ -654,103 +490,85 @@ MOBILE
 
             <!-- PRODUCTS -->
 
-           <div id="productsPage">
-
-<div class="topbar">
-
-    <button class="btn btn-green"
-    onclick="excelFile.click()">
-        Import Excel
-    </button>
-    <button
-class="btn btn-blue"
-onclick="exportExcel()">
-
-    Xuất Excel
-
-</button>
-    <button class="btn btn-blue"
-    onclick="openModal()">
-        Thêm sản phẩm
-    </button>
-
-    <input
-        type="file"
-        id="excelFile"
-        accept=".xlsx,.xls"
-        hidden
-    >
-
-</div>
-
-<div class="table-wrap"
-style="
-padding:0;
-overflow:auto;
-">
-
-    <table
-    style="
-    min-width:100%;
-    margin:0;
-    ">
-
-        <thead>
-
-            <tr>
-
-                <th style="padding-left:16px;">
-                    Mã
-                </th>
-
-                <th>
-                    Tên
-                </th>
-
-                <th>
-                    Giá nhập
-                </th>
-
-                <th>
-                    Giá bán
-                </th>
-
-                <th>
-                    Giá sỉ
-                </th>
-
-                <th>
-                    Tồn
-                </th>
-
-                <th style="
-                width:1%;
-                white-space:nowrap;
-                ">
-                    Thao tác
-                </th>
-
-            </tr>
-
-        </thead>
-
-        <tbody id="productTable"></tbody>
-
-    </table>
-
-</div>
-            </div>
-
-
-            <!-- NHAP -->
-
-            <div id="nhapPage" class="hidden">
+            <div id="productsPage">
 
                 <div class="topbar">
 
-                    <button class="btn btn-blue"
+                    <button
+                    class="btn btn-green"
+                    onclick="excelFile.click()">
+
+                        Import Excel
+
+                    </button>
+
+                    <button
+                    class="btn btn-blue"
+                    onclick="exportExcel()">
+
+                        Xuất Excel
+
+                    </button>
+
+                    <button
+                    class="btn btn-blue"
+                    onclick="openModal()">
+
+                        Thêm sản phẩm
+
+                    </button>
+
+                    <input
+                    type="file"
+                    id="excelFile"
+                    hidden
+                    accept=".xlsx,.xls">
+
+                </div>
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Mã</th>
+                                <th>Tên</th>
+                                <th>Giá nhập</th>
+                                <th>Giá bán</th>
+                                <th>Giá sỉ</th>
+                                <th>Tồn</th>
+                                <th>Thao tác</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="productTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- NHẬP HÀNG -->
+
+            <div id="nhapPage"
+            class="hidden">
+
+                <div class="topbar">
+
+                    <button
+                    class="btn btn-blue"
                     onclick="addNhapRow()">
+
                         + Thêm hàng
+
                     </button>
 
                 </div>
@@ -761,53 +579,52 @@ overflow:auto;
 
                         <thead>
 
-<tr>
+                            <tr>
 
-    <th>Mã hàng</th>
+                                <th>Mã</th>
 
-    <th>Tên sản phẩm</th>
+                                <th>Tên sản phẩm</th>
 
-    <th>SL</th>
+                                <th>SL</th>
 
-    <th>Giá nhập</th>
+                                <th>Giá nhập</th>
 
-    <th>Giá bán</th>
+                                <th>Giá bán</th>
 
-    <th>Thành tiền</th>
+                                <th>Thành tiền</th>
 
-    <th>Xóa</th>
+                                <th>Xóa</th>
 
-</tr>
+                            </tr>
+
                         </thead>
 
-                        <tbody id="nhapTable"></tbody>
+                        <tbody id="nhapTable">
+
+                        </tbody>
 
                     </table>
 
                 </div>
 
-                <div class="nhap-grid">
+                <div class="total-box">
 
-                    <div></div>
+                    <div>Tổng tiền</div>
 
-                    <div class="total-box">
+                    <div class="total-big"
+                    id="tongTien">
 
-                        <div>Tổng tiền</div>
-
-                        <div class="total-big"
-                        id="tongTien">
-                            0đ
-                        </div>
-
-                        <br>
-
-                        <button class="btn btn-blue"
-                        style="width:100%;"
-                        onclick="saveNhap()">
-                            Lưu phiếu nhập
-                        </button>
+                        0đ
 
                     </div>
+
+                    <button
+                    class="btn btn-blue save-btn"
+                    onclick="saveNhap()">
+
+                        Lưu phiếu nhập
+
+                    </button>
 
                 </div>
 
@@ -821,36 +638,22 @@ overflow:auto;
 
 <!-- MODAL -->
 
-<div class="modal" id="modal">
+<div class="modal"
+id="modal">
 
     <div class="modal-box">
 
-        <!-- HEADER -->
-
-        <div style="
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        margin-bottom:20px;
-        ">
+        <div class="modal-header">
 
             <h2 id="modalTitle">
+
                 Sản phẩm
+
             </h2>
 
             <button
-            onclick="closeModal()"
-            style="
-                width:36px;
-                height:36px;
-                border:none;
-                border-radius:10px;
-                background:#ef4444;
-                color:white;
-                font-size:18px;
-                font-weight:700;
-                cursor:pointer;
-            ">
+            class="close-btn"
+            onclick="closeModal()">
 
                 ✕
 
@@ -858,55 +661,62 @@ overflow:auto;
 
         </div>
 
-        <!-- FORM -->
-
         <div class="form-group">
+
             <input
             type="text"
             id="ma"
             placeholder="Mã hàng">
+
         </div>
 
         <div class="form-group">
+
             <input
             type="text"
             id="ten"
             placeholder="Tên hàng">
+
         </div>
 
         <div class="form-group">
+
             <input
             type="number"
             id="giaNhap"
             placeholder="Giá nhập">
+
         </div>
 
         <div class="form-group">
+
             <input
             type="number"
             id="giaBan"
             placeholder="Giá bán">
+
         </div>
 
         <div class="form-group">
+
             <input
             type="number"
             id="giaSi"
             placeholder="Giá sỉ">
+
         </div>
 
         <div class="form-group">
+
             <input
             type="number"
             id="ton"
             placeholder="Tồn kho">
+
         </div>
 
-        <!-- BUTTON -->
-
         <button
-        class="btn btn-blue"
-        style="width:100%;"
+        class="btn btn-blue full-btn"
         onclick="saveProduct()">
 
             Lưu sản phẩm
@@ -914,8 +724,6 @@ overflow:auto;
         </button>
 
     </div>
-
-</div>
 
 </div>
 
@@ -963,19 +771,14 @@ const firebaseConfig = {
 
 }
 
-const app = initializeApp(firebaseConfig)
+const app =
+initializeApp(firebaseConfig)
 
-const db = getDatabase(app)
+const db =
+getDatabase(app)
 
-const productsRef = ref(db,"products")
-
-// =====================================================
-// SIDEBAR
-// =====================================================
-
-const sidebar =
-document.getElementById("sidebar")
-
+const productsRef =
+ref(db,"products")
 
 /* =====================================================
 DATA
@@ -985,6 +788,7 @@ let products = []
 
 let nhapRows = []
 
+let editId = null
 /* =====================================================
 REALTIME
 ===================================================== */
@@ -1007,29 +811,31 @@ onValue(productsRef,(snapshot)=>{
 
     renderProducts()
 
-renderDashboard()
+    renderDashboard()
 
-});
+})
 
 /* =====================================================
-ĐIỀU HƯỚNG TRANG
+MENU MOBILE
+===================================================== */
+
+window.toggleSidebar = function(){
+
+    sidebar.classList.toggle("show")
+
+}
+
+/* =====================================================
+CHUYỂN TRANG
 ===================================================== */
 
 window.showPage = function(page){
 
-    const btnDashboard =
-    document.getElementById("btnDashboard")
+    dashboardPage.classList.add("hidden")
 
-    const btnProducts =
-    document.getElementById("btnProducts")
+    productsPage.classList.add("hidden")
 
-    const btnNhap =
-    document.getElementById("btnNhap")
-
-    const sidebar =
-    document.getElementById("sidebar")
-
-    // RESET ACTIVE
+    nhapPage.classList.add("hidden")
 
     document
     .querySelectorAll(".menu button")
@@ -1039,23 +845,13 @@ window.showPage = function(page){
 
     })
 
-    // ẨN TOÀN BỘ PAGE
-
-    dashboardPage.classList.add("hidden")
-
-    productsPage.classList.add("hidden")
-
-    nhapPage.classList.add("hidden")
-
-    // =================================================
-    // DASHBOARD
-    // =================================================
+    /* DASHBOARD */
 
     if(page === "dashboard"){
 
-        btnDashboard.classList.add("active")
-
         dashboardPage.classList.remove("hidden")
+
+        btnDashboard.classList.add("active")
 
         pageTitle.innerText =
         "Dashboard"
@@ -1065,15 +861,13 @@ window.showPage = function(page){
 
     }
 
-    // =================================================
-    // PRODUCTS
-    // =================================================
+    /* PRODUCTS */
 
     else if(page === "products"){
 
-        btnProducts.classList.add("active")
-
         productsPage.classList.remove("hidden")
+
+        btnProducts.classList.add("active")
 
         pageTitle.innerText =
         "Sản phẩm"
@@ -1083,50 +877,40 @@ window.showPage = function(page){
 
     }
 
-    // =================================================
-    // NHẬP HÀNG
-    // =================================================
+    /* NHẬP HÀNG */
 
-else if(page === "nhap"){
+    else if(page === "nhap"){
 
-    btnNhap.classList.add("active")
+        nhapPage.classList.remove("hidden")
 
-    nhapPage.classList.remove("hidden")
+        btnNhap.classList.add("active")
 
-    pageTitle.innerText =
-    "Nhập hàng"
+        pageTitle.innerText =
+        "Nhập hàng"
 
-    searchInput.style.display =
-    "none"
+        searchInput.style.display =
+        "none"
 
-    // RENDER NHẬP HÀNG
+        if(nhapRows.length === 0){
 
-    renderNhap()
+            addNhapRow()
 
-}
-    // =================================================
-    // MOBILE AUTO CLOSE MENU
-    // =================================================
+        }
+
+        renderNhap()
+
+    }
+
+    /* MOBILE AUTO CLOSE */
 
     if(window.innerWidth <= 900){
 
-        // FORCE ĐÓNG MENU
-
         sidebar.classList.remove("show")
-
-        // FIX CHROME MOBILE CACHE TRANSITION
-
-        sidebar.style.left = "-210px"
-
-        setTimeout(()=>{
-
-            sidebar.style.left = ""
-
-        },10)
 
     }
 
 }
+
 /* =====================================================
 DASHBOARD
 ===================================================== */
@@ -1164,24 +948,14 @@ HIỂN THỊ SẢN PHẨM
 
 window.renderProducts = function(){
 
-    // =================================================
-    // TỪ KHÓA TÌM KIẾM
-    // =================================================
-
     const keyword =
-    searchInput.value
+    (searchInput.value || "")
     .toLowerCase()
     .trim()
 
     let html = ""
 
-    // =================================================
-    // DUYỆT SẢN PHẨM
-    // =================================================
-
     products.forEach((p,index)=>{
-
-        // TÊN + MÃ
 
         const ten =
         (p.ten || "")
@@ -1191,12 +965,8 @@ window.renderProducts = function(){
         (p.ma || "")
         .toLowerCase()
 
-        // TÁCH KEYWORD
-
         const words =
         keyword.split(" ")
-
-        // SEARCH GẦN ĐÚNG
 
         const match =
         words.every(w=>
@@ -1207,226 +977,120 @@ window.renderProducts = function(){
 
         )
 
-// =================================================
-// HIỂN THỊ
-// =================================================
+        if(match){
 
-if(match){
+            html += `
+            <tr>
 
-    html += `
-    <tr>
+                <td>
+                    ${p.ma || ""}
+                </td>
 
-        <!-- MÃ -->
+                <td>
+                    ${p.ten || ""}
+                </td>
 
-        <td style="
-        white-space:nowrap;
-        font-weight:600;
-        ">
+                <td>
+                    ${(Number(p.gia_nhap)||0)
+                    .toLocaleString()}đ
+                </td>
 
-            ${p.ma || ""}
-
-        </td>
-
-        <!-- TÊN -->
-
-        <td style="
-        min-width:220px;
-        font-weight:600;
-        color:#0f172a;
-        ">
-
-            ${p.ten || ""}
-
-        </td>
-
-        <!-- GIÁ NHẬP -->
-
-        <td style="
-        white-space:nowrap;
-        ">
-
-            ${(Number(p.gia_nhap) || 0)
-            .toLocaleString()}đ
-
-        </td>
-
-        <!-- GIÁ BÁN -->
-
-        <td style="
-        white-space:nowrap;
-        color:#2563eb;
-        font-weight:700;
-        ">
-
-            ${(Number(p.gia_ban) || 0)
-            .toLocaleString()}đ
-
-        </td>
-
-        <!-- GIÁ SỈ -->
-
-        <td style="
-        white-space:nowrap;
-        ">
-
-            ${(Number(p.gia_si) || 0)
-            .toLocaleString()}đ
-
-        </td>
-
-        <!-- TỒN -->
-
-        <td>
-
-            <div style="
-            min-width:54px;
-            padding:6px 10px;
-            border-radius:10px;
-            background:#eff6ff;
-            color:#2563eb;
-            font-weight:700;
-            text-align:center;
-            ">
-
-                ${p.ton || 0}
-
-            </div>
-
-        </td>
-
-        <!-- THAO TÁC -->
-
-        <td>
-
-            <div style="
-            display:flex;
-            align-items:center;
-            gap:6px;
-            flex-wrap:nowrap;
-            ">
-
-                <button
-                class="btn btn-blue"
-                onclick="editProduct(${index})"
-                style="
-                    padding:7px 12px;
-                    border-radius:8px;
-                    font-size:12px;
-                    min-width:58px;
+                <td style="
+                color:#2563eb;
+                font-weight:700;
                 ">
+                    ${(Number(p.gia_ban)||0)
+                    .toLocaleString()}đ
+                </td>
 
-                    Sửa
+                <td>
+                    ${(Number(p.gia_si)||0)
+                    .toLocaleString()}đ
+                </td>
 
-                </button>
+                <td>
 
-                <button
-                class="btn btn-red"
-                onclick="deleteProduct(${index})"
-                style="
-                    padding:7px 12px;
-                    border-radius:8px;
-                    font-size:12px;
-                    min-width:58px;
-                ">
+                    <div style="
+                    background:#eff6ff;
+                    color:#2563eb;
+                    padding:6px 10px;
+                    border-radius:6px;
+                    text-align:center;
+                    font-weight:700;
+                    ">
 
-                    Xóa
+                        ${p.ton || 0}
 
-                </button>
+                    </div>
 
-            </div>
+                </td>
 
-        </td>
+                <td>
 
-    </tr>
-    `
+                    <div style="
+                    display:flex;
+                    gap:6px;
+                    ">
 
-}
+                        <button
+                        class="btn btn-blue"
+                        onclick="editProduct(${index})">
+
+                            Sửa
+
+                        </button>
+
+                        <button
+                        class="btn btn-red"
+                        onclick="deleteProduct(${index})">
+
+                            Xóa
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+            `
+
+        }
+
     })
-
-    // =================================================
-    // KHÔNG CÓ DỮ LIỆU
-    // =================================================
-
-    if(html === ""){
-
-        html = `
-        <tr>
-
-            <td colspan="7"
-            style="
-                text-align:center;
-                padding:40px;
-                color:#94a3b8;
-                font-weight:600;
-            ">
-
-                Không tìm thấy sản phẩm
-
-            </td>
-
-        </tr>
-        `
-    }
-
-    // =================================================
-    // RENDER TABLE
-    // =================================================
 
     productTable.innerHTML = html
 
 }
+
 /* =====================================================
-XUẤT FILE EXCEL
+XUẤT EXCEL
 ===================================================== */
 
 window.exportExcel = function(){
 
-    // KHÔNG CÓ DỮ LIỆU
-
-    if(products.length === 0){
-
-        alert("Không có dữ liệu để xuất")
-
-        return
-
-    }
-
-    // TẠO DỮ LIỆU
-
     const data =
     products.map(p=>({
 
-        "Mã hàng":
-        p.ma,
+        "Mã hàng":p.ma,
 
-        "Tên hàng":
-        p.ten,
+        "Tên hàng":p.ten,
 
-        "Giá nhập":
-        p.gia_nhap,
+        "Giá nhập":p.gia_nhap,
 
-        "Giá bán":
-        p.gia_ban,
+        "Giá bán":p.gia_ban,
 
-        "Giá sỉ":
-        p.gia_si,
+        "Giá sỉ":p.gia_si,
 
-        "Tồn kho":
-        p.ton
+        "Tồn kho":p.ton
 
     }))
-
-    // TẠO SHEET
 
     const worksheet =
     XLSX.utils.json_to_sheet(data)
 
-    // TẠO FILE
-
     const workbook =
     XLSX.utils.book_new()
-
-    // THÊM SHEET
 
     XLSX.utils.book_append_sheet(
 
@@ -1436,35 +1100,24 @@ window.exportExcel = function(){
 
     )
 
-    // XUẤT FILE
-
     XLSX.writeFile(
 
         workbook,
-
-        "POS_PRO_SANPHAM.xlsx"
+        "POS_PRO.xlsx"
 
     )
 
 }
-
 /* =====================================================
 MỞ MODAL
 ===================================================== */
 
 window.openModal = function(){
 
-    // RESET EDIT
-
     editId = null
 
-    // RESET TITLE
-
-    document
-    .querySelector(".modal-box h2")
-    .innerText = "Sản phẩm"
-
-    // RESET FORM
+    modalTitle.innerText =
+    "Thêm sản phẩm"
 
     ma.value = ""
     ten.value = ""
@@ -1473,27 +1126,31 @@ window.openModal = function(){
     giaSi.value = ""
     ton.value = ""
 
-    // HIỆN MODAL
-
-    modal.style.display = "flex"
+    modal.style.display =
+    "flex"
 
 }
 
 /* =====================================================
-EDIT PRODUCT
+ĐÓNG MODAL
 ===================================================== */
 
-let editId = null
+window.closeModal = function(){
+
+    modal.style.display =
+    "none"
+
+}
+
+/* =====================================================
+SỬA SẢN PHẨM
+===================================================== */
 
 window.editProduct = function(index){
 
     const p = products[index]
 
-    // LƯU ID
-
     editId = p.id
-
-    // ĐỔ DỮ LIỆU
 
     ma.value = p.ma
 
@@ -1507,55 +1164,27 @@ window.editProduct = function(index){
 
     ton.value = p.ton
 
-    // TITLE
-
-    document
-    .querySelector(".modal-box h2")
-    .innerText = "Sửa sản phẩm"
-
-    // HIỆN MODAL
-
-    modal.style.display = "flex"
-
-}
-
-/* =====================================================
-ĐÓNG MODAL
-===================================================== */
-
-window.closeModal = function(){
-
-    // RESET EDIT
-
-    editId = null
-
-    // RESET TITLE
-
     modalTitle.innerText =
-    "Sản phẩm"
-
-    // RESET FORM
-
-    ma.value = ""
-    ten.value = ""
-    giaNhap.value = ""
-    giaBan.value = ""
-    giaSi.value = ""
-    ton.value = ""
-
-    // ĐÓNG MODAL
+    "Sửa sản phẩm"
 
     modal.style.display =
-    "none"
+    "flex"
 
 }
+
 /* =====================================================
-SAVE PRODUCT
+LƯU SẢN PHẨM
 ===================================================== */
 
 window.saveProduct = function(){
 
-    // DATA
+    if(!ma.value || !ten.value){
+
+        alert("Nhập mã và tên")
+
+        return
+
+    }
 
     const data = {
 
@@ -1573,9 +1202,7 @@ window.saveProduct = function(){
 
     }
 
-    // =================================================
-    // SỬA
-    // =================================================
+    /* SỬA */
 
     if(editId){
 
@@ -1592,9 +1219,7 @@ window.saveProduct = function(){
 
     }
 
-    // =================================================
-    // THÊM
-    // =================================================
+    /* THÊM */
 
     else{
 
@@ -1605,13 +1230,10 @@ window.saveProduct = function(){
 
     }
 
-    // =================================================
-    // ĐÓNG MODAL
-    // =================================================
-
     closeModal()
 
 }
+
 /* =====================================================
 XÓA SẢN PHẨM
 ===================================================== */
@@ -1632,6 +1254,101 @@ window.deleteProduct = function(index){
     }
 
 }
+
+/* =====================================================
+IMPORT EXCEL
+===================================================== */
+
+excelFile.addEventListener(
+"change",
+e=>{
+
+    const file =
+    e.target.files[0]
+
+    if(!file) return
+
+    const reader =
+    new FileReader()
+
+    reader.onload = evt=>{
+
+        const data =
+        new Uint8Array(
+            evt.target.result
+        )
+
+        const workbook =
+        XLSX.read(
+            data,
+            {type:"array"}
+        )
+
+        const sheet =
+        workbook.Sheets[
+            workbook.SheetNames[0]
+        ]
+
+        const json =
+        XLSX.utils.sheet_to_json(sheet)
+
+        json.forEach(row=>{
+
+            push(productsRef,{
+
+                ma:
+                row["Mã hàng"] || "",
+
+                ten:
+                row["Tên hàng"] || "",
+
+                gia_nhap:Number(
+                    row["Giá nhập"] || 0
+                ),
+
+                gia_ban:Number(
+                    row["Giá bán"] || 0
+                ),
+
+                gia_si:Number(
+                    row["Giá sỉ"] || 0
+                ),
+
+                ton:Number(
+                    row["Tồn kho"] || 0
+                )
+
+            })
+
+        })
+
+        alert("Import thành công")
+
+    }
+
+    reader.readAsArrayBuffer(file)
+
+})
+
+/* =====================================================
+THÊM DÒNG NHẬP
+===================================================== */
+
+window.addNhapRow = function(){
+
+    nhapRows.push({
+
+        ma:"",
+        ten:"",
+        sl:1,
+        gia:0,
+        giaBan:0
+
+    })
+
+    renderNhap()
+
+}
 /* =====================================================
 RENDER NHẬP HÀNG
 ===================================================== */
@@ -1644,39 +1361,24 @@ window.renderNhap = function(){
 
     nhapRows.forEach((r,index)=>{
 
-        // TÌM SẢN PHẨM
-
-        const foundProduct =
+        const found =
         products.find(
             p=>p.ma===r.ma
         )
 
-        // TÊN
-
         const tenSP =
-        foundProduct
-        ? foundProduct.ten
+        found
+        ? found.ten
         : (r.ten || "")
-
-        // TỔNG
 
         tong += r.sl * r.gia
 
-        // =================================================
-        // ROW
-        // =================================================
-
         html += `
-        <tr style="
-        background:white;
-        border-bottom:1px solid #e2e8f0;
-        height:46px;
-        ">
+        <tr>
 
             <!-- MÃ -->
 
             <td style="
-            padding:0;
             width:140px;
             min-width:140px;
             ">
@@ -1685,25 +1387,13 @@ window.renderNhap = function(){
                 type="text"
                 value="${r.ma}"
                 onchange="changeMa(${index},this.value)"
-                placeholder="Mã hàng"
-                style="
-                    width:100%;
-                    height:46px;
-                    border:none;
-                    border-right:1px solid #e2e8f0;
-                    padding:0 12px;
-                    font-size:13px;
-                    outline:none;
-                    background:white;
-                    box-sizing:border-box;
-                ">
+                placeholder="Mã hàng">
 
             </td>
 
             <!-- TÊN -->
 
             <td style="
-            padding:0;
             min-width:260px;
             ">
 
@@ -1711,25 +1401,13 @@ window.renderNhap = function(){
                 type="text"
                 value="${tenSP}"
                 onchange="changeTen(${index},this.value)"
-                placeholder="Tên sản phẩm"
-                style="
-                    width:100%;
-                    height:46px;
-                    border:none;
-                    border-right:1px solid #e2e8f0;
-                    padding:0 12px;
-                    font-size:13px;
-                    outline:none;
-                    background:white;
-                    box-sizing:border-box;
-                ">
+                placeholder="Tên sản phẩm">
 
             </td>
 
             <!-- SL -->
 
             <td style="
-            padding:0;
             width:70px;
             min-width:70px;
             ">
@@ -1739,15 +1417,7 @@ window.renderNhap = function(){
                 value="${r.sl}"
                 onchange="changeSl(${index},this.value)"
                 style="
-                    width:100%;
-                    height:46px;
-                    border:none;
-                    border-right:1px solid #e2e8f0;
-                    padding:0 10px;
-                    text-align:center;
-                    font-size:13px;
-                    outline:none;
-                    box-sizing:border-box;
+                text-align:center;
                 ">
 
             </td>
@@ -1755,7 +1425,6 @@ window.renderNhap = function(){
             <!-- GIÁ NHẬP -->
 
             <td style="
-            padding:0;
             width:120px;
             min-width:120px;
             ">
@@ -1763,24 +1432,13 @@ window.renderNhap = function(){
                 <input
                 type="number"
                 value="${r.gia}"
-                onchange="changeGia(${index},this.value)"
-                style="
-                    width:100%;
-                    height:46px;
-                    border:none;
-                    border-right:1px solid #e2e8f0;
-                    padding:0 12px;
-                    font-size:13px;
-                    outline:none;
-                    box-sizing:border-box;
-                ">
+                onchange="changeGia(${index},this.value)">
 
             </td>
 
             <!-- GIÁ BÁN -->
 
             <td style="
-            padding:0;
             width:120px;
             min-width:120px;
             ">
@@ -1788,41 +1446,26 @@ window.renderNhap = function(){
                 <input
                 type="number"
                 value="${r.giaBan || 0}"
-                onchange="changeGiaBan(${index},this.value)"
-                style="
-                    width:100%;
-                    height:46px;
-                    border:none;
-                    border-right:1px solid #e2e8f0;
-                    padding:0 12px;
-                    font-size:13px;
-                    outline:none;
-                    background:#f8fafc;
-                    box-sizing:border-box;
-                ">
+                onchange="changeGiaBan(${index},this.value)">
 
             </td>
 
             <!-- THÀNH TIỀN -->
 
             <td style="
-            padding:0;
             width:140px;
             min-width:140px;
             ">
 
                 <div style="
-                width:100%;
-                height:46px;
+                height:44px;
                 display:flex;
                 align-items:center;
                 justify-content:center;
                 background:#f8fafc;
                 color:#2563eb;
                 font-weight:700;
-                font-size:13px;
                 border-right:1px solid #e2e8f0;
-                box-sizing:border-box;
                 ">
 
                     ${(r.sl*r.gia).toLocaleString()}đ
@@ -1834,22 +1477,17 @@ window.renderNhap = function(){
             <!-- XÓA -->
 
             <td style="
-            padding:0;
             width:70px;
             min-width:70px;
-            max-width:70px;
             ">
 
                 <button
                 class="btn btn-red"
                 onclick="removeNhap(${index})"
                 style="
-                    width:100%;
-                    height:46px;
-                    border:none;
-                    border-radius:0;
-                    font-size:12px;
-                    display:block;
+                width:100%;
+                height:44px;
+                border-radius:0;
                 ">
 
                     Xóa
@@ -1869,6 +1507,7 @@ window.renderNhap = function(){
     tong.toLocaleString() + "đ"
 
 }
+
 /* =====================================================
 ĐỔI MÃ
 ===================================================== */
@@ -1907,11 +1546,10 @@ window.changeTen = function(index,val){
 
     nhapRows[index].ten = val
 
-    renderNhap()
-
 }
+
 /* =====================================================
-ĐỔI SỐ LƯỢNG
+ĐỔI SL
 ===================================================== */
 
 window.changeSl = function(index,val){
@@ -1965,6 +1603,14 @@ LƯU NHẬP HÀNG
 
 window.saveNhap = function(){
 
+    if(nhapRows.length === 0){
+
+        alert("Chưa có sản phẩm")
+
+        return
+
+    }
+
     nhapRows.forEach(r=>{
 
         const found =
@@ -1991,6 +1637,9 @@ window.saveNhap = function(){
                     Number(r.gia),
 
                     gia_ban:
+                    Number(r.giaBan),
+
+                    gia_si:
                     Number(r.giaBan)
 
                 }
@@ -2009,77 +1658,34 @@ window.saveNhap = function(){
 
 }
 
-    
 /* =====================================================
-MENU MOBILE
+MENU
 ===================================================== */
 
-window.toggleSidebar = function(){
+btnDashboard.onclick = ()=>{
 
-    document
-    .getElementById("sidebar")
-    .classList.toggle("show")
+    showPage("dashboard")
 
 }
 
-/* =====================================================
-SỰ KIỆN MENU MOBILE FIX
-===================================================== */
+btnProducts.onclick = ()=>{
 
-document
-.getElementById("btnDashboard")
-.onclick = function(){
-
-    // ĐÓNG MENU TRƯỚC
-
-    sidebar.classList.remove("show")
-
-    // MỞ PAGE SAU
-
-    setTimeout(()=>{
-
-        showPage("dashboard")
-
-    },50)
+    showPage("products")
 
 }
 
-document
-.getElementById("btnProducts")
-.onclick = function(){
+btnNhap.onclick = ()=>{
 
-    sidebar.classList.remove("show")
-
-    setTimeout(()=>{
-
-        showPage("products")
-
-    },50)
+    showPage("nhap")
 
 }
 
-document
-.getElementById("btnNhap")
-.onclick = function(){
-
-    sidebar.classList.remove("show")
-
-    setTimeout(()=>{
-
-        showPage("nhap")
-
-    },50)
-
-}
 /* =====================================================
 KHỞI TẠO
 ===================================================== */
 
-renderDashboard()
-
-renderProducts()
-
 showPage("products")
+
 </script>
 
 </body>
