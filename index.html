@@ -271,89 +271,117 @@ MOBILE
 }
 
 @media(max-width:900px){
+
     .sidebar{
-    width:210px;
-    padding-top:18px;
-}
 
-.logo{
-    font-size:22px;
-    padding:0 20px 18px;
-}
+        width:210px;
+        padding-top:18px;
 
-.menu button{
-    padding:14px 18px;
-    font-size:14px;
-}
+        left:-230px;
 
-.content{
-    padding:16px;
-}
+        transition:.25s;
 
-.card{
-    border-radius:20px;
-    padding:20px;
-}
-
-.card-value{
-    font-size:30px;
-}
-
-.table-wrap{
-    border-radius:18px;
-}
-    .sidebar{
-        left:-260px;
-        transition:.3s;
     }
 
     .sidebar.show{
+
         left:0;
+
+    }
+
+    .logo{
+
+        font-size:22px;
+        padding:0 20px 18px;
+
+    }
+
+    .menu button{
+
+        padding:14px 18px;
+        font-size:14px;
+
     }
 
     .main{
+
         margin-left:0;
+
+    }
+
+    .content{
+
+        padding:16px;
+
     }
 
     .cards{
+
         grid-template-columns:1fr;
+
+    }
+
+    .card{
+
+        border-radius:20px;
+        padding:20px;
+
+    }
+
+    .card-value{
+
+        font-size:30px;
+
+    }
+
+    .table-wrap{
+
+        border-radius:18px;
+
     }
 
     .mobile-toggle{
+
         display:block;
         border:none;
         background:#2563eb;
         color:white;
         padding:10px 14px;
         border-radius:10px;
-    }
 
-    .search{
-        width:100%;
     }
 
     .nhap-grid{
+
         grid-template-columns:1fr;
+
     }
-.header{
-    flex-direction:column;
-    align-items:stretch;
-    height:auto;
-    padding:16px;
-}
 
-.header > div{
-    width:100%;
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
+    .header{
 
-.search{
-    width:100%;
-}
-}
+        flex-direction:column;
+        align-items:stretch;
+        height:auto;
+        padding:16px;
 
+    }
+
+    .header > div{
+
+        width:100%;
+        display:flex;
+        align-items:center;
+        gap:12px;
+
+    }
+
+    .search{
+
+        width:100%;
+
+    }
+
+}
 .hidden{
     display:none;
 }
