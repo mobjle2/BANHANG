@@ -922,20 +922,23 @@ window.showPage = function(page){
     // NHẬP HÀNG
     // =================================================
 
-    else if(page === "nhap"){
+else if(page === "nhap"){
 
-        btnNhap.classList.add("active")
+    btnNhap.classList.add("active")
 
-        nhapPage.classList.remove("hidden")
+    nhapPage.classList.remove("hidden")
 
-        pageTitle.innerText =
-        "Nhập hàng"
+    pageTitle.innerText =
+    "Nhập hàng"
 
-        searchInput.style.display =
-        "none"
+    searchInput.style.display =
+    "none"
 
-    }
+    // RENDER NHẬP HÀNG
 
+    renderNhap()
+
+}
     // =================================================
     // MOBILE AUTO CLOSE MENU
     // =================================================
