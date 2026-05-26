@@ -1,323 +1,1081 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quản Lý Giá Hàng</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>POS Manager Pro</title>
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 :root{
---primary:#1976d2;
---bg:#f4f6f8;
+--sidebar:#111827;
+--sidebar-hover:#1f2937;
+--primary:#2563eb;
+--primary2:#1d4ed8;
+--bg:#f3f4f6;
 --card:#ffffff;
---text:#1f2937;
+--text:#111827;
 --muted:#6b7280;
 --border:#e5e7eb;
+--danger:#dc2626;
+--success:#16a34a;
 }
 
 body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+font-family:Inter,Segoe UI,sans-serif;
 background:var(--bg);
 color:var(--text);
+overflow:hidden;
 }
 
-/* HEADER */
-.header{
-background:var(--primary);
+/* ===== LAYOUT ===== */
+
+.app{
+display:flex;
+height:100vh;
+}
+
+/* ===== SIDEBAR ===== */
+
+.sidebar{
+width:260px;
+background:var(--sidebar);
 color:white;
-padding:14px;
-text-align:center;
-font-weight:600;
-font-size:17px;
+display:flex;
+flex-direction:column;
+padding:20px 0;
 }
 
-/* VIEW */
-.view{ padding:16px; padding-bottom:90px; }
-
-/* INPUT */
-input,select{
-width:100%;
-padding:12px;
-border-radius:8px;
-border:1px solid var(--border);
-font-size:15px;
+.logo{
+padding:0 20px 20px;
+font-size:24px;
+font-weight:700;
+border-bottom:1px solid rgba(255,255,255,0.08);
 margin-bottom:10px;
 }
 
-/* BUTTON */
-button{
-width:100%;
-padding:12px;
-border-radius:8px;
-border:none;
-background:var(--primary);
-color:white;
-font-weight:500;
+.menu{
+flex:1;
+overflow:auto;
 }
 
-/* CARD */
-.card{
-background:var(--card);
-border-radius:12px;
-padding:14px;
-margin-bottom:12px;
+.menu-item{
+display:flex;
+align-items:center;
+gap:14px;
+padding:14px 20px;
+cursor:pointer;
+transition:.2s;
+font-size:15px;
+}
+
+.menu-item:hover{
+background:var(--sidebar-hover);
+}
+
+.menu-item.active{
+background:var(--primary);
+}
+
+.menu-item svg{
+width:20px;
+height:20px;
+}
+
+/* ===== MAIN ===== */
+
+.main{
+flex:1;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+}
+
+/* ===== HEADER ===== */
+
+.header{
+height:70px;
+background:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 24px;
+border-bottom:1px solid var(--border);
+}
+
+.header-left{
+font-size:22px;
+font-weight:700;
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.search-box{
+width:320px;
+padding:12px 14px;
+border-radius:10px;
 border:1px solid var(--border);
+font-size:14px;
+}
+
+/* ===== CONTENT ===== */
+
+.content{
+flex:1;
+overflow:auto;
+padding:24px;
+}
+
+/* ===== DASHBOARD ===== */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:24px;
+}
+
+.stat-card{
+background:white;
+padding:20px;
+border-radius:18px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.stat-title{
+font-size:14px;
+color:var(--muted);
+margin-bottom:10px;
+}
+
+.stat-value{
+font-size:30px;
+font-weight:700;
+}
+
+/* ===== CARD ===== */
+
+.card{
+background:white;
+border-radius:18px;
+padding:20px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+margin-bottom:20px;
+}
+
+/* ===== BUTTON ===== */
+
+.btn{
+border:none;
+padding:12px 18px;
+border-radius:12px;
+cursor:pointer;
+font-weight:600;
+transition:.2s;
+}
+
+.btn-primary{
+background:var(--primary);
+color:white;
+}
+
+.btn-primary:hover{
+background:var(--primary2);
+}
+
+.btn-danger{
+background:var(--danger);
+color:white;
+}
+
+.btn-success{
+background:var(--success);
+color:white;
+}
+
+/* ===== TABLE ===== */
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:14px;
+border-bottom:1px solid var(--border);
+text-align:left;
+font-size:14px;
+}
+
+th{
+background:#f9fafb;
+font-weight:600;
+}
+
+tr:hover{
+background:#f9fafb;
+}
+
+/* ===== INPUT ===== */
+
+.input{
+width:100%;
+padding:12px;
+border-radius:12px;
+border:1px solid var(--border);
+font-size:14px;
+margin-bottom:14px;
+}
+
+textarea.input{
+height:100px;
+resize:none;
+}
+
+/* ===== MODAL ===== */
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.45);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:999;
+}
+
+.modal-box{
+width:450px;
+max-width:95%;
+background:white;
+border-radius:22px;
+padding:24px;
+animation:show .2s ease;
+}
+
+@keyframes show{
+from{
+transform:scale(.9);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.modal-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+font-size:20px;
+font-weight:700;
+}
+
+/* ===== SEARCH RESULT ===== */
+
+.product-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+gap:18px;
+}
+
+.product-card{
+background:white;
+border-radius:18px;
+padding:18px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.product-name{
+font-size:18px;
+font-weight:700;
+margin-bottom:10px;
 }
 
 .price{
-font-size:22px;
+font-size:28px;
 font-weight:700;
 color:var(--primary);
 }
 
 .price-si{
+margin-top:6px;
 font-size:14px;
 color:#2563eb;
-font-weight:600;
-margin-top:4px;
 }
 
-.meta{
+.stock{
+margin-top:10px;
 font-size:14px;
 color:var(--muted);
-margin-top:4px;
 }
 
-/* NAV */
-.nav{
-position:fixed;
-bottom:0;
-width:100%;
-display:flex;
-background:white;
-border-top:1px solid var(--border);
+/* ===== HIDDEN ===== */
+
+.hidden{
+display:none!important;
 }
 
-.nav-item{
-flex:1;
+/* ===== MOBILE ===== */
+
+@media(max-width:900px){
+
+.sidebar{
+width:78px;
+}
+
+.logo{
+font-size:18px;
 text-align:center;
-padding:8px 0;
-font-size:12px;
-color:var(--muted);
+padding:0 10px 20px;
 }
 
-.nav-item svg{
-width:20px;
-height:20px;
-margin-bottom:4px;
-}
-
-.nav-item.active{ color:var(--primary); font-weight:600; }
-
-/* MODAL */
-.modal{
-position:fixed;
-top:0;left:0;right:0;bottom:0;
-background:rgba(0,0,0,0.4);
+.menu-item span{
 display:none;
-align-items:center;
-justify-content:center;
 }
 
-.modal-box{
-background:white;
-width:92%;
-max-width:420px;
-border-radius:12px;
-padding:16px;
+.search-box{
+width:180px;
 }
 
-.modal-header{
-font-weight:600;
-margin-bottom:10px;
-display:flex;
-justify-content:space-between;
 }
-
-.hidden{display:none}
 </style>
 </head>
 
 <body>
 
-<div class="header">Quản Lý Giá Hàng</div>
+<div class="app">
 
-<!-- ===== TRA CỨU ===== -->
-<div id="view-search" class="view">
-<input id="searchInput" placeholder="Tìm mã / tên / barcode">
-<button onclick="startScan()">📷 Quét barcode</button>
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+<div class="logo">
+POS PRO
+</div>
+
+<div class="menu">
+
+<div class="menu-item active" onclick="showView('dashboard',this)">
+<i data-lucide="layout-dashboard"></i>
+<span>Dashboard</span>
+</div>
+
+<div class="menu-item" onclick="showView('search',this)">
+<i data-lucide="search"></i>
+<span>Tra cứu</span>
+</div>
+
+<div class="menu-item" onclick="showView('products',this)">
+<i data-lucide="package"></i>
+<span>Sản phẩm</span>
+</div>
+
+<div class="menu-item" onclick="showView('import',this)">
+<i data-lucide="upload"></i>
+<span>Import Excel</span>
+</div>
+
+<div class="menu-item" onclick="showView('nhap',this)">
+<i data-lucide="download"></i>
+<span>Nhập hàng</span>
+</div>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- HEADER -->
+<div class="header">
+
+<div class="header-left" id="pageTitle">
+Dashboard
+</div>
+
+<div class="header-right">
+
+<input
+class="search-box"
+id="globalSearch"
+placeholder="Tìm sản phẩm..."
+oninput="globalSearch()"
+/>
+
+</div>
+
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+<!-- DASHBOARD -->
+<div id="view-dashboard">
+
+<div class="stats">
+
+<div class="stat-card">
+<div class="stat-title">Tổng sản phẩm</div>
+<div class="stat-value" id="statProducts">0</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-title">Tổng tồn kho</div>
+<div class="stat-value" id="statStock">0</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-title">Tổng giá trị kho</div>
+<div class="stat-value" id="statValue">0đ</div>
+</div>
+
+</div>
+
+<div class="card">
+<h2>Chào mừng đến POS Manager Pro</h2>
+<br>
+<p>Quản lý kho hàng hiện đại, giao diện đẹp và dễ sử dụng.</p>
+</div>
+
+</div>
+
+<!-- SEARCH -->
+<div id="view-search" class="hidden">
+
+<div class="card">
+
+<div style="display:flex;gap:12px;margin-bottom:20px;">
+
+<input
+class="input"
+id="searchInput"
+placeholder="Tìm mã / tên / barcode"
+oninput="renderSearch()"
+/>
+
+<button class="btn btn-primary" onclick="startScan()">
+Quét Barcode
+</button>
+
+</div>
+
 <div id="reader" class="hidden"></div>
-<div id="result"></div>
+
+<div id="searchResult" class="product-grid"></div>
+
 </div>
 
-<!-- ===== SẢN PHẨM ===== -->
-<div id="view-products" class="view hidden">
-<button onclick="openModal()">➕ Tạo sản phẩm</button>
-<div id="productList"></div>
 </div>
 
-<!-- ===== NHẬP HÀNG ===== -->
-<div id="view-nhap" class="view hidden">
-<h3>Phiếu nhập hàng</h3>
+<!-- PRODUCTS -->
+<div id="view-products" class="hidden">
 
-<select id="nhapSelect"></select>
-<input id="nhapSL" type="number" placeholder="Số lượng nhập">
+<div class="card">
 
-<button onclick="nhapHang()">Thêm vào phiếu</button>
+<div style="display:flex;justify-content:space-between;margin-bottom:20px;">
 
-<div id="phieu"></div>
+<h2>Danh sách sản phẩm</h2>
 
-<hr>
-<b>Tổng tiền:</b> <span id="tongTien">0</span> đ
-<button onclick="hoanThanhNhap()">Hoàn thành nhập</button>
+<button class="btn btn-primary" onclick="openModal()">
++ Thêm sản phẩm
+</button>
+
 </div>
 
-<!-- ===== IMPORT ===== -->
-<div id="view-import" class="view hidden">
-<input type="file" id="fileInput">
-<button onclick="importExcel()">Import từ KiotViet</button>
+<table>
+
+<thead>
+<tr>
+<th>Mã</th>
+<th>Tên</th>
+<th>Giá bán</th>
+<th>Giá sỉ</th>
+<th>Tồn</th>
+<th>Thao tác</th>
+</tr>
+</thead>
+
+<tbody id="productTable"></tbody>
+
+</table>
+
 </div>
 
-<!-- ===== MODAL TẠO SP ===== -->
+</div>
+
+<!-- IMPORT -->
+<div id="view-import" class="hidden">
+
+<div class="card">
+
+<h2>Import Excel</h2>
+
+<br>
+
+<input type="file" id="fileInput" class="input">
+
+<button class="btn btn-success" onclick="importExcel()">
+Import từ KiotViet
+</button>
+
+</div>
+
+</div>
+
+<!-- NHAP -->
+<div id="view-nhap" class="hidden">
+
+<div class="card">
+
+<h2>Phiếu nhập hàng</h2>
+
+<br>
+
+<select id="nhapSelect" class="input"></select>
+
+<input
+id="nhapSL"
+type="number"
+class="input"
+placeholder="Số lượng"
+/>
+
+<button class="btn btn-primary" onclick="nhapHang()">
+Thêm vào phiếu
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>Danh sách nhập</h3>
+
+<br>
+
+<div id="phieuList"></div>
+
+<br>
+
+<h2>Tổng tiền: <span id="tongTien">0</span> đ</h2>
+
+<br>
+
+<button class="btn btn-success" onclick="hoanThanhNhap()">
+Hoàn thành nhập
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MODAL -->
 <div class="modal" id="modal">
+
 <div class="modal-box">
+
 <div class="modal-header">
-<span>Tạo sản phẩm</span>
-<span onclick="closeModal()">✕</span>
+<span>Thêm sản phẩm</span>
+
+<div style="cursor:pointer" onclick="closeModal()">
+✕
 </div>
 
-<input id="mMa" placeholder="Mã sản phẩm">
-<input id="mTen" placeholder="Tên sản phẩm">
-<input id="mGiaNhap" type="number" placeholder="Giá nhập">
-<input id="mGiaBan" type="number" placeholder="Giá bán">
-<input id="mGiaSi" type="number" placeholder="Giá sỉ">
-<input id="mTon" type="number" placeholder="Tồn ban đầu">
-
-<button onclick="saveProduct()">Lưu</button>
-</div>
 </div>
 
-<!-- ===== NAV ===== -->
-<div class="nav">
-<div class="nav-item active" onclick="show('search',this)"><i data-lucide="search"></i>Tra cứu</div>
-<div class="nav-item" onclick="show('products',this)"><i data-lucide="box"></i>Sản phẩm</div>
-<div class="nav-item" onclick="show('nhap',this)"><i data-lucide="download"></i>Nhập</div>
-<div class="nav-item" onclick="show('import',this)"><i data-lucide="upload"></i>Import</div>
+<input id="mMa" class="input" placeholder="Mã sản phẩm">
+
+<input id="mTen" class="input" placeholder="Tên sản phẩm">
+
+<input id="mGiaNhap" class="input" type="number" placeholder="Giá nhập">
+
+<input id="mGiaBan" class="input" type="number" placeholder="Giá bán">
+
+<input id="mGiaSi" class="input" type="number" placeholder="Giá sỉ">
+
+<input id="mTon" class="input" type="number" placeholder="Tồn kho">
+
+<button class="btn btn-primary" onclick="saveProduct()">
+Lưu sản phẩm
+</button>
+
+</div>
+
 </div>
 
 <script>
+
 lucide.createIcons();
 
-let products=JSON.parse(localStorage.getItem("products"))||[];
-let phieu=[];
+let products = JSON.parse(localStorage.getItem("products")) || [];
 
-/* NAV */
-function show(v,el){
-document.querySelectorAll('.view').forEach(x=>x.classList.add('hidden'));
-document.getElementById('view-'+v).classList.remove('hidden');
-document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+let phieuNhap = [];
+
+/* ===== VIEW ===== */
+
+function showView(view,el){
+
+document.querySelectorAll('[id^="view-"]').forEach(v=>{
+v.classList.add('hidden');
+});
+
+document.getElementById('view-'+view).classList.remove('hidden');
+
+document.querySelectorAll('.menu-item').forEach(i=>{
+i.classList.remove('active');
+});
+
 el.classList.add('active');
-render();
+
+pageTitle.innerText = el.innerText.trim();
+
+renderAll();
+
 }
 
-/* SEARCH */
-searchInput.oninput=()=>renderSearch();
+/* ===== DASHBOARD ===== */
+
+function renderDashboard(){
+
+statProducts.innerText = products.length;
+
+let stock = 0;
+let value = 0;
+
+products.forEach(p=>{
+
+stock += Number(p.ton || 0);
+
+value += (Number(p.gia_nhap || 0) * Number(p.ton || 0));
+
+});
+
+statStock.innerText = stock;
+
+statValue.innerText = value.toLocaleString() + "đ";
+
+}
+
+/* ===== PRODUCTS ===== */
+
+function renderProducts(){
+
+productTable.innerHTML = '';
+
+nhapSelect.innerHTML = '';
+
+products.forEach((p,index)=>{
+
+productTable.innerHTML += `
+<tr>
+<td>${p.ma}</td>
+<td>${p.ten}</td>
+<td>${Number(p.gia_ban).toLocaleString()}đ</td>
+<td>${Number(p.gia_si).toLocaleString()}đ</td>
+<td>${p.ton}</td>
+
+<td style="display:flex;gap:8px;">
+
+<button
+class="btn btn-danger"
+onclick="deleteProduct(${index})"
+>
+Xóa
+</button>
+
+</td>
+
+</tr>
+`;
+
+nhapSelect.innerHTML += `
+<option value="${index}">
+${p.ten}
+</option>
+`;
+
+});
+
+}
+
+/* ===== SEARCH ===== */
+
 function renderSearch(){
-result.innerHTML='';
-products.filter(p=>
-p.ma.includes(searchInput.value)||p.ten.includes(searchInput.value)
-).forEach(p=>{
-result.innerHTML+=`
-<div class="card">
-<b>${p.ten}</b>
-<div class="price">${p.gia_ban} đ</div>
-<div class="price-si">Giá sỉ: ${p.gia_si} đ</div>
-<div class="meta">Tồn: ${p.ton}</div>
-</div>`;
+
+let key = searchInput.value.toLowerCase();
+
+searchResult.innerHTML = '';
+
+let arr = products.filter(p=>
+
+(p.ma || '').toLowerCase().includes(key) ||
+
+(p.ten || '').toLowerCase().includes(key)
+
+);
+
+arr.forEach(p=>{
+
+searchResult.innerHTML += `
+<div class="product-card">
+
+<div class="product-name">
+${p.ten}
+</div>
+
+<div class="price">
+${Number(p.gia_ban).toLocaleString()}đ
+</div>
+
+<div class="price-si">
+Giá sỉ: ${Number(p.gia_si).toLocaleString()}đ
+</div>
+
+<div class="stock">
+Tồn kho: ${p.ton}
+</div>
+
+</div>
+`;
+
 });
+
 }
 
-/* PRODUCTS */
-function render(){
-productList.innerHTML='';
-nhapSelect.innerHTML='';
-products.forEach((p,i)=>{
-productList.innerHTML+=`<div class="card">${p.ten} (${p.ma})</div>`;
-nhapSelect.innerHTML+=`<option value="${i}">${p.ten}</option>`;
-});
+/* ===== GLOBAL SEARCH ===== */
+
+function globalSearch(){
+
+let v = globalSearch.value.toLowerCase();
+
+if(!v){
+renderProducts();
+return;
 }
 
-/* MODAL */
-function openModal(){modal.style.display='flex'}
-function closeModal(){modal.style.display='none'}
+productTable.innerHTML='';
+
+products
+.filter(p=>
+
+(p.ten || '').toLowerCase().includes(v) ||
+
+(p.ma || '').toLowerCase().includes(v)
+
+)
+.forEach((p,index)=>{
+
+productTable.innerHTML += `
+<tr>
+<td>${p.ma}</td>
+<td>${p.ten}</td>
+<td>${Number(p.gia_ban).toLocaleString()}đ</td>
+<td>${Number(p.gia_si).toLocaleString()}đ</td>
+<td>${p.ton}</td>
+
+<td>
+
+<button
+class="btn btn-danger"
+onclick="deleteProduct(${index})"
+>
+Xóa
+</button>
+
+</td>
+
+</tr>
+`;
+
+});
+
+}
+
+/* ===== MODAL ===== */
+
+function openModal(){
+
+modal.style.display = 'flex';
+
+}
+
+function closeModal(){
+
+modal.style.display = 'none';
+
+}
+
+/* ===== SAVE PRODUCT ===== */
+
 function saveProduct(){
-products.push({
-ma:mMa.value,ten:mTen.value,
-gia_nhap:+mGiaNhap.value,
-gia_ban:+mGiaBan.value,
-gia_si:+mGiaSi.value||+mGiaBan.value,
-ton:+mTon.value||0
-});
-localStorage.setItem("products",JSON.stringify(products));
-closeModal();render();
-}
 
-/* NHẬP */
-function nhapHang(){
-let p=products[nhapSelect.value];
-let sl=+nhapSL.value;
-phieu.push({...p,sl});
-renderPhieu();
-}
-function renderPhieu(){
-phieu.innerHTML='';
-let tong=0;
-phieu.forEach(p=>{
-let tt=p.sl*p.gia_nhap;
-tong+=tt;
-phieu.innerHTML+=`<div>${p.ten} x ${p.sl} = ${tt}</div>`;
-});
-tongTien.innerText=tong;
-}
-function hoanThanhNhap(){
-phieu.forEach(p=>{
-let sp=products.find(x=>x.ma==p.ma);
-sp.ton+=p.sl;
-});
-phieu=[];
-localStorage.setItem("products",JSON.stringify(products));
-render();
-alert("Đã nhập hàng");
-}
+let item = {
 
-/* IMPORT */
-function importExcel(){
-const f=fileInput.files[0];
-const r=new FileReader();
-r.onload=e=>{
-const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array'});
-const js=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
-js.forEach(i=>{
-products.push({
-ma:i["Mã hàng"],
-ten:i["Tên hàng"],
-gia_nhap:i["Giá vốn"],
-gia_ban:i["Giá bán"],
-gia_si:i["Giá bán"],
-ton:i["Tồn kho"]
-});
-});
-localStorage.setItem("products",JSON.stringify(products));
-render();
-alert("Import xong");
+ma:mMa.value,
+
+ten:mTen.value,
+
+gia_nhap:Number(mGiaNhap.value),
+
+gia_ban:Number(mGiaBan.value),
+
+gia_si:Number(mGiaSi.value || mGiaBan.value),
+
+ton:Number(mTon.value || 0)
+
 };
-r.readAsArrayBuffer(f);
+
+products.push(item);
+
+saveStorage();
+
+closeModal();
+
+renderAll();
+
 }
+
+/* ===== DELETE ===== */
+
+function deleteProduct(index){
+
+if(confirm('Xóa sản phẩm này ?')){
+
+products.splice(index,1);
+
+saveStorage();
+
+renderAll();
+
+}
+
+}
+
+/* ===== STORAGE ===== */
+
+function saveStorage(){
+
+localStorage.setItem(
+'products',
+JSON.stringify(products)
+);
+
+}
+
+/* ===== IMPORT ===== */
+
+function importExcel(){
+
+const file = fileInput.files[0];
+
+if(!file){
+
+alert('Chưa chọn file');
+
+return;
+
+}
+
+const reader = new FileReader();
+
+reader.onload = function(e){
+
+const data = new Uint8Array(e.target.result);
+
+const workbook = XLSX.read(data,{type:'array'});
+
+const sheet = workbook.Sheets[workbook.SheetNames[0]];
+
+const json = XLSX.utils.sheet_to_json(sheet);
+
+json.forEach(i=>{
+
+products.push({
+
+ma:i["Mã hàng"] || '',
+
+ten:i["Tên hàng"] || '',
+
+gia_nhap:i["Giá vốn"] || 0,
+
+gia_ban:i["Giá bán"] || 0,
+
+gia_si:i["Giá bán"] || 0,
+
+ton:i["Tồn kho"] || 0
+
+});
+
+});
+
+saveStorage();
+
+renderAll();
+
+alert('Import thành công');
+
+};
+
+reader.readAsArrayBuffer(file);
+
+}
+
+/* ===== NHAP ===== */
+
+function nhapHang(){
+
+let p = products[nhapSelect.value];
+
+let sl = Number(nhapSL.value);
+
+if(!sl) return;
+
+phieuNhap.push({
+
+...p,
+
+sl
+
+});
+
+renderPhieu();
+
+}
+
+/* ===== RENDER PHIEU ===== */
+
+function renderPhieu(){
+
+phieuList.innerHTML = '';
+
+let tong = 0;
+
+phieuNhap.forEach((p,index)=>{
+
+let tt = p.sl * p.gia_nhap;
+
+tong += tt;
+
+phieuList.innerHTML += `
+<div
+style="
+padding:12px;
+border-bottom:1px solid #eee;
+display:flex;
+justify-content:space-between;
+"
+>
+
+<div>
+${p.ten} x ${p.sl}
+</div>
+
+<div>
+${tt.toLocaleString()}đ
+</div>
+
+</div>
+`;
+
+});
+
+tongTien.innerText = tong.toLocaleString();
+
+}
+
+/* ===== COMPLETE ===== */
+
+function hoanThanhNhap(){
+
+phieuNhap.forEach(p=>{
+
+let sp = products.find(x=>x.ma == p.ma);
+
+if(sp){
+
+sp.ton += p.sl;
+
+}
+
+});
+
+saveStorage();
+
+phieuNhap = [];
+
+renderPhieu();
+
+renderAll();
+
+alert('Nhập hàng thành công');
+
+}
+
+/* ===== BARCODE ===== */
+
+function startScan(){
+
+reader.classList.remove('hidden');
+
+const html5QrCode = new Html5Qrcode("reader");
+
+html5QrCode.start(
+{ facingMode: "environment" },
+{
+fps:10,
+qrbox:250
+},
+(decodedText)=>{
+
+searchInput.value = decodedText;
+
+renderSearch();
+
+html5QrCode.stop();
+
+reader.classList.add('hidden');
+
+}
+);
+
+}
+
+/* ===== RENDER ALL ===== */
+
+function renderAll(){
+
+renderDashboard();
+
+renderProducts();
+
+renderSearch();
+
+}
+
+/* ===== INIT ===== */
+
+renderAll();
+
 </script>
+
 </body>
 </html>
