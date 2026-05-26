@@ -14,7 +14,7 @@
 
 *{
     margin:0;
-    padding:0;
+    padding:0;ĐỔI MÃ
     box-sizing:border-box;
     font-family:'Inter',sans-serif;
 }
@@ -229,7 +229,29 @@ table th:last-child{
 
 table input,
 table select{
+table input{
 
+    min-width:0;
+
+}
+
+#nhapTable input{
+
+    background:white;
+
+}
+
+#nhapTable td{
+
+    padding:0 !important;
+
+}
+
+#nhapTable tr{
+
+    height:46px;
+
+}
     border-radius:0 !important;
 
     box-shadow:none !important;
@@ -1895,126 +1917,7 @@ window.saveNhap = function(){
     alert("Đã lưu phiếu nhập")
 
 }
-/* =====================================================
-ĐỔI MÃ
-===================================================== */
 
-window.changeMa = function(index,val){
-
-    nhapRows[index].ma = val
-
-    const found =
-    products.find(
-        p=>p.ma===val
-    )
-
-    if(found){
-
-        nhapRows[index].gia =
-        found.gia_nhap
-    nhapRows[index].giaBan =
-        found.gia_ban
-    }
-
-    renderNhap()
-
-}
-
-/* =====================================================
-ĐỔI SỐ LƯỢNG
-===================================================== */
-
-window.changeSl = function(index,val){
-
-    nhapRows[index].sl =
-    Number(val)
-
-    renderNhap()
-
-}
-
-/* =====================================================
-ĐỔI GIÁ
-===================================================== */
-
-window.changeGia = function(index,val){
-
-    nhapRows[index].gia =
-    Number(val)
-
-    renderNhap()
-
-}
-
-/* =====================================================
-XÓA DÒNG
-===================================================== */
-
-window.removeNhap = function(index){
-
-    nhapRows.splice(index,1)
-
-    renderNhap()
-
-}
-
-/* =====================================================
-LƯU NHẬP HÀNG
-===================================================== */
-
-window.saveNhap = function(){
-
-    nhapRows.forEach(r=>{
-
-        const found =
-        products.find(
-            p=>p.ma===r.ma
-        )
-
-        if(found){
-
-            update(
-
-                ref(
-                    db,
-                    "products/" + found.id
-                ),
-
-                {
-
-                    ton:
-                    Number(found.ton) +
-                    Number(r.sl),
-
-                    gia_nhap:
-                    Number(r.gia)
-
-                }
-
-            )
-
-        }
-
-    })
-
-    nhapRows = []
-
-    renderNhap()
-
-    alert("Đã lưu phiếu nhập")
-
-}
-/* =====================================================
-MENU MOBILE
-===================================================== */
-
-window.toggleSidebar = function(){
-
-    document
-    .getElementById("sidebar")
-    .classList.toggle("show")
-
-}
     
 /* =====================================================
 MENU MOBILE
