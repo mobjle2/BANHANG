@@ -931,15 +931,43 @@ HIỂN THỊ SẢN PHẨM
 
 window.renderProducts = function(){
 
-    const keyword =
-    searchInput.value.toLowerCase()
+const keyword =
+searchInput.value
+.toLowerCase()
+.trim()
 
     let html = ""
 
     products.forEach((p,index)=>{
 
         if(
-            p.ten.toLowerCase().includes(keyword)
+            // TÁCH TỪ KHÓA
+
+const words =
+keyword.split(" ")
+
+// TÊN + MÃ
+
+const ten =
+p.ten.toLowerCase()
+
+const ma =
+p.ma.toLowerCase()
+
+// KIỂM TRA TỪ KHÓA GẦN ĐÚNG
+
+const match =
+words.every(w=>
+
+    ten.includes(w)
+    ||
+    ma.includes(w)
+
+)
+
+// HIỂN THỊ
+
+if(match)
             ||
             p.ma.toLowerCase().includes(keyword)
         ){
