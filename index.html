@@ -594,24 +594,72 @@ MOBILE
     </div>
 
 </div>
+<script type="module">
 
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    set,
+    push,
+    onValue,
+    remove,
+    update
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyBdUaWQRCplxX5bG64gBYqLNPGFoRN5DoE",
+
+  authDomain: "quanlybanhangtn.firebaseapp.com",
+
+  databaseURL:
+  "https://quanlybanhangtn-default-rtdb.asia-southeast1.firebasedatabase.app/",
+
+  projectId: "quanlybanhangtn",
+
+  storageBucket:
+  "quanlybanhangtn.firebasestorage.app",
+
+  messagingSenderId: "627580656858",
+
+  appId:
+  "1:627580656858:web:e1cbc69055b78afb0cd9e3"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+let products = []
+
+const productsRef = ref(db,"products")
+
+onValue(productsRef,(snapshot)=>{
+
+    products = []
+
+    snapshot.forEach(child=>{
+
+        products.push({
+            id:child.key,
+            ...child.val()
+        })
+
+    })
+
+    renderProducts()
+
+    renderDashboard()
+
+})
 <script>
 
-/* =====================================================
-DATA
-===================================================== */
 
-let products =
-JSON.parse(localStorage.getItem("products") || "[]")
-
-let nhapRows = []
-
-function saveData(){
-    localStorage.setItem(
-        "products",
-        JSON.stringify(products)
-    )
-}
 
 /* =====================================================
 PAGE
@@ -759,9 +807,10 @@ window.onclick = e=>{
 
 function saveProduct(){
 
-    products.push({
+    push(productsRef,{
 
         ma:ma.value,
+
         ten:ten.value,
 
         gia_nhap:Number(giaNhap.value),
@@ -774,14 +823,9 @@ function saveProduct(){
 
     })
 
-    saveData()
-
-    renderProducts()
-
     modal.style.display="none"
 
 }
-
 /* =====================================================
 DELETE
 ===================================================== */
@@ -790,7 +834,7 @@ function deleteProduct(index){
 
     if(confirm("Xóa sản phẩm?")){
 
-        products.splice(index,1)
+        remove(ref(db,"products/"+products[index].id))
 
         saveData()
 
@@ -1011,7 +1055,13 @@ function saveNhap(){
 
         if(found){
 
-            found.ton += r.sl
+            update(
+    ref(db,"products/"+found.id),
+    {
+        ton:found.ton + r.sl,
+        gia_nhap:r.gia
+    }
+)
 
             found.gia_nhap = r.gia
 
