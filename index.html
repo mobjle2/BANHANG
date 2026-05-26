@@ -255,7 +255,12 @@ NHAP
     border-radius:24px;
     padding:24px;
 }
+.total-box{
 
+    position:sticky;
+    bottom:20px;
+
+}
 .total-big{
     font-size:38px;
     font-weight:800;
@@ -603,16 +608,23 @@ onclick="exportExcel()">
 
                         <thead>
 
-                            <tr>
+<tr>
 
-                                <th>Mã</th>
-                                <th>SL</th>
-                                <th>Giá nhập</th>
-                                <th>Thành tiền</th>
-                                <th>Xóa</th>
+    <th>Mã hàng</th>
 
-                            </tr>
+    <th>Tên sản phẩm</th>
 
+    <th>SL</th>
+
+    <th>Giá nhập</th>
+
+    <th>Giá bán</th>
+
+    <th>Thành tiền</th>
+
+    <th>Xóa</th>
+
+</tr>
                         </thead>
 
                         <tbody id="nhapTable"></tbody>
@@ -1270,6 +1282,7 @@ window.addNhapRow = function(){
         ma:"",
         sl:1,
         gia:0
+        giaBan:0
 
     })
 
@@ -1317,77 +1330,127 @@ window.renderNhap = function(){
 
         tong += r.sl * r.gia
 
-        html += `
-        <tr>
+html += `
+<tr>
 
-            <td>
+    <!-- MÃ -->
 
-                <select
-                onchange="changeMa(${index},this.value)"
-                style="
-                    width:100%;
-                    padding:12px;
-                    border-radius:12px;
-                ">
+    <td>
 
-                    ${options}
+        <select
+        onchange="changeMa(${index},this.value)"
+        style="
+            width:140px;
+            padding:10px;
+            border-radius:10px;
+            border:1px solid #dbe2ea;
+            font-size:13px;
+        ">
 
-                </select>
+            ${options}
 
-            </td>
+        </select>
 
-            <td>
+    </td>
 
-                ${tenSP}
+    <!-- TÊN -->
 
-            </td>
+    <td style="
+    min-width:220px;
+    font-weight:600;
+    font-size:13px;
+    ">
 
-            <td>
+        ${tenSP}
 
-                <input
-                type="number"
-                value="${r.sl}"
-                onchange="changeSl(${index},this.value)"
-                style="
-                    width:90px;
-                    padding:12px;
-                ">
+    </td>
 
-            </td>
+    <!-- SL -->
 
-            <td>
+    <td>
 
-                <input
-                type="number"
-                value="${r.gia}"
-                onchange="changeGia(${index},this.value)"
-                style="
-                    width:140px;
-                    padding:12px;
-                ">
+        <input
+        type="number"
+        value="${r.sl}"
+        onchange="changeSl(${index},this.value)"
+        style="
+            width:70px;
+            padding:10px;
+            border-radius:10px;
+            border:1px solid #dbe2ea;
+            font-size:13px;
+        ">
 
-            </td>
+    </td>
 
-            <td>
+    <!-- GIÁ NHẬP -->
 
-                ${(r.sl*r.gia).toLocaleString()}đ
+    <td>
 
-            </td>
+        <input
+        type="number"
+        value="${r.gia}"
+        onchange="changeGia(${index},this.value)"
+        style="
+            width:120px;
+            padding:10px;
+            border-radius:10px;
+            border:1px solid #dbe2ea;
+            font-size:13px;
+        ">
 
-            <td>
+    </td>
 
-                <button
-                class="btn btn-red"
-                onclick="removeNhap(${index})">
+    <!-- GIÁ BÁN -->
 
-                    Xóa
+    <td>
 
-                </button>
+        <input
+        type="number"
+        value="${r.giaBan || 0}"
+        style="
+            width:120px;
+            padding:10px;
+            border-radius:10px;
+            border:1px solid #dbe2ea;
+            font-size:13px;
+            background:#f8fafc;
+        ">
 
-            </td>
+    </td>
 
-        </tr>
-        `
+    <!-- THÀNH TIỀN -->
+
+    <td style="
+    font-weight:700;
+    color:#2563eb;
+    ">
+
+        ${(r.sl*r.gia).toLocaleString()}đ
+
+    </td>
+
+    <!-- XÓA -->
+
+    <td>
+
+        <button
+        class="btn btn-red"
+        onclick="removeNhap(${index})"
+        style="
+            padding:8px 14px;
+            border-radius:10px;
+            font-size:13px;
+        ">
+
+            Xóa
+
+        </button>
+
+    </td>
+
+</tr>
+``
 
     })
 
@@ -1415,7 +1478,8 @@ window.changeMa = function(index,val){
 
         nhapRows[index].gia =
         found.gia_nhap
-
+    nhapRows[index].giaBan =
+        found.gia_ban
     }
 
     renderNhap()
