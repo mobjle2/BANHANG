@@ -227,6 +227,8 @@ table th:last-child{
 
 /* INPUT TABLE */
 
+/* INPUT TABLE */
+
 table input,
 table select{
 
@@ -259,11 +261,6 @@ table input{
 #nhapTable tr{
 
     height:46px;
-
-}
-    border-radius:0 !important;
-
-    box-shadow:none !important;
 
 }
 
@@ -1613,6 +1610,26 @@ window.saveProduct = function(){
     // =================================================
 
     closeModal()
+
+}
+/* =====================================================
+XÓA SẢN PHẨM
+===================================================== */
+
+window.deleteProduct = function(index){
+
+    if(confirm("Xóa sản phẩm?")){
+
+        remove(
+
+            ref(
+                db,
+                "products/" + products[index].id
+            )
+
+        )
+
+    }
 
 }
 /* =====================================================
