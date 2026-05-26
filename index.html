@@ -404,24 +404,28 @@ MOBILE
             POS PRO
         </div>
 
-        <div class="menu">
+<div class="menu">
 
-<button
-onclick="showPage('dashboard',this)">
-    Dashboard
-</button>
+    <button
+    id="btnDashboard"
+    onclick="showPage('dashboard')">
+        Dashboard
+    </button>
 
-<button class="active"
-onclick="showPage('products',this)">
-    Sản phẩm
-</button>
+    <button
+    id="btnProducts"
+    class="active"
+    onclick="showPage('products')">
+        Sản phẩm
+    </button>
 
-           
-            <button onclick="showPage('nhap',this)">
-                Nhập hàng
-            </button>
+    <button
+    id="btnNhap"
+    onclick="showPage('nhap')">
+        Nhập hàng
+    </button>
 
-        </div>
+</div>
 
     </aside>
 
@@ -760,19 +764,35 @@ onValue(productsRef,(snapshot)=>{
 PAGE
 ===================================================== */
 
-window.showPage = function(page,btn){
+window.showPage = function(page){
 
-    // ACTIVE MENU
+    // RESET ACTIVE
 
     document
     .querySelectorAll(".menu button")
     .forEach(x=>x.classList.remove("active"))
 
-    if(btn){
-        btn.classList.add("active")
+    // ACTIVE BUTTON
+
+    if(page==="dashboard"){
+
+        btnDashboard.classList.add("active")
+
     }
 
-    // HIDE ALL PAGE
+    else if(page==="products"){
+
+        btnProducts.classList.add("active")
+
+    }
+
+    else if(page==="nhap"){
+
+        btnNhap.classList.add("active")
+
+    }
+
+    // HIDE ALL
 
     dashboardPage.classList.add("hidden")
     productsPage.classList.add("hidden")
@@ -804,13 +824,14 @@ window.showPage = function(page,btn){
 
     }
 
-    // MOBILE AUTO CLOSE
+    // AUTO CLOSE MOBILE MENU
 
-    if(window.innerWidth < 900){
+    if(window.innerWidth <= 900){
 
-      document
-.getElementById("sidebar")
-.classList.remove("show")
+        document
+        .getElementById("sidebar")
+        .classList.remove("show")
+
     }
 
 }
