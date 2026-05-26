@@ -283,11 +283,18 @@ MOBILE
 
     }
 
-    .sidebar.show{
+.sidebar.show{
 
-        left:0;
+    left:0;
+    box-shadow:
+    0 0 0 9999px rgba(0,0,0,.45);
 
-    }
+}
+.sidebar{
+
+    overflow-y:auto;
+
+}
 
     .logo{
 
@@ -770,8 +777,6 @@ renderDashboard()
 
 window.showPage = function(page){
 
-    // MENU BUTTON
-
     const btnDashboard =
     document.getElementById("btnDashboard")
 
@@ -780,8 +785,6 @@ window.showPage = function(page){
 
     const btnNhap =
     document.getElementById("btnNhap")
-
-    // SIDEBAR
 
     const sidebar =
     document.getElementById("sidebar")
@@ -796,7 +799,7 @@ window.showPage = function(page){
 
     })
 
-    // ẨN TOÀN BỘ PAGE
+    // ẨN PAGE
 
     dashboardPage.classList.add("hidden")
 
@@ -804,7 +807,9 @@ window.showPage = function(page){
 
     nhapPage.classList.add("hidden")
 
+    // =================================================
     // DASHBOARD
+    // =================================================
 
     if(page === "dashboard"){
 
@@ -815,9 +820,16 @@ window.showPage = function(page){
         pageTitle.innerText =
         "Dashboard"
 
+        // ẨN Ô TÌM KIẾM
+
+        searchInput.style.display =
+        "none"
+
     }
 
+    // =================================================
     // PRODUCTS
+    // =================================================
 
     else if(page === "products"){
 
@@ -828,9 +840,16 @@ window.showPage = function(page){
         pageTitle.innerText =
         "Sản phẩm"
 
+        // HIỆN Ô TÌM KIẾM
+
+        searchInput.style.display =
+        "block"
+
     }
 
+    // =================================================
     // NHẬP HÀNG
+    // =================================================
 
     else if(page === "nhap"){
 
@@ -841,9 +860,16 @@ window.showPage = function(page){
         pageTitle.innerText =
         "Nhập hàng"
 
+        // ẨN Ô TÌM KIẾM
+
+        searchInput.style.display =
+        "none"
+
     }
 
-    // MOBILE AUTO HIDE MENU
+    // =================================================
+    // MOBILE AUTO CLOSE
+    // =================================================
 
     if(window.innerWidth <= 900){
 
@@ -852,7 +878,6 @@ window.showPage = function(page){
     }
 
 }
-
 /* =====================================================
 DASHBOARD
 ===================================================== */
