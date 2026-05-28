@@ -1848,10 +1848,39 @@ window.saveNhap = async function(){
             p=>p.ma===r.ma
         )
 
-        if(found){
+       if(found){
 
-            update(
-          else{
+    update(
+
+        ref(
+            db,
+            "products/" + found.id
+        ),
+
+        {
+
+            ton:
+            Number(found.ton) +
+            Number(r.sl),
+
+            gia_nhap:
+            Number(r.gia),
+
+            gia_ban:
+            Number(r.giaBan),
+
+            gia_si:
+            Number(r.giaBan)
+
+        }
+
+    )
+
+}
+
+/* ====== TẠO SẢN PHẨM MỚI ====== */
+
+else{
 
     push(productsRef,{
 
@@ -1870,32 +1899,6 @@ window.saveNhap = async function(){
     })
 
 }
-                ref(
-                    db,
-                    "products/" + found.id
-                ),
-
-                {
-
-                    ton:
-                    Number(found.ton) +
-                    Number(r.sl),
-
-                    gia_nhap:
-                    Number(r.gia),
-
-                    gia_ban:
-                    Number(r.giaBan),
-
-                    gia_si:
-                    Number(r.giaBan)
-
-                }
-
-            )
-
-        }
-
     })
 
     nhapRows = []
