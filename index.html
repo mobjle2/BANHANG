@@ -1366,14 +1366,36 @@ window.editProduct = function(index){
 
 window.saveProduct = function(){
 
-    if(!ma.value || !ten.value){
+if(
 
-        alert("Nhập mã và tên")
+    !ma.value.trim()
+    ||
+    !ten.value.trim()
 
-        return
+){
 
-    }
+    alert("Nhập mã và tên")
 
+    return
+
+}
+if(
+
+    Number(giaNhap.value) < 0
+    ||
+    Number(giaBan.value) < 0
+    ||
+    Number(giaSi.value) < 0
+    ||
+    Number(ton.value) < 0
+
+){
+
+    alert("Không được nhập số âm")
+
+    return
+
+}
     const data = {
 
         ma:ma.value,
@@ -1794,32 +1816,43 @@ window.saveNhap = async function(){
 
     const items = []
 
-    nhapRows.forEach(r=>{
+nhapRows.forEach(r=>{
 
-        tong +=
+    if(
+
+        !r.ma
+        ||
+        !r.ten
+
+    ){
+
+        return
+
+    }
+
+    tong +=
+    Number(r.sl) *
+    Number(r.gia)
+
+    items.push({
+
+        ma:r.ma,
+
+        ten:r.ten,
+
+        sl:Number(r.sl),
+
+        gia:Number(r.gia),
+
+        giaBan:Number(r.giaBan),
+
+        thanhTien:
         Number(r.sl) *
         Number(r.gia)
 
-        items.push({
-
-            ma:r.ma,
-
-            ten:r.ten,
-
-            sl:Number(r.sl),
-
-            gia:Number(r.gia),
-
-            giaBan:Number(r.giaBan),
-
-            thanhTien:
-            Number(r.sl) *
-            Number(r.gia)
-
-        })
-
     })
 
+})
     /* LƯU PHIẾU */
 
    await push(
