@@ -253,7 +253,35 @@ td{
 .save-btn{
     width:100%;
 }
+/* ====== AUTOCOMPLETE ====== */
 
+.auto-wrap{
+    position:relative;
+}
+
+.auto-list{
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:white;
+    border:1px solid #dbe2ea;
+    border-top:none;
+    max-height:220px;
+    overflow:auto;
+    z-index:50;
+}
+
+.auto-item{
+    padding:10px;
+    cursor:pointer;
+    border-bottom:1px solid #f1f5f9;
+    font-size:12px;
+}
+
+.auto-item:hover{
+    background:#eff6ff;
+}
 /* ====== MODAL ====== */
 
 .modal{
@@ -686,6 +714,73 @@ table{
             class="hidden">
 
                 <div class="topbar">
+                <div class="card"
+style="
+margin-bottom:14px;
+">
+
+    <div style="
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:12px;
+    ">
+
+        <div>
+
+            <div style="
+            margin-bottom:6px;
+            font-size:12px;
+            color:#64748b;
+            ">
+
+                Nhà cung cấp
+
+            </div>
+
+            <input
+            type="text"
+            id="supplierInput"
+            placeholder="Nhập nhà cung cấp"
+            style="
+            width:100%;
+            border:1px solid #dbe2ea;
+            padding:10px 12px;
+            border-radius:8px;
+            outline:none;
+            ">
+
+        </div>
+
+        <div>
+
+            <div style="
+            margin-bottom:6px;
+            font-size:12px;
+            color:#64748b;
+            ">
+
+                Ghi chú
+
+            </div>
+
+            <input
+            type="text"
+            id="noteInput"
+            placeholder="Ghi chú phiếu nhập"
+            style="
+            width:100%;
+            border:1px solid #dbe2ea;
+            padding:10px 12px;
+            border-radius:8px;
+            outline:none;
+            ">
+
+        </div>
+
+    </div>
+
+</div>
 
                     <button
                     class="btn btn-blue"
@@ -769,9 +864,9 @@ table{
 
                             <tr>
                                 <th>Mã phiếu</th>
+                                <th>Nhà cung cấp</th>
                                 <th>Thời gian</th>
                                 
-
                                 <th>Tổng tiền</th>
 
                                 <th>Số SP</th>
@@ -1656,17 +1751,35 @@ window.renderNhap = function(){
             <!-- MÃ -->
 
             <td style="
-            width:140px;
-            min-width:140px;
-            ">
+width:140px;
+min-width:140px;
+">
 
-                <input
-                type="text"
-                value="${r.ma}"
-                onchange="changeMa(${index},this.value)"
-                placeholder="Mã hàng">
+    <div class="auto-wrap">
 
-            </td>
+<input
+type="text"
+value="${r.ma}"
+id="maInput${index}"
+oninput="searchMa(${index},this.value)"
+onkeydown="
+handleMaEnter(
+    event,
+    ${index}
+)
+"
+placeholder="Mã hàng"
+autocomplete="off">
+
+        <div
+        class="auto-list"
+        id="autoList${index}">
+
+        </div>
+
+    </div>
+
+</td>
 
             <!-- TÊN -->
 
@@ -1785,6 +1898,194 @@ window.renderNhap = function(){
 
 }
 
+/* ====== TÌM MÃ ====== */
+
+window.searchMa = function(index,val){
+
+    nhapRows[index].ma = val
+
+    const list =
+    document.getElementById(
+        "autoList" + index
+    )
+
+    if(!val){
+
+        list.innerHTML = ""
+
+        return
+
+    }
+
+    const keyword =
+    val.toLowerCase()
+
+const result =
+products.filter(p=>
+
+    (p.ma || "")
+    .toLowerCase()
+    .includes(keyword)
+
+    ||
+
+    (p.ten || "")
+    .toLowerCase()
+    .includes(keyword)
+
+)
+.slice(0,8)
+
+    let html = ""
+
+    result.forEach(p=>{
+
+        html += `
+        <div
+        class="auto-item"
+        onclick="
+        selectMa(
+            ${index},
+            '${p.ma}'
+        )
+        ">
+
+            ${p.ma}
+            -
+            ${p.ten}
+
+        </div>
+        `
+
+    })
+
+    list.innerHTML = html
+
+}
+
+/* ====== ENTER CHỌN MÃ ====== */
+
+window.handleMaEnter = function(e,index){
+
+    if(e.key !== "Enter") return
+
+    e.preventDefault()
+
+    const keyword =
+    (nhapRows[index].ma || "")
+    .toLowerCase()
+
+    const found =
+    products.find(p=>
+
+        (p.ma || "")
+        .toLowerCase()
+        .includes(keyword)
+
+        ||
+
+        (p.ten || "")
+        .toLowerCase()
+        .includes(keyword)
+
+    )
+
+    if(found){
+
+        selectMa(
+            index,
+            found.ma
+        )
+
+    }
+
+}
+    
+/* ====== CHỌN MÃ ====== */
+
+window.selectMa = function(index,ma){
+
+    const found =
+    products.find(
+        p=>p.ma===ma
+    )
+
+    if(!found) return
+
+    /* ====== KIỂM TRA TRÙNG ====== */
+
+    const existedIndex =
+    nhapRows.findIndex((r,i)=>
+
+        r.ma === ma
+        &&
+        i !== index
+
+    )
+
+    if(existedIndex !== -1){
+
+        nhapRows[existedIndex].sl += 1
+
+        nhapRows.splice(index,1)
+
+        renderNhap()
+
+        return
+
+    }
+
+    nhapRows[index].ma =
+    found.ma
+
+    nhapRows[index].ten =
+    found.ten
+
+    nhapRows[index].gia =
+    found.gia_nhap
+
+    nhapRows[index].giaBan =
+    found.gia_ban
+
+    /* ====== TỰ THÊM DÒNG ====== */
+
+    const isLast =
+    index === nhapRows.length - 1
+
+    if(isLast){
+
+        nhapRows.push({
+
+            ma:"",
+            ten:"",
+            sl:1,
+            gia:0,
+            giaBan:0
+
+        })
+
+    }
+
+    renderNhap()
+
+    /* ====== AUTO FOCUS ====== */
+
+    setTimeout(()=>{
+
+        const nextInput =
+        document.getElementById(
+            "maInput" + (index + 1)
+        )
+
+        if(nextInput){
+
+            nextInput.focus()
+
+        }
+
+    },50)
+
+}
 /* ====== ĐỔI MÃ ====== */
 
 window.changeMa = function(index,val){
@@ -1948,6 +2249,12 @@ await push(
         maPhieu:
         "PN" + Date.now(),
 
+        supplier:
+        supplierInput.value || "",
+
+        note:
+        noteInput.value || "",
+
         time:
         new Date()
         .toLocaleString(
@@ -2023,11 +2330,15 @@ else{
 }
     })
 
-    nhapRows = []
+nhapRows = []
 
-    renderNhap()
+supplierInput.value = ""
 
-    alert("Đã lưu phiếu nhập")
+noteInput.value = ""
+
+renderNhap()
+
+alert("Đã lưu phiếu nhập")
 
 }
 /* ====== XEM PHIẾU NHẬP ====== */
@@ -2149,6 +2460,11 @@ window.renderHistory = function(){
               ${p.maPhieu || ""}
 
               </td>
+              <td>
+
+             ${p.supplier || ""}
+
+            </td>
               <td>
 
                 ${p.time || ""}
