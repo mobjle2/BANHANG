@@ -1855,7 +1855,7 @@ nhapRows.forEach(r=>{
 })
     /* LƯU PHIẾU */
 
-   await push(
+await push(
 
     importOrdersRef,
 
@@ -1865,16 +1865,18 @@ nhapRows.forEach(r=>{
         "PN" + Date.now(),
 
         time:
-            new Date()
+        new Date()
+        .toLocaleString(
+            "vi-VN"
+        ),
 
-            tong:tong,
+        tong:tong,
 
-            items:items
+        items:items
 
-        }
+    }
 
-    )
-
+)
     /* CỘNG TỒN */
 
     nhapRows.forEach(r=>{
