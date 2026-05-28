@@ -15,7 +15,20 @@ href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&di
 rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<!--
 
+TODO:
+
+[ ] Fix historyPage DOM
+[ ] Toast notification
+[ ] View import order
+[ ] Suppliers
+[ ] Customers
+[ ] Sales invoices
+[ ] Firebase auth
+[ ] Split modules
+
+-->
 <style>
 
 *{
@@ -705,34 +718,7 @@ MENU BUTTON
                 </div>
                 <!-- LỊCH SỬ NHẬP -->
 
-<div id="historyPage"
-class="hidden">
 
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Thời gian</th>
-
-                    <th>Tổng tiền</th>
-
-                    <th>Số SP</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="historyTable">
-
-            </tbody>
-
-        </table>
-
-    </div>
                 <div class="table-wrap">
 
                     <table>
@@ -790,12 +776,42 @@ class="hidden">
 
             </div>
 
+            <!-- LỊCH SỬ NHẬP -->
+
+            <div id="historyPage"
+            class="hidden">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Thời gian</th>
+
+                                <th>Tổng tiền</th>
+
+                                <th>Số SP</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="historyTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
         </div>
 
     </main>
-
-</div>
-
 
 </div>
 <!-- MODAL -->
@@ -1164,7 +1180,9 @@ window.renderProducts = function(){
         .toLowerCase()
 
         const words =
-        keyword.split(" ")
+        keyword
+        .split(" ")
+        .filter(Boolean)   
 
         const match =
         words.every(w=>
@@ -1479,6 +1497,17 @@ e=>{
 
         json.forEach(row=>{
 
+            /* ====== KIỂM TRA TRÙNG MÃ ====== */
+
+            const exists =
+            products.find(
+                p=>p.ma===row["Mã hàng"]
+            )
+
+            if(exists) return
+
+            /* ====== THÊM SẢN PHẨM ====== */
+
             push(productsRef,{
 
                 ma:
@@ -1514,7 +1543,6 @@ e=>{
     reader.readAsArrayBuffer(file)
 
 })
-
 /* ====== THÊM DÒNG NHẬP ====== */
 
 window.addNhapRow = function(){
@@ -1843,7 +1871,25 @@ window.saveNhap = async function(){
         if(found){
 
             update(
+          else{
 
+    push(productsRef,{
+
+        ma:r.ma,
+
+        ten:r.ten,
+
+        gia_nhap:Number(r.gia),
+
+        gia_ban:Number(r.giaBan),
+
+        gia_si:Number(r.giaBan),
+
+        ton:Number(r.sl)
+
+    })
+
+}
                 ref(
                     db,
                     "products/" + found.id
