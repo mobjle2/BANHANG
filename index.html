@@ -768,8 +768,9 @@ table{
                         <thead>
 
                             <tr>
-
+                                <th>Mã phiếu</th>
                                 <th>Thời gian</th>
+                                
 
                                 <th>Tổng tiền</th>
 
@@ -1821,15 +1822,17 @@ window.saveNhap = async function(){
 
     /* LƯU PHIẾU */
 
-    await push(
+   await push(
 
-        importOrdersRef,
+    importOrdersRef,
 
-        {
+    {
 
-            time:
+        maPhieu:
+        "PN" + Date.now(),
+
+        time:
             new Date()
-            .toLocaleString(),
 
             tong:tong,
 
@@ -1935,11 +1938,16 @@ window.renderHistory = function(){
         html += `
         <tr>
 
-            <td>
+              <td>
+
+              ${p.maPhieu || ""}
+
+              </td>
+              <td>
 
                 ${p.time || ""}
 
-            </td>
+             </td>
 
             <td style="
             color:#2563eb;
