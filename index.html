@@ -775,7 +775,7 @@ table{
                                 <th>Tổng tiền</th>
 
                                 <th>Số SP</th>
-
+                                <th>Xem</th>
                             </tr>
 
                         </thead>
@@ -793,6 +793,69 @@ table{
         </div>
 
     </main>
+
+</div>
+<!-- MODAL CHI TIẾT PHIẾU -->
+
+<div class="modal"
+id="viewOrderModal">
+
+    <div class="modal-box"
+    style="
+    max-width:900px;
+    ">
+
+        <div class="modal-header">
+
+            <h2>
+
+                Chi tiết phiếu nhập
+
+            </h2>
+
+            <button
+            class="close-btn"
+            onclick="closeViewOrder()">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Mã</th>
+
+                        <th>Tên</th>
+
+                        <th>SL</th>
+
+                        <th>Giá nhập</th>
+
+                        <th>Giá bán</th>
+
+                        <th>Thành tiền</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="viewOrderTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </div>
 <!-- MODAL -->
@@ -1499,6 +1562,7 @@ e=>{
         XLSX.utils.sheet_to_json(sheet)
 
         json.forEach(row=>{
+        if(!row["Mã hàng"]) return
 
             /* ====== KIỂM TRA TRÙNG MÃ ====== */
 
@@ -1761,8 +1825,15 @@ window.changeTen = function(index,val){
 
 window.changeSl = function(index,val){
 
-    nhapRows[index].sl =
-    Number(val)
+    val = Number(val)
+
+    if(val < 1){
+
+        val = 1
+
+    }
+
+    nhapRows[index].sl = val
 
     renderNhap()
 
@@ -1772,8 +1843,15 @@ window.changeSl = function(index,val){
 
 window.changeGia = function(index,val){
 
-    nhapRows[index].gia =
-    Number(val)
+    val = Number(val)
+
+    if(val < 0){
+
+        val = 0
+
+    }
+
+    nhapRows[index].gia = val
 
     renderNhap()
 
@@ -1783,13 +1861,19 @@ window.changeGia = function(index,val){
 
 window.changeGiaBan = function(index,val){
 
-    nhapRows[index].giaBan =
-    Number(val)
+    val = Number(val)
+
+    if(val < 0){
+
+        val = 0
+
+    }
+
+    nhapRows[index].giaBan = val
 
     renderNhap()
 
 }
-    
 /* ====== XÓA DÒNG ====== */
 
 window.removeNhap = function(index){
@@ -1946,7 +2030,88 @@ else{
     alert("Đã lưu phiếu nhập")
 
 }
-    
+/* ====== XEM PHIẾU NHẬP ====== */
+
+window.viewImportOrder = function(id){
+
+    const order =
+    importOrders.find(
+        x=>x.id===id
+    )
+
+    if(!order) return
+
+    let html = ""
+
+    ;(order.items || [])
+    .forEach(item=>{
+
+        html += `
+        <tr>
+
+            <td>
+
+                ${item.ma || ""}
+
+            </td>
+
+            <td>
+
+                ${item.ten || ""}
+
+            </td>
+
+            <td>
+
+                ${item.sl || 0}
+
+            </td>
+
+            <td>
+
+                ${(Number(item.gia)||0)
+                .toLocaleString()}đ
+
+            </td>
+
+            <td>
+
+                ${(Number(item.giaBan)||0)
+                .toLocaleString()}đ
+
+            </td>
+
+            <td style="
+            color:#2563eb;
+            font-weight:700;
+            ">
+
+                ${(Number(item.thanhTien)||0)
+                .toLocaleString()}đ
+
+            </td>
+
+        </tr>
+        `
+
+    })
+
+    viewOrderTable.innerHTML =
+    html
+
+    viewOrderModal.style.display =
+    "flex"
+
+}
+
+/* ====== ĐÓNG CHI TIẾT PHIẾU ====== */
+
+window.closeViewOrder = function(){
+
+    viewOrderModal.style.display =
+    "none"
+
+}  
 /* ====== CLICK NGOÀI MODAL ====== */
 
 window.onclick = function(e){
@@ -1954,6 +2119,12 @@ window.onclick = function(e){
     if(e.target === modal){
 
         closeModal()
+
+    }
+
+    if(e.target === viewOrderModal){
+
+        closeViewOrder()
 
     }
 
@@ -1999,7 +2170,17 @@ window.renderHistory = function(){
                 ${(p.items || []).length}
 
             </td>
+           <td>
 
+    <button
+    class="btn btn-blue"
+    onclick="viewImportOrder('${p.id}')">
+
+        Xem
+
+    </button>
+
+</td>
         </tr>
         `
 
