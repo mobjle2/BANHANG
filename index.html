@@ -229,7 +229,8 @@ td{
 
 .topbar{
     display:flex;
-    justify-content:flex-end;
+    justify-content:space-between;
+    align-items:flex-start;
     gap:10px;
     margin-bottom:14px;
 }
@@ -727,7 +728,31 @@ margin-bottom:14px;
     ">
 
         <div>
+           <div>
 
+    <div style="
+    margin-bottom:6px;
+    font-size:12px;
+    color:#64748b;
+    ">
+
+        Thời gian
+
+    </div>
+
+    <input
+    type="text"
+    id="timeInput"
+    readonly
+    style="
+    width:100%;
+    border:1px solid #dbe2ea;
+    padding:10px 12px;
+    border-radius:8px;
+    background:#f8fafc;
+    ">
+
+</div>
             <div style="
             margin-bottom:6px;
             font-size:12px;
@@ -778,19 +803,21 @@ margin-bottom:14px;
 
         </div>
 
-    </div>
-
 </div>
 
-                    <button
-                    class="btn btn-blue"
-                    onclick="addNhapRow()">
+    <button
+    class="btn btn-blue"
+    onclick="addNhapRow()"
+    style="
+    height:42px;
+    white-space:nowrap;
+    ">
 
-                        + Thêm hàng
+        + Thêm hàng
 
-                    </button>
+    </button>
 
-                </div>
+</div>
                 <!-- LỊCH SỬ NHẬP -->
 
 
@@ -2530,8 +2557,40 @@ btnHistory.onclick = ()=>{
     showPage("history")
 
 }
-    
+
+/* ====== THỜI GIAN ====== */
+
+window.updateTime = function(){
+
+    timeInput.value =
+    new Date()
+    .toLocaleString(
+        "vi-VN",
+        {
+
+            hour12:false,
+
+            year:"numeric",
+
+            month:"2-digit",
+
+            day:"2-digit",
+
+            hour:"2-digit",
+
+            minute:"2-digit"
+
+        }
+
+    )
+
+}
+
+setInterval(updateTime,1000)
+
 /* ====== KHỞI TẠO ====== */
+
+updateTime()
 
 showPage("products")
 
