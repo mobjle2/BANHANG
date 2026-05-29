@@ -297,7 +297,7 @@ td{
 
 .modal-box{
     width:100%;
-    max-width:420px;
+    max-width:260px;
     background:white;
     padding:20px;
     border-radius:12px;
@@ -709,174 +709,298 @@ table{
 
             </div>
 
-            <!-- NHẬP HÀNG -->
 
-            <div id="nhapPage"
-            class="hidden">
+<!-- NHẬP HÀNG -->
 
-                <div class="topbar">
-                <div class="card"
-style="
-margin-bottom:14px;
+<div id="nhapPage" class="hidden">
+
+    <!-- PHIẾU NHẬP KHO -->
+
+    <div style="
+    background:white;
+    border:1px solid #e2e8f0;
+    padding:16px;
+    margin-bottom:14px;
+    ">
+
+        <!-- TIÊU ĐỀ -->
+
+        <div style="
+        text-align:center;
+        margin-bottom:26px;
+        ">
+
+            <div style="
+            font-size:20px;
+            font-weight:700;
+            letter-spacing:1px;
+            ">
+
+                PHIẾU NHẬP KHO
+
+            </div>
+
+            <div style="
+            margin-top:10px;
+            font-size:13px;
+            color:#64748b;
+            ">
+
+                Ngày:
+                <span id="timeInput"></span>
+
+            </div>
+
+        </div>
+
+        <!-- THÔNG TIN -->
+
+<div style="
+display:grid;
+grid-template-columns:110px 220px;
+row-gap:14px;
+column-gap:14px;
+align-items:center;
+max-width:1000px;
 ">
 
-    <div style="
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
-    gap:12px;
-    ">
-
-        <div>
-           <div>
+    <!-- NHÀ CUNG CẤP -->
 
     <div style="
-    margin-bottom:6px;
-    font-size:12px;
-    color:#64748b;
+    font-weight:600;
+    font-size:13px;
     ">
 
-        Thời gian
+        Nhà cung cấp:
 
     </div>
 
     <input
     type="text"
-    id="timeInput"
-    readonly
+    id="supplierInput"
+    placeholder=""
     style="
-    width:100%;
-    border:1px solid #dbe2ea;
-    padding:10px 12px;
-    border-radius:8px;
-    background:#f8fafc;
+    border:none;
+    border-bottom:1px solid #cbd5e1;
+    padding:2px 2px;
+    max-width:320px;
+    outline:none;
+    background:none;
+    font-size:13px;
+    ">
+
+    <!-- SỐ ĐIỆN THOẠI -->
+
+    <div style="
+    font-weight:600;
+    font-size:13px;
+    ">
+
+        Số điện thoại:
+
+    </div>
+
+    <input
+    type="text"
+    id="supplierPhone"
+    placeholder=""
+    style="
+    border:none;
+    border-bottom:1px solid #cbd5e1;
+    padding:4px 2px;
+    outline:none;
+    background:none;
+    font-size:13px;
+    ">
+
+    <!-- ĐỊA CHỈ -->
+
+    <div style="
+    font-weight:600;
+    font-size:13px;
+    ">
+
+        Địa chỉ:
+
+    </div>
+
+    <input
+    type="text"
+    id="supplierAddress"
+    placeholder=""
+    style="
+    border:none;
+    border-bottom:1px solid #cbd5e1;
+    padding:4px 2px;
+    outline:none;
+    background:none;
+    font-size:13px;
+    ">
+
+    <!-- GHI CHÚ -->
+
+    <div style="
+    font-weight:600;
+    font-size:13px;
+    ">
+
+        Ghi chú:
+
+    </div>
+
+    <input
+    type="text"
+    id="noteInput"
+    placeholder=""
+    style="
+    border:none;
+    border-bottom:1px solid #cbd5e1;
+    padding:4px 2px;
+    outline:none;
+    background:none;
+    font-size:13px;
     ">
 
 </div>
-            <div style="
-            margin-bottom:6px;
-            font-size:12px;
-            color:#64748b;
-            ">
-
-                Nhà cung cấp
-
-            </div>
-
-            <input
-            type="text"
-            id="supplierInput"
-            placeholder="Nhập nhà cung cấp"
-            style="
-            width:100%;
-            border:1px solid #dbe2ea;
-            padding:10px 12px;
-            border-radius:8px;
-            outline:none;
-            ">
 
         </div>
 
-        <div>
+    </div>
 
-            <div style="
-            margin-bottom:6px;
-            font-size:12px;
-            color:#64748b;
-            ">
+    <!-- BẢNG NHẬP -->
 
-                Ghi chú
+    <div class="table-wrap">
 
-            </div>
+        <table>
 
-            <input
-            type="text"
-            id="noteInput"
-            placeholder="Ghi chú phiếu nhập"
-            style="
-            width:100%;
-            border:1px solid #dbe2ea;
-            padding:10px 12px;
-            border-radius:8px;
-            outline:none;
-            ">
+            <thead>
+
+                <tr>
+
+                    <th>Mã hàng</th>
+
+                    <th>Tên sản phẩm</th>
+
+                    <th>Số lượng</th>
+
+                    <th>Giá nhập</th>
+
+                    <th>Giá bán</th>
+
+                    <th>Thành tiền</th>
+
+                    <th style="
+                    width:90px;
+                    ">
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="nhapTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- TỔNG TIỀN -->
+
+<div style="
+background:white;
+border:1px solid #e2e8f0;
+margin-top:14px;
+padding:16px;
+">
+
+    <!-- TỔNG -->
+
+    <div style="
+    text-align:right;
+    margin-bottom:14px;
+    ">
+
+        <div style="
+        color:#64748b;
+        font-size:13px;
+        margin-bottom:4px;
+        ">
+
+            Tổng tiền phiếu nhập
 
         </div>
 
-</div>
+        <div
+        class="total-big"
+        id="tongTien">
+
+            0đ
+
+        </div>
+
+    </div>
+
+    <!-- NÚT LƯU -->
 
     <button
     class="btn btn-blue"
-    onclick="addNhapRow()"
     style="
-    height:42px;
-    white-space:nowrap;
-    ">
+    width:100%;
+    height:44px;
+    font-size:13px;
+    "
+    onclick="saveNhap()">
 
-        + Thêm hàng
+        Lưu phiếu nhập
 
     </button>
 
 </div>
-                <!-- LỊCH SỬ NHẬP -->
+
+</div>
 
 
-                <div class="table-wrap">
+<script>
 
-                    <table>
+/* ====== THỜI GIAN ====== */
 
-                        <thead>
+window.updateTime = function(){
 
-                            <tr>
+    const now = new Date()
 
-                                <th>Mã</th>
+    timeInput.innerText =
+    now.toLocaleString(
+        "vi-VN",
+        {
 
-                                <th>Tên sản phẩm</th>
+            hour12:false,
 
-                                <th>SL</th>
+            year:"numeric",
 
-                                <th>Giá nhập</th>
+            month:"2-digit",
 
-                                <th>Giá bán</th>
+            day:"2-digit",
 
-                                <th>Thành tiền</th>
+            hour:"2-digit",
 
-                                <th>Xóa</th>
+            minute:"2-digit"
 
-                            </tr>
+        }
 
-                        </thead>
+    )
 
-                        <tbody id="nhapTable">
+}
 
-                        </tbody>
+setInterval(updateTime,1000)
 
-                    </table>
+updateTime()
 
-                </div>
+</script>
 
-                <div class="total-box">
 
-                    <div>Tổng tiền</div>
-
-                    <div class="total-big"
-                    id="tongTien">
-
-                        0đ
-
-                    </div>
-
-                    <button
-                    class="btn btn-blue save-btn"
-                    onclick="saveNhap()">
-
-                        Lưu phiếu nhập
-
-                    </button>
-
-                </div>
-
-            </div>
 
             <!-- LỊCH SỬ NHẬP -->
 
@@ -957,7 +1081,7 @@ id="viewOrderModal">
 
                         <th>Tên</th>
 
-                        <th>SL</th>
+                        <th>Số lượng</th>
 
                         <th>Giá nhập</th>
 
@@ -1247,15 +1371,22 @@ window.showPage = function(page){
 
 else if(page === "nhap"){
 
-    nhapPage.classList.remove("hidden")
-
-    btnNhap.classList.add("active")
-
-    pageTitle.innerText =
-    "Nhập hàng"
+    pageTitle.innerText = ""
 
     searchInput.style.display =
     "none"
+
+    searchInput.value = ""
+
+    dashboardPage.classList.add("hidden")
+
+    productsPage.classList.add("hidden")
+
+    historyPage.classList.add("hidden")
+
+    nhapPage.classList.remove("hidden")
+
+    btnNhap.classList.add("active")
 
     if(nhapRows.length === 0){
 
@@ -1266,7 +1397,6 @@ else if(page === "nhap"){
     renderNhap()
 
 }
-
 /* ====== LỊCH SỬ ====== */
 
 else if(page === "history"){
@@ -1740,7 +1870,7 @@ window.addNhapRow = function(){
 
         ma:"",
         ten:"",
-        sl:1,
+        sl:"",
         gia:0,
         giaBan:0
 
@@ -1770,7 +1900,9 @@ window.renderNhap = function(){
         ? found.ten
         : (r.ten || "")
 
-        tong += r.sl * r.gia
+        tong +=
+        Number(r.sl) *
+        Number(r.gia)
 
         html += `
         <tr>
@@ -1778,35 +1910,40 @@ window.renderNhap = function(){
             <!-- MÃ -->
 
             <td style="
-width:140px;
-min-width:140px;
-">
+            width:140px;
+            min-width:140px;
+            ">
 
-    <div class="auto-wrap">
+                <div class="auto-wrap">
 
-<input
-type="text"
-value="${r.ma}"
-id="maInput${index}"
-oninput="searchMa(${index},this.value)"
-onkeydown="
-handleMaEnter(
-    event,
-    ${index}
-)
-"
-placeholder="Mã hàng"
-autocomplete="off">
+                    <input
+                    type="text"
+                    value="${r.ma}"
+                    id="maInput${index}"
+                    oninput="
+                    searchMa(
+                        ${index},
+                        this.value
+                    )
+                    "
+                    onkeydown="
+                    handleMaEnter(
+                        event,
+                        ${index}
+                    )
+                    "
+                    placeholder="Mã hàng"
+                    autocomplete="off">
 
-        <div
-        class="auto-list"
-        id="autoList${index}">
+                    <div
+                    class="auto-list"
+                    id="autoList${index}">
 
-        </div>
+                    </div>
 
-    </div>
+                </div>
 
-</td>
+            </td>
 
             <!-- TÊN -->
 
@@ -1816,23 +1953,47 @@ autocomplete="off">
 
                 <input
                 type="text"
+                id="tenInput${index}"
                 value="${tenSP}"
-                onchange="changeTen(${index},this.value)"
+                onchange="
+                changeTen(
+                    ${index},
+                    this.value
+                )
+                "
+                onkeydown="
+                focusNextNhap(
+                    event,
+                    'slInput${index}'
+                )
+                "
                 placeholder="Tên sản phẩm">
 
             </td>
 
-            <!-- SL -->
+            <!-- SỐ LƯỢNG -->
 
             <td style="
-            width:70px;
-            min-width:70px;
+            width:90px;
+            min-width:90px;
             ">
 
                 <input
                 type="number"
+                id="slInput${index}"
                 value="${r.sl}"
-                onchange="changeSl(${index},this.value)"
+                oninput="
+changeSl(
+    ${index},
+    this.value
+)
+"
+                onkeydown="
+                focusNextNhap(
+                    event,
+                    'giaInput${index}'
+                )
+                "
                 style="
                 text-align:center;
                 ">
@@ -1848,8 +2009,21 @@ autocomplete="off">
 
                 <input
                 type="number"
-                value="${r.gia}"
-                onchange="changeGia(${index},this.value)">
+                id="giaInput${index}"
+                onfocus="this.select()"
+                value="${r.gia || ''}"
+                oninput="
+changeGia(
+    ${index},
+    this.value
+)
+"
+                onkeydown="
+                focusNextNhap(
+                    event,
+                    'giaBanInput${index}'
+                )
+                ">
 
             </td>
 
@@ -1862,8 +2036,21 @@ autocomplete="off">
 
                 <input
                 type="number"
-                value="${r.giaBan || 0}"
-                onchange="changeGiaBan(${index},this.value)">
+                id="giaBanInput${index}"
+                onfocus="this.select()"
+                value="${r.giaBan || ''}"
+                onchange="
+                changeGiaBan(
+                    ${index},
+                    this.value
+                )
+                "
+                onkeydown="
+                handleGiaBanEnter(
+                    event,
+                    ${index}
+                )
+                ">
 
             </td>
 
@@ -1885,31 +2072,68 @@ autocomplete="off">
                 border-right:1px solid #e2e8f0;
                 ">
 
-                    ${(r.sl*r.gia).toLocaleString()}đ
+                    ${(
+                        Number(r.sl) *
+                        Number(r.gia)
+                    ).toLocaleString()}đ
 
                 </div>
 
             </td>
 
-            <!-- XÓA -->
+            <!-- THAO TÁC -->
 
             <td style="
-            width:70px;
-            min-width:70px;
+            width:90px;
+            min-width:90px;
+            padding:0;
             ">
 
-                <button
-                class="btn btn-red"
-                onclick="removeNhap(${index})"
-                style="
-                width:100%;
+                <div style="
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                gap:4px;
                 height:44px;
-                border-radius:0;
                 ">
 
-                    Xóa
+                    <button
+                    onclick="addNhapRow()"
+                    style="
+                    width:30px;
+                    height:30px;
+                    border:none;
+                    border-radius:6px;
+                    background:#2563eb;
+                    color:white;
+                    font-size:18px;
+                    cursor:pointer;
+                    ">
 
-                </button>
+                        +
+
+                    </button>
+
+                    <button
+                    onclick="
+                    removeNhap(${index})
+                    "
+                    style="
+                    width:30px;
+                    height:30px;
+                    border:none;
+                    border-radius:6px;
+                    background:#ef4444;
+                    color:white;
+                    font-size:18px;
+                    cursor:pointer;
+                    ">
+
+                        ×
+
+                    </button>
+
+                </div>
 
             </td>
 
@@ -1924,7 +2148,6 @@ autocomplete="off">
     tong.toLocaleString() + "đ"
 
 }
-
 /* ====== TÌM MÃ ====== */
 
 window.searchMa = function(index,val){
@@ -1994,28 +2217,32 @@ products.filter(p=>
 
 window.handleMaEnter = function(e,index){
 
-    if(e.key !== "Enter") return
+    if(e.key !== "Enter")
+    return
 
     e.preventDefault()
 
     const keyword =
-    (nhapRows[index].ma || "")
-    .toLowerCase()
+    document
+    .getElementById(
+        `maInput${index}`
+    )
+    .value
+    .trim()
+
+    if(!keyword) return
 
     const found =
     products.find(p=>
 
         (p.ma || "")
         .toLowerCase()
-        .includes(keyword)
-
-        ||
-
-        (p.ten || "")
-        .toLowerCase()
-        .includes(keyword)
+        ===
+        keyword.toLowerCase()
 
     )
+
+    /* CÓ TRONG KHO */
 
     if(found){
 
@@ -2024,95 +2251,35 @@ window.handleMaEnter = function(e,index){
             found.ma
         )
 
-    }
-
-}
-    
-/* ====== CHỌN MÃ ====== */
-
-window.selectMa = function(index,ma){
-
-    const found =
-    products.find(
-        p=>p.ma===ma
-    )
-
-    if(!found) return
-
-    /* ====== KIỂM TRA TRÙNG ====== */
-
-    const existedIndex =
-    nhapRows.findIndex((r,i)=>
-
-        r.ma === ma
-        &&
-        i !== index
-
-    )
-
-    if(existedIndex !== -1){
-
-        nhapRows[existedIndex].sl += 1
-
-        nhapRows.splice(index,1)
-
-        renderNhap()
-
         return
 
     }
 
+    /* HÀNG MỚI */
+
     nhapRows[index].ma =
-    found.ma
+    keyword
 
-    nhapRows[index].ten =
-    found.ten
-
-    nhapRows[index].gia =
-    found.gia_nhap
-
-    nhapRows[index].giaBan =
-    found.gia_ban
-
-    /* ====== TỰ THÊM DÒNG ====== */
-
-    const isLast =
-    index === nhapRows.length - 1
-
-    if(isLast){
-
-        nhapRows.push({
-
-            ma:"",
-            ten:"",
-            sl:1,
-            gia:0,
-            giaBan:0
-
-        })
-
-    }
 
     renderNhap()
 
-    /* ====== AUTO FOCUS ====== */
+setTimeout(()=>{
 
-    setTimeout(()=>{
+    const nextInput =
+    document.getElementById(
+        `tenInput${index}`
+    )
 
-        const nextInput =
-        document.getElementById(
-            "maInput" + (index + 1)
-        )
+    if(nextInput){
 
-        if(nextInput){
+        nextInput.focus()
 
-            nextInput.focus()
+    }
 
-        }
-
-    },50)
+},50)
 
 }
+
 /* ====== ĐỔI MÃ ====== */
 
 window.changeMa = function(index,val){
@@ -2149,21 +2316,19 @@ window.changeTen = function(index,val){
 
 }
 
-/* ====== ĐỔI SL ====== */
+/* ====== ĐỔI SỐ LƯỢNG ====== */
 
 window.changeSl = function(index,val){
 
     val = Number(val)
 
-    if(val < 1){
+    if(val < 0){
 
-        val = 1
+        val = 0
 
     }
 
     nhapRows[index].sl = val
-
-    renderNhap()
 
 }
 
@@ -2181,10 +2346,7 @@ window.changeGia = function(index,val){
 
     nhapRows[index].gia = val
 
-    renderNhap()
-
 }
-
 /* ====== ĐỔI GIÁ BÁN ====== */
 
 window.changeGiaBan = function(index,val){
@@ -2199,7 +2361,74 @@ window.changeGiaBan = function(index,val){
 
     nhapRows[index].giaBan = val
 
+}
+
+/* ====== ENTER CHUYỂN Ô ====== */
+
+window.focusNextNhap =
+function(e,id){
+
+    if(e.key !== "Enter")
+    return
+
+    e.preventDefault()
+
+    setTimeout(()=>{
+
+        const next =
+        document.getElementById(id)
+
+        if(next){
+
+            next.focus()
+
+            next.select?.()
+
+        }
+
+    },10)
+
+}
+/* ====== ENTER GIÁ BÁN ====== */
+
+window.handleGiaBanEnter =
+function(e,index){
+
+    if(e.key !== "Enter")
+    return
+
+    e.preventDefault()
+
+    /* THÊM DÒNG MỚI */
+
+    nhapRows.push({
+
+        ma:"",
+        ten:"",
+        sl:"",
+        gia:0,
+        giaBan:0
+
+    })
+
     renderNhap()
+
+    /* FOCUS DÒNG MỚI */
+
+    setTimeout(()=>{
+
+        const nextInput =
+        document.getElementById(
+            `maInput${index+1}`
+        )
+
+        if(nextInput){
+
+            nextInput.focus()
+
+        }
+
+    },50)
 
 }
 /* ====== XÓA DÒNG ====== */
