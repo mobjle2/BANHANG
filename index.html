@@ -8,7 +8,7 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>POS PRO CLOUD</title>
+<title>TRUNGIA82</title>
 
 <link
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -245,10 +245,10 @@ td{
 }
 
 .total-big{
-    font-size:28px;
-    font-weight:800;
-    color:#2563eb;
-    margin:10px 0;
+    font-size:22px;
+    font-weight:700;
+    color:#111827;
+    margin:6px 0;
 }
 
 .save-btn{
@@ -258,6 +258,7 @@ td{
 
 .auto-wrap{
     position:relative;
+    z-index:99999;
 }
 
 .auto-list{
@@ -270,7 +271,8 @@ td{
     border-top:none;
     max-height:220px;
     overflow:auto;
-    z-index:50;
+    z-index:99999;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
 .auto-item{
@@ -330,11 +332,28 @@ td{
     padding:11px 12px;
     border-radius:8px;
     outline:none;
-    font-size:12px;
+    font-size:14px;
+    box-sizing:border-box;
 }
 
 .full-btn{
     width:100%;
+}
+
+@keyframes loading{
+
+    0%{
+
+        transform:translateX(-100%);
+
+    }
+
+    100%{
+
+        transform:translateX(100%);
+
+    }
+
 }
 
 /* ====== MOBILE ====== */
@@ -344,6 +363,8 @@ td{
 }
 
 @media(max-width:900px){
+
+   
 
 /* ====== THANH BÊN MOBILE ====== */
 
@@ -528,14 +549,14 @@ table{
 
         <div class="logo">
 
-            POS PRO
+            TRUNGIA82
 
         </div>
 
         <div class="menu">
 
             <button id="btnDashboard">
-                Dashboard
+                Tổng quan
             </button>
 
             <button
@@ -647,37 +668,16 @@ table{
 
                 <div class="topbar">
 
-                    <button
-                    class="btn btn-green"
-                    onclick="excelFile.click()">
-
-                        Import Excel
-
-                    </button>
-
-                    <button
-                    class="btn btn-blue"
-                    onclick="exportExcel()">
-
-                        Xuất Excel
-
-                    </button>
-
-                    <button
-                    class="btn btn-blue"
-                    onclick="openModal()">
-
+                
+                    <button class="btn btn-blue" onclick="openModal()">
+                
                         Thêm sản phẩm
-
+                
                     </button>
-
-                    <input
-                    type="file"
-                    id="excelFile"
-                    hidden
-                    accept=".xlsx,.xls">
-
+                
                 </div>
+                
+                <input type="file" id="excelFile" hidden accept=".xlsx,.xls">
 
                 <div class="table-wrap">
 
@@ -693,7 +693,12 @@ table{
                                 <th>Giá bán</th>
                                 <th>Giá sỉ</th>
                                 <th>Tồn</th>
-                                <th>Thao tác</th>
+                                <th style="
+                                width:180px;
+                                text-align:center;
+                                ">
+                                    Thao tác
+                                </th>
 
                             </tr>
 
@@ -713,6 +718,28 @@ table{
 <!-- NHẬP HÀNG -->
 
 <div id="nhapPage" class="hidden">
+
+    <div class="topbar">
+    
+        <button class="btn btn-green" onclick="excelFile.click()">
+    
+            Nhập Excel
+    
+        </button>
+        
+        <button class="btn btn-blue" onclick="exportExcel()">
+        
+            Xuất Excel
+        
+        
+        
+        <button class="btn btn-red" onclick="openResetModal()">
+        
+            Xóa dữ liệu
+        
+        </button>
+        
+        </div>
 
     <!-- PHIẾU NHẬP KHO -->
 
@@ -747,7 +774,7 @@ table{
             ">
 
                 Ngày:
-                <span id="timeInput"></span>
+                <input type="text" id="timeInput">
 
             </div>
 
@@ -863,8 +890,7 @@ max-width:1000px;
 
 </div>
 
-        </div>
-
+      
     </div>
 
     <!-- BẢNG NHẬP -->
@@ -907,6 +933,8 @@ max-width:1000px;
 
     </div>
 
+
+
     <!-- TỔNG TIỀN -->
 
 <div style="
@@ -933,24 +961,21 @@ padding:16px;
 
         </div>
 
-        <div
-        class="total-big"
-        id="tongTien">
-
+        <div class="total-big" id="tongTien">
+        
             0đ
-
+        
         </div>
 
     </div>
 
     <!-- NÚT LƯU -->
-
-    <button
-    class="btn btn-blue"
-    style="
+    
+    <button class="btn btn-blue" style="
     width:100%;
-    height:44px;
-    font-size:13px;
+    height:40px;
+    font-size:12px;
+    font-weight:600;
     "
     onclick="saveNhap()">
 
@@ -965,38 +990,6 @@ padding:16px;
 
 <script>
 
-/* ====== THỜI GIAN ====== */
-
-window.updateTime = function(){
-
-    const now = new Date()
-
-    timeInput.innerText =
-    now.toLocaleString(
-        "vi-VN",
-        {
-
-            hour12:false,
-
-            year:"numeric",
-
-            month:"2-digit",
-
-            day:"2-digit",
-
-            hour:"2-digit",
-
-            minute:"2-digit"
-
-        }
-
-    )
-
-}
-
-setInterval(updateTime,1000)
-
-updateTime()
 
 </script>
 
@@ -1013,17 +1006,21 @@ updateTime()
 
                         <thead>
 
-                            <tr>
-                                <th>Mã phiếu</th>
-                                <th>Nhà cung cấp</th>
-                                <th>Thời gian</th>
-                                
-                                <th>Tổng tiền</th>
+<tr>
 
-                                <th>Số SP</th>
-                                <th>Xem</th>
-                            </tr>
+    <th>Mã phiếu</th>
 
+    <th>Nhà cung cấp</th>
+
+    <th>Thời gian</th>
+
+    <th>Tổng tiền</th>
+
+<th style="width:80px">Xem</th>
+<th style="width:80px">Sửa</th>
+<th style="width:80px">Xóa</th>
+
+</tr>
                         </thead>
 
                         <tbody id="historyTable">
@@ -1041,14 +1038,14 @@ updateTime()
     </main>
 
 </div>
+
 <!-- MODAL CHI TIẾT PHIẾU -->
 
-<div class="modal"
-id="viewOrderModal">
+<div class="modal" id="viewOrderModal">
 
-    <div class="modal-box"
-    style="
-    max-width:900px;
+    <div class="modal-box" style="
+    max-width:1400px;
+    width:95%;
     ">
 
         <div class="modal-header">
@@ -1059,13 +1056,23 @@ id="viewOrderModal">
 
             </h2>
 
-            <button
-            class="close-btn"
-            onclick="closeViewOrder()">
+            <button class="close-btn" onclick="closeViewOrder()">
 
                 ✕
 
             </button>
+
+        </div>
+
+        <div id="viewOrderInfo" style="
+        margin-bottom:20px;
+        padding:10px 14px;
+        background:#f8fafc;
+        border:1px solid #e2e8f0;
+        border-radius:8px;
+        line-height:24px;
+        font-size:13px;
+        ">
 
         </div>
 
@@ -1104,12 +1111,15 @@ id="viewOrderModal">
     </div>
 
 </div>
+
 <!-- MODAL -->
 
-<div class="modal"
-id="modal">
+<div class="modal" id="modal">
 
-    <div class="modal-box">
+    <div class="modal-box" style="
+    max-width:700px;
+    width:90%;
+    ">
 
         <div class="modal-header">
 
@@ -1119,9 +1129,7 @@ id="modal">
 
             </h2>
 
-            <button
-            class="close-btn"
-            onclick="closeModal()">
+            <button class="close-btn" onclick="closeModal()">
 
                 ✕
 
@@ -1131,61 +1139,41 @@ id="modal">
 
         <div class="form-group">
 
-            <input
-            type="text"
-            id="ma"
-            placeholder="Mã hàng">
+            <input type="text" id="ma" placeholder="Mã hàng">
 
         </div>
 
         <div class="form-group">
 
-            <input
-            type="text"
-            id="ten"
-            placeholder="Tên hàng">
+            <input type="text" id="ten" placeholder="Tên hàng">
 
         </div>
 
         <div class="form-group">
 
-            <input
-            type="number"
-            id="giaNhap"
-            placeholder="Giá nhập">
+            <input type="text" id="giaNhap" placeholder="Giá nhập" oninput="formatMoneyInput(this)">
 
         </div>
 
         <div class="form-group">
 
-            <input
-            type="number"
-            id="giaBan"
-            placeholder="Giá bán">
+            <input type="text" id="giaBan" placeholder="Giá bán" oninput="formatMoneyInput(this)">
 
         </div>
 
         <div class="form-group">
 
-            <input
-            type="number"
-            id="giaSi"
-            placeholder="Giá sỉ">
+            <input type="text" id="giaSi" placeholder="Giá sỉ" oninput="formatMoneyInput(this)">
 
         </div>
 
         <div class="form-group">
 
-            <input
-            type="number"
-            id="ton"
-            placeholder="Tồn kho">
+            <input type="number" id="ton" placeholder="Tồn kho">
 
         </div>
 
-        <button
-        class="btn btn-blue full-btn"
-        onclick="saveProduct()">
+        <button class="btn btn-blue full-btn" onclick="saveProduct()">
 
             Lưu sản phẩm
 
@@ -1210,7 +1198,7 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-/* ====== FIREBASE ====== */
+/* ====== KẾT NỐI FIREBASE ====== */
 
 const firebaseConfig = {
 
@@ -1249,25 +1237,27 @@ const importOrdersRef =
 ref(db,"import_orders")
 let importOrders = []
     
-/* ====== DATA ====== */
+/* ====== DỮ LIỆU ====== */
 
-let products = []
+window.products = []
 
-let nhapRows = []
+window.nhapRows = []
+
+let editImportId = null
 
 let editId = null
     
-/* ====== REALTIME ====== */
+/* ====== ĐỒNG BỘ SẢN PHẨM ====== */
 
 onValue(productsRef,(snapshot)=>{
 
     products = []
 
-    snapshot.forEach(child=>{
+    snapshot.forEach(child => {
 
-        products.push({
+        products.unshift({
 
-            id:child.key,
+            id: child.key,
 
             ...child.val()
 
@@ -1281,7 +1271,7 @@ onValue(productsRef,(snapshot)=>{
 
 })
 
-/* ====== REALTIME PHIẾU NHẬP ====== */
+/* ====== ĐỒNG BỘ PHIẾU NHẬP ====== */
 
 onValue(importOrdersRef,(snapshot)=>{
 
@@ -1307,7 +1297,7 @@ onValue(importOrdersRef,(snapshot)=>{
 
 })
     
-/* ====== MENU MOBILE ====== */
+/* ====== MENU DI ĐỘNG ====== */
 
 window.toggleSidebar = function(){
 
@@ -1335,7 +1325,7 @@ window.showPage = function(page){
 
     })
 
- /* ====== BẢNG ĐIỀU KHIỂN ====== */
+    /* ====== TỔNG QUAN ====== */
 
     if(page === "dashboard"){
 
@@ -1344,7 +1334,7 @@ window.showPage = function(page){
         btnDashboard.classList.add("active")
 
         pageTitle.innerText =
-        "Dashboard"
+        "Tổng quan"
 
         searchInput.style.display =
         "none"
@@ -1425,35 +1415,35 @@ else if(page === "history"){
 
 }
 
-/* ====== DASHBOARD ====== */
+    /* ====== TỔNG QUAN ====== */
 
-window.renderDashboard = function(){
+        window.renderDashboard = function () {
 
-    totalProducts.innerText =
-    products.length
+            totalProducts.innerText =
+                products.length
 
-    let stock = 0
+            let stock = 0
 
-    let value = 0
+            let value = 0
 
-    products.forEach(p=>{
+            products.forEach(p => {
 
-        stock += Number(p.ton)
+                stock += Number(p.ton)
 
-        value +=
-        Number(p.ton) *
-        Number(p.gia_nhap)
+                value +=
+                    Number(p.ton) *
+                    Number(p.gia_nhap)
 
-    })
+            })
 
-    totalStock.innerText =
-    stock.toLocaleString()
+            totalStock.innerText =
+                stock.toLocaleString("vi-VN")
 
-    totalValue.innerText =
-    value.toLocaleString() + "đ"
+            totalValue.innerText =
+                Math.round(value)
+                    .toLocaleString("vi-VN")
 
-}
-
+        }
 /* ====== HIỂN THỊ SẢN PHẨM ====== */
     
 window.renderProducts = function(){
@@ -1504,7 +1494,7 @@ window.renderProducts = function(){
 
                 <td>
                     ${(Number(p.gia_nhap)||0)
-                    .toLocaleString()}đ
+                    .toLocaleString()}
                 </td>
 
                 <td style="
@@ -1512,12 +1502,12 @@ window.renderProducts = function(){
                 font-weight:700;
                 ">
                     ${(Number(p.gia_ban)||0)
-                    .toLocaleString()}đ
+                    .toLocaleString()}
                 </td>
 
                 <td>
                     ${(Number(p.gia_si)||0)
-                    .toLocaleString()}đ
+                    .toLocaleString()}
                 </td>
 
                 <td>
@@ -1661,11 +1651,17 @@ window.editProduct = function(index){
 
     ten.value = p.ten
 
-    giaNhap.value = p.gia_nhap
+    giaNhap.value =
+        Number(p.gia_nhap || 0)
+            .toLocaleString("vi-VN")
 
-    giaBan.value = p.gia_ban
+    giaBan.value =
+        Number(p.gia_ban || 0)
+            .toLocaleString("vi-VN")
 
-    giaSi.value = p.gia_si
+    giaSi.value =
+        Number(p.gia_si || 0)
+            .toLocaleString("vi-VN")
 
     ton.value = p.ton
 
@@ -1676,6 +1672,30 @@ window.editProduct = function(index){
     "flex"
 
 }
+
+    /* ====== ĐỊNH DẠNG TIỀN ====== */
+
+    window.formatMoneyInput = function (input) {
+
+        let value =
+            input.value
+                .replace(/\./g, "")
+                .replace(/,/g, "")
+                .replace(/\D/g, "")
+
+        if (!value) {
+
+            input.value = ""
+
+            return
+
+        }
+
+        input.value =
+            Number(value)
+                .toLocaleString("vi-VN")
+
+    }
 
 /* ====== LƯU SẢN PHẨM ====== */
 
@@ -1694,6 +1714,28 @@ if(
     return
 
 }
+    const trungMa =
+
+        products.find(p =>
+
+            p.ma === ma.value.trim()
+
+            &&
+
+            p.id !== editId
+
+        )
+
+    if (trungMa) {
+
+        alert(
+            "Mã hàng đã tồn tại"
+        )
+
+        return
+
+    }
+
 if(
 
     Number(giaNhap.value) < 0
@@ -1713,17 +1755,26 @@ if(
 }
     const data = {
 
-        ma:ma.value,
+        ma: ma.value,
 
-        ten:ten.value,
+        ten: ten.value,
 
-        gia_nhap:Number(giaNhap.value),
+        gia_nhap: Number(
+            giaNhap.value
+                .replace(/\./g, "")
+        ),
 
-        gia_ban:Number(giaBan.value),
+        gia_ban: Number(
+            giaBan.value
+                .replace(/\./g, "")
+        ),
 
-        gia_si:Number(giaSi.value),
+        gia_si: Number(
+            giaSi.value
+                .replace(/\./g, "")
+        ),
 
-        ton:Number(ton.value)
+        ton: Number(ton.value)
 
     }
 
@@ -1761,24 +1812,49 @@ if(
 
 /* ====== XÓA SẢN PHẨM ====== */
 
-window.deleteProduct = function(index){
+    window.deleteProduct = function (index) {
 
-    if(confirm("Xóa sản phẩm?")){
+        const product =
+            products[index]
 
-        remove(
+        const used =
+            importOrders.some(order =>
 
-            ref(
-                db,
-                "products/" + products[index].id
+                (order.items || [])
+                    .some(item =>
+
+                        item.ma === product.ma
+
+                    )
+
             )
 
-        )
+        if (used) {
+
+            alert(
+                "Sản phẩm đã tồn tại trong phiếu nhập, không thể xóa"
+            )
+
+            return
+
+        }
+
+        if (confirm("Xóa sản phẩm?")) {
+
+            remove(
+
+                ref(
+                    db,
+                    "products/" + product.id
+                )
+
+            )
+
+        }
 
     }
 
-}
-
-/* ====== IMPORT EXCEL ====== */
+/* ====== NHẬP EXCEL ====== */
 
 excelFile.addEventListener(
 "change",
@@ -1787,10 +1863,13 @@ e=>{
     const file =
     e.target.files[0]
 
-    if(!file) return
+    if (!file) return
+
+    importLoadingModal.style.display =
+        "flex"
 
     const reader =
-    new FileReader()
+        new FileReader()
 
     reader.onload = evt=>{
 
@@ -1855,8 +1934,14 @@ e=>{
 
         })
 
-        alert("Import thành công")
+        importLoadingModal.style.display =
+            "none"
 
+        alert(
+            "Nhập Excel thành công: "
+            + json.length
+            + " sản phẩm"
+        )
     }
 
     reader.readAsArrayBuffer(file)
@@ -1917,23 +2002,24 @@ window.renderNhap = function(){
                 <div class="auto-wrap">
 
                     <input
-                    type="text"
-                    value="${r.ma}"
-                    id="maInput${index}"
-                    oninput="
-                    searchMa(
-                        ${index},
-                        this.value
-                    )
-                    "
-                    onkeydown="
-                    handleMaEnter(
-                        event,
-                        ${index}
-                    )
-                    "
-                    placeholder="Mã hàng"
-                    autocomplete="off">
+type="text"
+value="${r.ma}"
+id="maInput${index}"
+oninput="
+nhapRows[${index}].ma=this.value;
+searchMa(
+    ${index},
+    this.value
+)
+"
+onkeydown="
+handleMaEnter(
+    event,
+    ${index}
+)
+"
+placeholder="Mã hàng"
+autocomplete="off">
 
                     <div
                     class="auto-list"
@@ -1973,86 +2059,86 @@ window.renderNhap = function(){
 
             <!-- SỐ LƯỢNG -->
 
-            <td style="
-            width:90px;
-            min-width:90px;
-            ">
+<td style="
+width:90px;
+min-width:90px;
+">
 
-                <input
-                type="number"
-                id="slInput${index}"
-                value="${r.sl}"
-                oninput="
-changeSl(
-    ${index},
-    this.value
-)
-"
-                onkeydown="
-                focusNextNhap(
-                    event,
-                    'giaInput${index}'
-                )
-                "
-                style="
-                text-align:center;
-                ">
+    <input
+    type="number"
+    id="slInput${index}"
+    value="${r.sl}"
+    oninput="
+    changeSl(
+        ${index},
+        this.value
+    )
+    "
+    onkeydown="
+    focusNextNhap(
+        event,
+        'giaInput${index}'
+    )
+    "
+    style="
+    text-align:center;
+    ">
 
-            </td>
+</td>
 
-            <!-- GIÁ NHẬP -->
+<!-- GIÁ NHẬP -->
 
-            <td style="
-            width:120px;
-            min-width:120px;
-            ">
+<td style="
+width:120px;
+min-width:120px;
+">
 
-                <input
-                type="number"
-                id="giaInput${index}"
-                onfocus="this.select()"
-                value="${r.gia || ''}"
-                oninput="
-changeGia(
-    ${index},
-    this.value
-)
-"
-                onkeydown="
-                focusNextNhap(
-                    event,
-                    'giaBanInput${index}'
-                )
-                ">
+    <input
+    type="text"
+    id="giaInput${index}"
+    onfocus="this.select()"
+    value="${r.gia ? Number(r.gia).toLocaleString('vi-VN') : ''}"
+    oninput="
+    changeGia(
+        ${index},
+        this.value
+    )
+    "
+    onkeydown="
+    focusNextNhap(
+        event,
+        'giaBanInput${index}'
+    )
+    ">
 
-            </td>
+</td>
 
-            <!-- GIÁ BÁN -->
+<!-- GIÁ BÁN -->
 
-            <td style="
-            width:120px;
-            min-width:120px;
-            ">
+<td style="
+width:120px;
+min-width:120px;
+">
 
-                <input
-                type="number"
-                id="giaBanInput${index}"
-                onfocus="this.select()"
-                value="${r.giaBan || ''}"
-                onchange="
-                changeGiaBan(
-                    ${index},
-                    this.value
-                )
-                "
-                onkeydown="
-                handleGiaBanEnter(
-                    event,
-                    ${index}
-                )
-                ">
+    <input
+    type="text"
+    id="giaBanInput${index}"
+    onfocus="this.select()"
+    value="${r.giaBan ? Number(r.giaBan).toLocaleString('vi-VN') : ''}"
+    oninput="
+    changeGiaBan(
+        ${index},
+        this.value
+    )
+    "
+    onkeydown="
+    handleGiaBanEnter(
+        event,
+        ${index}
+    )
+    ">
 
-            </td>
+</td>
 
             <!-- THÀNH TIỀN -->
 
@@ -2061,7 +2147,9 @@ changeGia(
             min-width:140px;
             ">
 
-                <div style="
+                <div
+                id="thanhTien${index}"
+                style="
                 height:44px;
                 display:flex;
                 align-items:center;
@@ -2075,7 +2163,7 @@ changeGia(
                     ${(
                         Number(r.sl) *
                         Number(r.gia)
-                    ).toLocaleString()}đ
+                    ).toLocaleString()}
 
                 </div>
 
@@ -2145,7 +2233,7 @@ changeGia(
     nhapTable.innerHTML = html
 
     tongTien.innerText =
-    tong.toLocaleString() + "đ"
+    tong.toLocaleString()
 
 }
 /* ====== TÌM MÃ ====== */
@@ -2169,6 +2257,8 @@ window.searchMa = function(index,val){
 
     const keyword =
     val.toLowerCase()
+    console.log("search", val)
+    console.log(products.length)
 
 const result =
 products.filter(p=>
@@ -2185,6 +2275,7 @@ products.filter(p=>
 
 )
 .slice(0,8)
+    console.log(result)
 
     let html = ""
 
@@ -2208,7 +2299,8 @@ products.filter(p=>
         `
 
     })
-
+    console.log(list)
+    console.log(html)
     list.innerHTML = html
 
 }
@@ -2229,7 +2321,11 @@ window.handleMaEnter = function(e,index){
     )
     .value
     .trim()
-
+    console.log(
+        "ENTER MA",
+        index,
+        keyword
+    )
     if(!keyword) return
 
     const found =
@@ -2280,89 +2376,194 @@ setTimeout(()=>{
 
 }
 
-/* ====== ĐỔI MÃ ====== */
+/* ====== CHỌN MÃ ====== */
 
-window.changeMa = function(index,val){
-
-    nhapRows[index].ma = val
+window.selectMa = function(index,ma){
 
     const found =
     products.find(
-        p=>p.ma===val
+        p=>p.ma===ma
     )
 
-    if(found){
+    if(!found) return
 
-        nhapRows[index].ten =
-        found.ten
+    nhapRows[index] = {
 
-        nhapRows[index].gia =
-        found.gia_nhap
+        ...nhapRows[index],
 
-        nhapRows[index].giaBan =
-        found.gia_ban
+        ma:found.ma,
+
+        ten:found.ten,
+
+        gia:found.gia_nhap || 0,
+
+        giaBan:found.gia_ban || 0,
+
+        sl:
+        nhapRows[index].sl || 1
 
     }
 
     renderNhap()
 
-}
+    const list =
+    document.getElementById(
+        `autoList${index}`
+    )
 
-/* ====== ĐỔI TÊN ====== */
+    if(list){
 
-window.changeTen = function(index,val){
-
-    nhapRows[index].ten = val
-
-}
-
-/* ====== ĐỔI SỐ LƯỢNG ====== */
-
-window.changeSl = function(index,val){
-
-    val = Number(val)
-
-    if(val < 0){
-
-        val = 0
+        list.innerHTML = ""
 
     }
 
-    nhapRows[index].sl = val
+    setTimeout(()=>{
+
+        const next =
+        document.getElementById(
+            `slInput${index}`
+        )
+
+        if(next){
+
+            next.focus()
+
+            next.select?.()
+
+        }
+
+    },50)
 
 }
 
-/* ====== ĐỔI GIÁ NHẬP ====== */
+    /* ====== ĐỔI MÃ ====== */
 
-window.changeGia = function(index,val){
+    window.changeMa = function (index, val) {
 
-    val = Number(val)
+        nhapRows[index].ma = val
 
-    if(val < 0){
+        const found =
+            products.find(
+                p => p.ma === val
+            )
 
-        val = 0
+        if (found) {
+
+            nhapRows[index].ten =
+                found.ten
+
+            nhapRows[index].gia =
+                found.gia_nhap
+
+            nhapRows[index].giaBan =
+                found.gia_ban
+
+        }
+
+        renderNhap()
 
     }
 
-    nhapRows[index].gia = val
+    /* ====== ĐỔI TÊN ====== */
 
-}
-/* ====== ĐỔI GIÁ BÁN ====== */
+    window.changeTen = function (index, val) {
 
-window.changeGiaBan = function(index,val){
-
-    val = Number(val)
-
-    if(val < 0){
-
-        val = 0
+        nhapRows[index].ten = val
 
     }
 
-    nhapRows[index].giaBan = val
+    /* ====== ĐỔI SỐ LƯỢNG ====== */
 
-}
+        window.changeSl = function (index, val) {
 
+            nhapRows[index].sl =
+                Number(val) || 0
+
+            const tien =
+                Number(nhapRows[index].sl) *
+                Number(nhapRows[index].gia)
+
+            document.getElementById(
+                `thanhTien${index}`
+            ).innerText =
+                tien.toLocaleString()
+            let tong = 0
+
+            nhapRows.forEach(r => {
+
+                tong +=
+                    Number(r.sl || 0) *
+                    Number(r.gia || 0)
+
+            })
+
+            tongTien.innerText =
+                tong.toLocaleString()
+
+        }
+        /* ====== ĐỔI GIÁ NHẬP ====== */
+
+            window.changeGia = function (index, val) {
+
+                val =
+                    String(val)
+                        .replace(/\./g, "")
+                        .replace(/,/g, "")
+
+                nhapRows[index].gia =
+                    Number(val) || 0
+
+                document.getElementById(
+                    `giaInput${index}`
+                ).value =
+                    nhapRows[index].gia
+                        .toLocaleString("vi-VN")
+
+                const tien =
+                    Number(nhapRows[index].sl) *
+                    Number(nhapRows[index].gia)
+
+                document.getElementById(
+                    `thanhTien${index}`
+                ).innerText =
+                    tien.toLocaleString()
+
+                let tong = 0
+
+                nhapRows.forEach(r => {
+
+                    tong +=
+                        Number(r.sl || 0) *
+                        Number(r.gia || 0)
+
+                })
+
+                tongTien.innerText =
+                    tong.toLocaleString()
+
+            }
+
+            /* ====== ĐỔI GIÁ BÁN ====== */
+
+            window.changeGiaBan = function (index, val) {
+
+                val =
+                    String(val)
+                        .replace(/\./g, "")
+                        .replace(/,/g, "")
+
+                val =
+                    Number(val) || 0
+
+                nhapRows[index].giaBan =
+                    val
+
+                document.getElementById(
+                    `giaBanInput${index}`
+                ).value =
+                    val.toLocaleString("vi-VN")
+
+            }
 /* ====== ENTER CHUYỂN Ô ====== */
 
 window.focusNextNhap =
@@ -2400,7 +2601,7 @@ function(e,index){
     e.preventDefault()
 
     /* THÊM DÒNG MỚI */
-
+    renderNhap()
     nhapRows.push({
 
         ma:"",
@@ -2441,6 +2642,62 @@ window.removeNhap = function(index){
 
 }
 
+/* ====== SỬA PHIẾU NHẬP ====== */
+
+    window.editImportOrder = function (id) {
+
+        const order =
+            importOrders.find(
+                x => x.id === id
+            )
+
+        if (!order) return
+
+        editImportId = id
+        timeInput.value =
+            order.time ||
+            order.timeUpdate ||
+            ""
+
+        supplierInput.value =
+            order.supplier || ""
+
+        supplierPhone.value =
+            order.supplierPhone || ""
+
+        supplierAddress.value =
+            order.supplierAddress || ""
+
+        noteInput.value =
+            order.note || ""
+
+        nhapRows = []
+
+            ; (order.items || [])
+                .forEach(item => {
+
+                    nhapRows.push({
+
+                        ma: item.ma || "",
+
+                        ten: item.ten || "",
+
+                        sl: item.sl || 0,
+
+                        gia: item.gia || 0,
+
+                        giaBan: item.giaBan || 0
+
+                    })
+
+                })
+
+        showPage("nhap")
+
+        renderNhap()
+
+    }
+
 /* ====== LƯU NHẬP HÀNG ====== */
 
 window.saveNhap = async function(){
@@ -2456,6 +2713,41 @@ window.saveNhap = async function(){
     let tong = 0
 
     const items = []
+    /* ====== KIỂM TRA TRÙNG MÃ ====== */
+
+    for (const r of nhapRows) {
+
+        const found =
+            products.find(
+                p => p.ma === r.ma
+            )
+
+        if (
+
+            found
+            &&
+            found.ten.trim().toLowerCase()
+            !==
+            (r.ten || "")
+                .trim()
+                .toLowerCase()
+
+        ) {
+
+            alert(
+
+                "Mã " +
+                r.ma +
+                " đã tồn tại với tên: " +
+                found.ten
+
+            )
+
+            return
+
+        }
+
+    }
 
 nhapRows.forEach(r=>{
 
@@ -2494,74 +2786,190 @@ nhapRows.forEach(r=>{
     })
 
 })
+
+    let oldOrder = null
+
+    if (editImportId) {
+
+        oldOrder =
+            importOrders.find(
+                x => x.id === editImportId
+            )
+
+    }
+    
     /* LƯU PHIẾU */
 
-await push(
+    if (editImportId) {
 
-    importOrdersRef,
+        const now = new Date()
 
-    {
+        const timeUpdate =
 
-        maPhieu:
-        "PN" + Date.now(),
+            String(now.getDate())
+                .padStart(2, "0")
 
-        supplier:
-        supplierInput.value || "",
+            + "/"
 
-        note:
-        noteInput.value || "",
+            +
 
-        time:
-        new Date()
-        .toLocaleString(
-            "vi-VN"
-        ),
+            String(now.getMonth() + 1)
+                .padStart(2, "0")
 
-        tong:tong,
+            + "/"
 
-        items:items
+            +
+
+            now.getFullYear()
+
+            + " "
+
+            +
+
+            String(now.getHours())
+                .padStart(2, "0")
+
+            + ":"
+
+            +
+
+            String(now.getMinutes())
+                .padStart(2, "0")
+
+            + ":"
+
+            +
+
+            String(now.getSeconds())
+                .padStart(2, "0")
+
+        await update(
+
+            ref(
+                db,
+                "import_orders/" +
+                editImportId
+            ),
+
+            {
+
+                timeUpdate:
+                    timeUpdate,
+
+                supplier:
+                    supplierInput.value || "",
+
+                supplierPhone:
+                    supplierPhone.value || "",
+
+                supplierAddress:
+                    supplierAddress.value || "",
+
+                note:
+                    noteInput.value || "",
+
+                tong: tong,
+
+                items: items
+
+            }
+
+        )
 
     }
 
-)
-    /* CỘNG TỒN */
+    else {
 
-    nhapRows.forEach(r=>{
+        await push(
 
-        const found =
-        products.find(
-            p=>p.ma===r.ma
+            importOrdersRef,
+
+            {
+
+                maPhieu:
+                    "PN" + Date.now(),
+
+                supplier:
+                    supplierInput.value || "",
+
+                supplierPhone:
+                    supplierPhone.value || "",
+
+                supplierAddress:
+                    supplierAddress.value || "",
+
+                note:
+                    noteInput.value || "",
+
+                time:
+                    timeInput.value,
+
+                tong: tong,
+
+                items: items
+
+            }
+
         )
 
-       if(found){
+    }
 
-    update(
+    /* ====== CỘNG TỒN */
 
-        ref(
-            db,
-            "products/" + found.id
-        ),
+    nhapRows.forEach(r => {
 
-        {
+        const found =
+            products.find(
+                p => p.ma === r.ma
+            )
 
-            ton:
-            Number(found.ton) +
-            Number(r.sl),
+        let oldSl = 0
 
-            gia_nhap:
-            Number(r.gia),
+        if (oldOrder) {
 
-            gia_ban:
-            Number(r.giaBan),
+            const oldItem =
+                (oldOrder.items || [])
+                    .find(
+                        x => x.ma === r.ma
+                    )
 
-            gia_si:
-            Number(r.giaBan)
+            oldSl =
+                oldItem
+                    ? Number(oldItem.sl)
+                    : 0
 
         }
 
-    )
+        if (found) {
 
-}
+            update(
+
+                ref(
+                    db,
+                    "products/" + found.id
+                ),
+
+                {
+
+                    ton:
+                        Number(found.ton)
+                        - oldSl
+                        + Number(r.sl),
+
+                    gia_nhap:
+                        Number(r.gia),
+
+                    gia_ban:
+                        Number(r.giaBan),
+
+                    gia_si:
+                        Number(r.giaBan)
+
+                }
+
+            )
+
+        }
 
 /* ====== TẠO SẢN PHẨM MỚI ====== */
 
@@ -2585,15 +2993,19 @@ else{
 
 }
     })
+    editImportId = null
 
-nhapRows = []
+    nhapRows = []
 
-supplierInput.value = ""
+    supplierInput.value = ""
 
-noteInput.value = ""
+    supplierPhone.value = ""
 
-renderNhap()
+    supplierAddress.value = ""
 
+    noteInput.value = ""
+
+    renderNhap()
 alert("Đã lưu phiếu nhập")
 
 }
@@ -2637,14 +3049,14 @@ window.viewImportOrder = function(id){
             <td>
 
                 ${(Number(item.gia)||0)
-                .toLocaleString()}đ
+                .toLocaleString()}
 
             </td>
 
             <td>
 
                 ${(Number(item.giaBan)||0)
-                .toLocaleString()}đ
+                .toLocaleString()}
 
             </td>
 
@@ -2654,7 +3066,7 @@ window.viewImportOrder = function(id){
             ">
 
                 ${(Number(item.thanhTien)||0)
-                .toLocaleString()}đ
+                .toLocaleString()}
 
             </td>
 
@@ -2663,8 +3075,32 @@ window.viewImportOrder = function(id){
 
     })
 
+    viewOrderInfo.innerHTML = `
+
+<div>
+<b>Nhà cung cấp:</b>
+${order.supplier || ""}
+</div>
+
+<div>
+<b>Số điện thoại:</b>
+${order.supplierPhone || ""}
+</div>
+
+<div>
+<b>Địa chỉ:</b>
+${order.supplierAddress || ""}
+</div>
+
+<div>
+<b>Ghi chú:</b>
+${order.note || ""}
+</div>
+
+`
+
     viewOrderTable.innerHTML =
-    html
+        html
 
     viewOrderModal.style.display =
     "flex"
@@ -2679,7 +3115,7 @@ window.closeViewOrder = function(){
     "none"
 
 }  
-/* ====== CLICK NGOÀI MODAL ====== */
+/* ====== BẤM NGOÀI CỬA SỔ ====== */
 
 window.onclick = function(e){
 
@@ -2696,7 +3132,68 @@ window.onclick = function(e){
     }
 
 }
-    
+    /* ====== XÓA PHIẾU NHẬP ====== */
+
+    window.deleteImportOrder =
+        async function (id) {
+
+            if (
+                !confirm(
+                    "Xóa phiếu nhập?"
+                )
+            ) return
+
+            const order =
+                importOrders.find(
+                    x => x.id === id
+                )
+
+            if (!order) return
+
+            for (const item of (order.items || [])) {
+
+                const found =
+                    products.find(
+                        p => p.ma === item.ma
+                    )
+
+                if (found) {
+
+                    await update(
+
+                        ref(
+                            db,
+                            "products/" +
+                            found.id
+                        ),
+
+                        {
+
+                            ton:
+                                Math.max(
+                                    0,
+                                    Number(found.ton) -
+                                    Number(item.sl)
+                                )
+
+                        }
+
+                    )
+
+                }
+
+            }
+
+            await remove(
+
+                ref(
+                    db,
+                    "import_orders/" + id
+                )
+
+            )
+
+        }
 /* ====== RENDER LỊCH SỬ ====== */
 
 window.renderHistory = function(){
@@ -2721,34 +3218,66 @@ window.renderHistory = function(){
              ${p.supplier || ""}
 
             </td>
-              <td>
+            <td>
 
-                ${p.time || ""}
+    Tạo:
+    ${p.time || ""}
 
-             </td>
+    <br>
 
+    Sửa:
+    ${p.timeUpdate || "-"}
+
+</td>
             <td style="
             color:#2563eb;
             font-weight:700;
             ">
 
                 ${(Number(p.tong)||0)
-                .toLocaleString()}đ
+                .toLocaleString()}
 
             </td>
 
-            <td>
-
-                ${(p.items || []).length}
-
-            </td>
-           <td>
+<td style="
+width:90px;
+padding-right:10px;
+text-align:right;
+">
 
     <button
     class="btn btn-blue"
     onclick="viewImportOrder('${p.id}')">
 
         Xem
+
+    </button>
+
+<td style="
+width:90px;
+padding-right:10px;
+text-align:right;
+">
+
+    <button
+    class="btn btn-green"
+    onclick="editImportOrder('${p.id}')">
+
+        Sửa
+
+    </button>
+
+<td style="
+width:90px;
+padding-right:10px;
+text-align:right;
+">
+
+    <button
+    class="btn btn-red"
+    onclick="deleteImportOrder('${p.id}')">
+
+        Xóa
 
     </button>
 
@@ -2791,39 +3320,254 @@ btnHistory.onclick = ()=>{
 
 window.updateTime = function(){
 
+    const now = new Date()
+
     timeInput.value =
-    new Date()
-    .toLocaleString(
-        "vi-VN",
-        {
 
-            hour12:false,
+        String(now.getDate())
+        .padStart(2,"0")
 
-            year:"numeric",
+        + "/"
 
-            month:"2-digit",
+        +
 
-            day:"2-digit",
+        String(
+        now.getMonth()+1
+        )
+        .padStart(2,"0")
 
-            hour:"2-digit",
+        + "/"
 
-            minute:"2-digit"
+        +
 
-        }
+        now.getFullYear()
 
-    )
+        + " "
+
+        +
+
+        String(
+        now.getHours()
+        )
+        .padStart(2,"0")
+
+        + ":"
+
+        +
+
+        String(
+        now.getMinutes()
+        )
+        .padStart(2,"0")
+
+        + ":"
+
+        +
+
+        String(
+        now.getSeconds()
+        )
+        .padStart(2,"0")
 
 }
 
-setInterval(updateTime,1000)
+    setInterval(() => {
+
+        if (!editImportId) {
+
+            updateTime()
+
+        }
+
+    }, 1000)
 
 /* ====== KHỞI TẠO ====== */
 
 updateTime()
 
+    /* ====== XÓA DỮ LIỆU ====== */
+
+    window.openResetModal =
+        function () {
+
+            resetPassword.value = ""
+
+            resetModal.style.display =
+                "flex"
+
+        }
+
+    window.closeResetModal =
+        function () {
+
+            resetModal.style.display =
+                "none"
+
+        }
+
+    window.confirmReset =
+        async function () {
+
+            if (
+
+                resetPassword.value !==
+                "123456"
+
+            ) {
+
+                alert(
+                    "Sai mật khẩu"
+                )
+
+                return
+
+            }
+
+            if (
+                !confirm(
+                    "Xóa toàn bộ dữ liệu?"
+                )
+            ) return
+
+            loadingModal.style.display =
+                "flex"
+            await remove(
+                ref(
+                    db,
+                    "products"
+                )
+            )
+
+            await remove(
+                ref(
+                    db,
+                    "import_orders"
+                )
+            )
+            loadingModal.style.display =
+                "none"
+            closeResetModal()
+
+            alert(
+                "Reset thành công\n\n" +
+                "✓ Đã xóa toàn bộ sản phẩm\n" +
+                "✓ Đã xóa toàn bộ phiếu nhập"
+            )
+
+        }
+
+    
 showPage("products")
 
 </script>
 
+<!-- RESET PASSWORD MODAL -->
+
+<div class="modal" id="resetModal">
+
+    <div class="modal-box" style="
+    max-width:400px;
+    ">
+
+        <div class="modal-header">
+
+            <h2>
+
+                Xóa dữ liệu
+
+            </h2>
+
+            <button class="close-btn" onclick="closeResetModal()">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <div class="form-group">
+
+            <input type="password" id="resetPassword" placeholder="Nhập mật khẩu">
+
+        </div>
+
+        <button class="btn btn-red full-btn" onclick="confirmReset()">
+
+            Xác nhận xóa dữ liệu
+
+        </button>
+
+    </div>
+
+</div>
+
+<div class="modal" id="loadingModal">
+
+    <div class="modal-box" style="
+    max-width:300px;
+    text-align:center;
+    ">
+
+        <h3>
+
+            Đang Xóa dữ liệu ...
+
+        </h3>
+
+        <div style="
+        margin-top:15px;
+        height:8px;
+        background:#e5e7eb;
+        border-radius:20px;
+        overflow:hidden;
+        ">
+
+            <div id="loadingBar" style="
+            width:100%;
+            height:100%;
+            background:#2563eb;
+            animation:loading 1s linear infinite;
+            ">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="modal" id="importLoadingModal">
+
+    <div class="modal-box" style="
+    max-width:300px;
+    text-align:center;
+    ">
+
+        <h3>
+
+            Đang nhập Excel...
+
+        </h3>
+
+        <div style="
+        margin-top:15px;
+        height:8px;
+        background:#e5e7eb;
+        border-radius:20px;
+        overflow:hidden;
+        ">
+
+            <div style="
+            width:100%;
+            height:100%;
+            background:#16a34a;
+            animation:loading 1s linear infinite;
+            ">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 </body>
 </html>
