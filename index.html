@@ -156,7 +156,8 @@ body{
 .table-wrap{
     background:white;
     border:1px solid #e2e8f0;
-    overflow:auto;
+    overflow-x:auto;
+    overflow-y:visible;
     margin-top:14px;
 }
 
@@ -482,7 +483,7 @@ td{
 
 table{
 
-    min-width:900px;
+    min-width:700px;
 
 }
 
@@ -572,6 +573,13 @@ table{
             </button>
         <button id="btnHistory">
     Lịch sử nhập
+</button>
+<button id="btnXuat">
+    Xuất hàng
+</button>
+
+<button id="btnHistoryXuat">
+    Lịch sử xuất
 </button>
         </div>
 
@@ -731,7 +739,7 @@ table{
         
             Xuất Excel
         
-        
+        </button>
         
         <button class="btn btn-red" onclick="openResetModal()">
         
@@ -784,7 +792,7 @@ table{
 
 <div style="
 display:grid;
-grid-template-columns:110px 220px;
+grid-template-columns:110px 1fr;
 row-gap:14px;
 column-gap:14px;
 align-items:center;
@@ -805,6 +813,7 @@ max-width:1000px;
     <input
     type="text"
     id="supplierInput"
+    autocomplete="off"
     placeholder=""
     style="
     border:none;
@@ -830,6 +839,7 @@ max-width:1000px;
     <input
     type="text"
     id="supplierPhone"
+    autocomplete="off"
     placeholder=""
     style="
     border:none;
@@ -854,6 +864,7 @@ max-width:1000px;
     <input
     type="text"
     id="supplierAddress"
+    autocomplete="off"
     placeholder=""
     style="
     border:none;
@@ -993,8 +1004,212 @@ padding:16px;
 
 </script>
 
+<!-- XUẤT HÀNG -->
 
+<div id="xuatPage" class="hidden">
 
+    <!-- PHIẾU XUẤT -->
+
+    <div style="
+    background:white;
+    border:1px solid #e2e8f0;
+    padding:16px;
+    margin-bottom:14px;
+    ">
+
+        <div style="
+        text-align:center;
+        margin-bottom:26px;
+        ">
+
+            <div style="
+            font-size:20px;
+            font-weight:700;
+            letter-spacing:1px;
+            ">
+
+                PHIẾU XUẤT KHO
+
+            </div>
+
+            <div style="
+            margin-top:10px;
+            font-size:13px;
+            color:#64748b;
+            ">
+
+                Ngày:
+                <input type="text" id="timeXuatInput">
+
+            </div>
+
+        </div>
+
+        <div style="
+        display:grid;
+        grid-template-columns:110px 220px;
+        row-gap:14px;
+        column-gap:14px;
+        align-items:center;
+        max-width:1000px;
+        ">
+
+            <div style="
+            font-weight:600;
+            font-size:13px;
+            ">
+
+                Khách hàng:
+
+            </div>
+
+            <input type="text" id="customerInput" style="
+            border:none;
+            border-bottom:1px solid #cbd5e1;
+            padding:4px 2px;
+            outline:none;
+            background:none;
+            font-size:13px;
+            ">
+
+            <div style="
+            font-weight:600;
+            font-size:13px;
+            ">
+
+                Số điện thoại:
+
+            </div>
+
+            <input type="text" id="customerPhone" style="
+            border:none;
+            border-bottom:1px solid #cbd5e1;
+            padding:4px 2px;
+            outline:none;
+            background:none;
+            font-size:13px;
+            ">
+
+            <div style="
+            font-weight:600;
+            font-size:13px;
+            ">
+
+                Địa chỉ:
+
+            </div>
+
+            <input type="text" id="customerAddress" style="
+            border:none;
+            border-bottom:1px solid #cbd5e1;
+            padding:4px 2px;
+            outline:none;
+            background:none;
+            font-size:13px;
+            ">
+
+            <div style="
+            font-weight:600;
+            font-size:13px;
+            ">
+
+                Ghi chú:
+
+            </div>
+
+            <input type="text" id="noteXuatInput" style="
+            border:none;
+            border-bottom:1px solid #cbd5e1;
+            padding:4px 2px;
+            outline:none;
+            background:none;
+            font-size:13px;
+            ">
+
+        </div>
+
+    </div>
+
+    <!-- BẢNG XUẤT -->
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Mã hàng</th>
+
+                    <th>Tên sản phẩm</th>
+
+                    <th>Số lượng</th>
+
+                    <th>Giá bán</th>
+
+                    <th>Thành tiền</th>
+
+                    <th style="width:90px"></th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="xuatTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- TỔNG -->
+
+    <div style="
+    background:white;
+    border:1px solid #e2e8f0;
+    margin-top:14px;
+    padding:16px;
+    ">
+
+        <div style="
+        text-align:right;
+        margin-bottom:14px;
+        ">
+
+            <div style="
+            color:#64748b;
+            font-size:13px;
+            margin-bottom:4px;
+            ">
+
+                Tổng tiền phiếu xuất
+
+            </div>
+
+            <div class="total-big" id="tongTienXuat">
+
+                0đ
+
+            </div>
+
+        </div>
+
+        <button class="btn btn-green" style="
+        width:100%;
+        height:40px;
+        font-size:12px;
+        font-weight:600;
+        ">
+
+            Lưu phiếu xuất
+
+        </button>
+
+    </div>
+
+</div>
             <!-- LỊCH SỬ NHẬP -->
 
             <div id="historyPage"
@@ -1237,15 +1452,19 @@ const importOrdersRef =
 ref(db,"import_orders")
 let importOrders = []
     
-/* ====== DỮ LIỆU ====== */
+    /* ====== DỮ LIỆU ====== */
 
-window.products = []
+    window.products = []
 
-window.nhapRows = []
+    window.nhapRows = []
 
-let editImportId = null
+    window.xuatRows = []
 
-let editId = null
+    let editImportId = null
+
+    let editExportId = null
+
+    let editId = null
     
 /* ====== ĐỒNG BỘ SẢN PHẨM ====== */
 
@@ -1315,7 +1534,11 @@ window.showPage = function(page){
     productsPage.classList.add("hidden")
 
     nhapPage.classList.add("hidden")
+
+    xuatPage.classList.add("hidden")
+
     historyPage.classList.add("hidden")
+
 
     document
     .querySelectorAll(".menu button")
@@ -1387,6 +1610,30 @@ else if(page === "nhap"){
     renderNhap()
 
 }
+
+/* ====== XUẤT HÀNG ====== */
+
+    else if (page === "xuat") {
+
+        xuatPage.classList.remove("hidden")
+
+        btnXuat.classList.add("active")
+
+        pageTitle.innerText =
+            "Xuất hàng"
+
+        searchInput.style.display =
+            "none"
+
+        if (xuatRows.length === 0) {
+
+            addXuatRow()
+
+        }
+
+        renderXuat()
+
+    }
 /* ====== LỊCH SỬ ====== */
 
 else if(page === "history"){
@@ -1964,7 +2211,23 @@ window.addNhapRow = function(){
     renderNhap()
 
 }
-    
+
+    /* ====== THÊM DÒNG XUẤT ====== */
+
+    window.addXuatRow = function () {
+
+        xuatRows.push({
+
+            ma: "",
+            ten: "",
+            sl: 1,
+            giaBan: 0
+
+        })
+
+        renderXuat()
+
+    }  
 /* ====== RENDER NHẬP HÀNG ====== */
 
 window.renderNhap = function(){
@@ -1976,9 +2239,11 @@ window.renderNhap = function(){
     nhapRows.forEach((r,index)=>{
 
         const found =
-        products.find(
-            p=>p.ma===r.ma
-        )
+            r.ma
+                ? products.find(
+                    p => p.ma === r.ma
+                )
+                : null
 
         const tenSP =
         found
@@ -2038,15 +2303,18 @@ autocomplete="off">
             ">
 
                 <input
-                type="text"
+               type="text"
                 id="tenInput${index}"
+                name="off_${index}"
+                autocomplete="new-password"
+                autocomplete="off"
                 value="${tenSP}"
-                onchange="
+                oninput="
                 changeTen(
-                    ${index},
-                    this.value
-                )
-                "
+                ${index},
+                this.value
+                 )
+             "
                 onkeydown="
                 focusNextNhap(
                     event,
@@ -2236,6 +2504,161 @@ min-width:120px;
     tong.toLocaleString()
 
 }
+
+    /* ====== RENDER XUẤT ====== */
+
+    window.renderXuat = function () {
+
+        let html = ""
+
+        let tong = 0
+
+        xuatRows.forEach((r, index) => {
+
+            const thanhTien =
+
+                Number(r.sl || 0)
+
+                *
+
+                Number(r.giaBan || 0)
+
+            tong += thanhTien
+
+            html += `
+
+        <tr>
+
+            <td>
+
+                <input
+                type="text"
+                value="${r.ma || ""}"
+                onchange="
+
+                    xuatRows[${index}].ma =
+                    this.value
+
+                "
+                style="width:100%;">
+
+            </td>
+
+            <td>
+
+                <input
+                type="text"
+                value="${r.ten || ""}"
+                onchange="
+
+                    xuatRows[${index}].ten =
+                    this.value
+
+                "
+                style="width:100%;">
+
+            </td>
+
+            <td>
+
+                <input
+                type="number"
+                value="${r.sl || 1}"
+                onchange="
+
+                    xuatRows[${index}].sl =
+                    Number(this.value)
+
+                    renderXuat()
+
+                "
+                style="
+                width:70px;
+                text-align:center;
+                ">
+
+            </td>
+
+            <td>
+
+                <input
+                type="number"
+                value="${r.giaBan || 0}"
+                onchange="
+
+                    xuatRows[${index}].giaBan =
+                    Number(this.value)
+
+                    renderXuat()
+
+                "
+                style="width:100%;">
+
+            </td>
+
+            <td>
+
+                ${thanhTien.toLocaleString("vi-VN")}
+
+            </td>
+
+            <td>
+
+                <button
+                class="btn btn-blue"
+                onclick="
+
+                    xuatRows.splice(
+                        ${index}+1,
+                        0,
+                        {
+                            ma:'',
+                            ten:'',
+                            sl:1,
+                            giaBan:0
+                        }
+                    )
+
+                    renderXuat()
+
+                ">
+
+                    +
+
+                </button>
+
+                <button
+                class="btn btn-red"
+                onclick="
+
+                    xuatRows.splice(
+                        ${index},
+                        1
+                    )
+
+                    renderXuat()
+
+                ">
+
+                    X
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `
+
+        })
+
+        xuatTable.innerHTML = html
+
+        tongTienXuat.innerText =
+
+            tong.toLocaleString("vi-VN")
+
+    }
 /* ====== TÌM MÃ ====== */
 
 window.searchMa = function(index,val){
@@ -3304,17 +3727,23 @@ btnProducts.onclick = ()=>{
 
 }
 
-btnNhap.onclick = ()=>{
+    btnNhap.onclick = () => {
 
-    showPage("nhap")
+        showPage("nhap")
 
-}
+    }
 
-btnHistory.onclick = ()=>{
+    btnXuat.onclick = () => {
 
-    showPage("history")
+        showPage("xuat")
 
-}
+    }
+
+    btnHistory.onclick = () => {
+
+        showPage("history")
+
+    }
 
 /* ====== THỜI GIAN ====== */
 
