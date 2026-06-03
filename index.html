@@ -365,178 +365,154 @@ td{
 
 @media(max-width:900px){
 
-   
+/* ====== CHỐNG KÉO NGANG TOÀN TRANG ====== */
+
+html,
+body{
+    overflow-x:hidden;
+    width:100%;
+}
+
+.app{
+    width:100%;
+    overflow-x:hidden;
+}
 
 /* ====== THANH BÊN MOBILE ====== */
 
 .sidebar{
-
     position:fixed;
-
     top:0;
-
     left:-220px;
-
     width:220px;
-
     height:100vh;
-
     z-index:9999;
-
+    transition:left .25s ease;
 }
 
 .sidebar.show{
-
     left:0;
-
 }
 
 .main{
-
     margin-left:0;
-
     width:100%;
-
+    overflow-x:hidden;
 }
 
 /* ====== ĐẦU TRANG MOBILE ====== */
 
 .header{
-
     padding:10px;
-
     flex-direction:column;
-
     align-items:stretch;
-
     gap:10px;
-
 }
 
 .header-left{
-
     width:100%;
-
     justify-content:space-between;
-
 }
 
 .page-title{
-
     font-size:16px;
-
 }
 
 .search{
-
     width:100%;
-
 }
 
 /* ====== NỘI DUNG MOBILE ====== */
 
 .content{
-
     padding:10px;
-
 }
 
 /* ====== NÚT MOBILE ====== */
 
 .btn{
-
     padding:8px 10px;
-
     font-size:11px;
-
 }
 
 /* ====== THANH TRÊN MOBILE ====== */
 
 .topbar{
-
     flex-wrap:wrap;
-
     justify-content:flex-start;
-
 }
 
 /* ====== THẺ MOBILE ====== */
 
 .cards{
-
     grid-template-columns:1fr;
-
 }
 
 .card{
-
     padding:14px;
-
 }
 
 .card-value{
-
     font-size:22px;
-
 }
 
-/* ====== BẢNG MOBILE ====== */
+/* ====== TABLE MOBILE ====== */
 
 .table-wrap{
-
+    width:100%;
+    max-width:100%;
     overflow-x:auto;
-
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
 }
 
-table{
+/* Chỉ bảng nhập hàng được rộng */
 
+#nhapPage .table-wrap table{
+    min-width:960px;
+}
+
+/* Các bảng khác */
+
+#productsPage table,
+#historyPage table,
+#xuatPage table{
     min-width:700px;
-
 }
 
-/* ====== BẢNG MOBILE ====== */
+/* ====== INPUT NHẬP HÀNG ====== */
 
 #nhapTable input{
-
     min-width:70px;
-
     font-size:11px;
+}
 
+/* ====== THÔNG TIN PHIẾU NHẬP ====== */
+
+#nhapPage > div:first-child > div:last-child{
+    grid-template-columns:1fr !important;
 }
 
 /* ====== MODAL MOBILE ====== */
 
 .modal-box{
-
     width:calc(100% - 20px);
-
     max-width:none;
-
     padding:16px;
-
 }
 
 /* ====== NÚT MENU MOBILE ====== */
 
 .mobile-toggle{
-
     display:block;
-
     border:none;
-
     background:#2563eb;
-
     color:white;
-
     padding:8px 12px;
-
     border-radius:8px;
-
 }
 
 }
-    
 /* ====== ẨN ====== */
 .overlay{
 
@@ -1555,9 +1531,9 @@ onValue(importOrdersRef,(snapshot)=>{
 window.toggleSidebar = function(){
 
     sidebar.classList.toggle("show")
+    overlay.classList.toggle("show")
 
 }
-
 /* ====== CHUYỂN TRANG ====== */
 
 window.showPage = function(page){
@@ -1686,13 +1662,12 @@ else if(page === "history"){
 
 }
 
- /* ====== TỰ ĐÓNG MOBILE ====== */
+/* ====== TỰ ĐÓNG MOBILE ====== */
 
-    if(window.innerWidth <= 900){
+if(window.innerWidth <= 900){
 
-        sidebar.classList.remove("show")
-
-    }
+    sidebar.classList.remove("show")
+    overlay.classList.remove("show")
 
 }
 
