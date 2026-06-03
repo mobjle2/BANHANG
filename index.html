@@ -364,155 +364,190 @@ td{
 }
 
 @media(max-width:900px){
-
-/* ====== CHỐNG KÉO NGANG TOÀN TRANG ====== */
-
 html,
 body{
-    overflow-x:hidden;
-    width:100%;
-}
 
-.app{
-    width:100%;
     overflow-x:hidden;
+
 }
+   
 
 /* ====== THANH BÊN MOBILE ====== */
 
 .sidebar{
+
     position:fixed;
+
     top:0;
+
     left:-220px;
+
     width:220px;
+
     height:100vh;
+
     z-index:9999;
-    transition:left .25s ease;
+
 }
 
 .sidebar.show{
+
     left:0;
+
 }
 
 .main{
+
     margin-left:0;
     width:100%;
     overflow-x:hidden;
+
 }
 
 /* ====== ĐẦU TRANG MOBILE ====== */
 
 .header{
+
     padding:10px;
+
     flex-direction:column;
+
     align-items:stretch;
+
     gap:10px;
+
 }
 
 .header-left{
+
     width:100%;
+
     justify-content:space-between;
+
 }
 
 .page-title{
+
     font-size:16px;
+
 }
 
 .search{
+
     width:100%;
+
 }
 
 /* ====== NỘI DUNG MOBILE ====== */
 
 .content{
+
     padding:10px;
+
 }
 
 /* ====== NÚT MOBILE ====== */
 
 .btn{
+
     padding:8px 10px;
+
     font-size:11px;
+
 }
 
 /* ====== THANH TRÊN MOBILE ====== */
 
 .topbar{
+
     flex-wrap:wrap;
+
     justify-content:flex-start;
+
 }
 
 /* ====== THẺ MOBILE ====== */
 
 .cards{
+
     grid-template-columns:1fr;
+
 }
 
 .card{
+
     padding:14px;
+
 }
 
 .card-value{
+
     font-size:22px;
+
 }
 
-/* ====== TABLE MOBILE ====== */
+/* ====== BẢNG MOBILE ====== */
 
 .table-wrap{
-    width:100%;
-    max-width:100%;
+
     overflow-x:auto;
     overflow-y:hidden;
-    -webkit-overflow-scrolling:touch;
+    max-width:100%;
+
 }
 
-/* Chỉ bảng nhập hàng được rộng */
+#nhapPage table{
 
-#nhapPage .table-wrap table{
-    min-width:960px;
+  min-width:700px;
 }
 
-/* Các bảng khác */
-
+}
 #productsPage table,
 #historyPage table,
 #xuatPage table{
-    min-width:700px;
-}
 
-/* ====== INPUT NHẬP HÀNG ====== */
+    min-width:700px;
+
+}
 
 #nhapTable input{
+
     min-width:70px;
     font-size:11px;
-}
 
-/* ====== THÔNG TIN PHIẾU NHẬP ====== */
-
-#nhapPage > div:first-child > div:last-child{
-    grid-template-columns:1fr !important;
 }
 
 /* ====== MODAL MOBILE ====== */
 
 .modal-box{
+
     width:calc(100% - 20px);
+
     max-width:none;
+
     padding:16px;
+
 }
 
 /* ====== NÚT MENU MOBILE ====== */
 
 .mobile-toggle{
+
     display:block;
+
     border:none;
+
     background:#2563eb;
+
     color:white;
+
     padding:8px 12px;
+
     border-radius:8px;
-}
 
 }
+
+    
 /* ====== ẨN ====== */
 .overlay{
 
@@ -1526,13 +1561,26 @@ onValue(importOrdersRef,(snapshot)=>{
 
 })
     
-/* ====== MENU DI ĐỘNG ====== */
+    /* ====== MENU DI ĐỘNG ====== */
 
-window.toggleSidebar = function(){
+    window.toggleSidebar = function () {
 
-    sidebar.classList.toggle("show")
+        sidebar.classList.toggle("show");
+        overlay.classList.toggle("show");
 
-}
+        const nhapWrap =
+            document.querySelector("#nhapPage .table-wrap");
+
+        if (nhapWrap) {
+
+            nhapWrap.style.visibility =
+                sidebar.classList.contains("show")
+                    ? "hidden"
+                    : "visible";
+
+        }
+
+    }
 /* ====== CHUYỂN TRANG ====== */
 
 window.showPage = function(page){
@@ -1661,15 +1709,16 @@ else if(page === "history"){
 
 }
 
-/* ====== TỰ ĐÓNG MOBILE ====== */
+ /* ====== TỰ ĐÓNG MOBILE ====== */
 
-if(window.innerWidth <= 900){
+    if (window.innerWidth <= 900) {
 
-    sidebar.classList.remove("show")
-    overlay.classList.remove("show")
+        sidebar.classList.remove("show");
 
-}
+        overlay.classList.remove("show");
 
+    }
+    }
     /* ====== TỔNG QUAN ====== */
 
         window.renderDashboard = function () {
@@ -2236,40 +2285,40 @@ window.addNhapRow = function(){
         renderXuat()
 
     }  
-/* ====== RENDER NHẬP HÀNG ====== */
+    /* ====== RENDER NHẬP HÀNG ====== */
 
-window.renderNhap = function(){
+    window.renderNhap = function () {
 
-    let html = ""
+        let html = ""
 
-    let tong = 0
+        let tong = 0
 
-    nhapRows.forEach((r,index)=>{
+        nhapRows.forEach((r, index) => {
 
-        const found =
-            r.ma
-                ? products.find(
-                    p => p.ma === r.ma
-                )
-                : null
+            const found =
+                r.ma
+                    ? products.find(
+                        p => p.ma === r.ma
+                    )
+                    : null
 
-        const tenSP =
-        found
-        ? found.ten
-        : (r.ten || "")
+            const tenSP =
+                found
+                    ? found.ten
+                    : (r.ten || "")
 
-        tong +=
-        Number(r.sl) *
-        Number(r.gia)
+            tong +=
+                Number(r.sl) *
+                Number(r.gia)
 
-        html += `
+            html += `
         <tr>
 
             <!-- MÃ -->
 
             <td style="
-            width:140px;
-            min-width:140px;
+            width:110px;
+            min-width:110px;
             ">
 
                 <div class="auto-wrap">
@@ -2307,7 +2356,8 @@ autocomplete="off">
             <!-- TÊN -->
 
             <td style="
-            min-width:260px;
+            width:180px;
+            min-width:180px;
             ">
 
                 <input
@@ -2336,8 +2386,8 @@ autocomplete="off">
             <!-- SỐ LƯỢNG -->
 
 <td style="
-width:90px;
-min-width:90px;
+width:80px;
+min-width:80px;
 ">
 
     <input
@@ -2365,8 +2415,8 @@ min-width:90px;
 <!-- GIÁ NHẬP -->
 
 <td style="
-width:120px;
-min-width:120px;
+width:100px;
+min-width:100px;
 ">
 
     <input
@@ -2392,8 +2442,8 @@ min-width:120px;
 <!-- GIÁ BÁN -->
 
 <td style="
-width:120px;
-min-width:120px;
+width:100px;
+min-width:100px;
 ">
 
     <input
@@ -2418,10 +2468,10 @@ min-width:120px;
 
             <!-- THÀNH TIỀN -->
 
-            <td style="
-            width:140px;
-            min-width:140px;
-            ">
+<td style="
+width:100px;
+min-width:100px;
+">
 
                 <div
                 id="thanhTien${index}"
@@ -2437,9 +2487,9 @@ min-width:120px;
                 ">
 
                     ${(
-                        Number(r.sl) *
-                        Number(r.gia)
-                    ).toLocaleString()}
+                    Number(r.sl) *
+                    Number(r.gia)
+                ).toLocaleString()}
 
                 </div>
 
@@ -2448,8 +2498,8 @@ min-width:120px;
             <!-- THAO TÁC -->
 
             <td style="
-            width:90px;
-            min-width:90px;
+            width:70px;
+            min-width:70px;
             padding:0;
             ">
 
@@ -2504,15 +2554,14 @@ min-width:120px;
         </tr>
         `
 
-    })
+        })
 
-    nhapTable.innerHTML = html
+        nhapTable.innerHTML = html
 
-    tongTien.innerText =
-    tong.toLocaleString()
+        tongTien.innerText =
+            tong.toLocaleString()
 
-}
-
+    }
     /* ====== RENDER XUẤT ====== */
 
     window.renderXuat = function () {
