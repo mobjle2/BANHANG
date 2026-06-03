@@ -538,7 +538,31 @@ table{
 }
     
 /* ====== ẨN ====== */
-    
+.overlay{
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:100%;
+
+    background:rgba(0,0,0,.35);
+
+    z-index:9998;
+
+}
+
+.overlay.show{
+
+    display:block;
+
+}  
 .hidden{
     display:none;
 }
@@ -552,7 +576,9 @@ table{
 <div class="app">
 
     <!-- SIDEBAR -->
-
+     
+    <div id="overlay" class="overlay" onclick="toggleSidebar()">
+    </div>
     <aside class="sidebar"
     id="sidebar">
 
@@ -1526,7 +1552,15 @@ onValue(importOrdersRef,(snapshot)=>{
     
 /* ====== MENU DI ĐỘNG ====== */
 
-window.toggleSidebar = function(){
+    window.toggleSidebar = function () {
+
+        sidebar.classList.toggle("show")
+
+        document
+            .getElementById("overlay")
+            .classList.toggle("show")
+
+    }
 
     sidebar.classList.toggle("show")
 
